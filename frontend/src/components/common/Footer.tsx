@@ -12,8 +12,12 @@ const Wrapper = styled.div`
     height : auto;
     width : 99%;
 
+    position : fixed;
+    bottom : 0;
     display : flex;
     flex-direction : row;
+
+    background-color : white;
 `
 
 const Block = styled.div`
@@ -40,8 +44,7 @@ const CenterBox = styled.div`
     height : auto;
     background-color : ${primary};
     border-radius : 50%;
-    margin-top : 1%;
-    margin-bottom : 1%;
+    margin : 1%;
     display: flex;
     justify-content: center;
     align-items: center;
