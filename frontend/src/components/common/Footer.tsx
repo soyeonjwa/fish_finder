@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
+
 import HomeIcon from '../../assets/icons/home.svg';
 import ScanIcon from '../../assets/icons/footerScan.svg';
 import MyIcon from '../../assets/icons/footerMy.svg';
 import BoardIcon from '../../assets/icons/footerBoard.svg';
 import SearchIcon from '../../assets/icons/footerSearch.svg';
 import { gray4, primary } from '../../assets/styles/palettes';
+import { Link } from 'react-router-dom';
+
 
 const Wrapper = styled.div`
     height : auto;
@@ -20,11 +23,12 @@ const Wrapper = styled.div`
     background-color : white;
 `
 
-const Block = styled.div`
+const Block = styled(Link)`
     width : 20%;
     display : flex;
     flex-direction : column;
     align-items : center;
+    text-decoration : none;
 `
 
 const Image = styled.img`
@@ -58,22 +62,25 @@ const CenterBox = styled.div`
 export default function Footer() {
   return (
     <Wrapper>
-        <Block>
+        <Block to="/">
             <Image src = {HomeIcon} ></Image>
             <Title>홈</Title>
         </Block>
-        <Block>
+        
+        <Block to="/search">
             <Image src = {SearchIcon} ></Image>
             <Title>어종검색</Title>
         </Block>
+
         <CenterBox>
             <Image src = {ScanIcon}></Image>
         </CenterBox>
-        <Block>
+
+        <Block to="/board">
             <Image src = {BoardIcon} ></Image>
             <Title>게시판</Title>
         </Block>
-        <Block>
+        <Block to="/mypage">
             <Image src = {MyIcon} ></Image>
             <Title>MY</Title>
         </Block>
