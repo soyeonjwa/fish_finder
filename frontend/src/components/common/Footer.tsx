@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 
 
 const Wrapper = styled.div`
-    height : auto;
-    width : 99%;
+    height : 73px;
+    width : 100%;
 
     position : fixed;
     bottom : 0;
@@ -21,6 +21,22 @@ const Wrapper = styled.div`
     flex-direction : row;
 
     background-color : white;
+
+    @media only screen and (max-width: 300px) {
+        height : 60px;
+    }
+
+    @media only screen and (min-width: 400px) {
+        height : 80px;
+    }
+
+    @media only screen and (min-width: 430px) {
+        height : 90px;
+    }
+    
+    @media only screen and (min-width: 500px) {
+        height : 100px;
+    }
 `
 
 const Block = styled(Link)`
