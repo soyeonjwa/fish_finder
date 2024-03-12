@@ -13,20 +13,41 @@ const Wrapper = styled.div`
   background-color : '#FFFFFF';
   margin : 0;
 `
+const ContentWrapper = styled.div`
+  padding-bottom : 72px;
+
+  @media only screen and (max-width: 300px) {
+    padding-bottom : 60px;
+  }
+
+  @media only screen and (min-width: 400px) {
+    padding-bottom : 80px;
+  }
+
+  @media only screen and (min-width: 450px) {
+    padding-bottom : 90px;
+  }
+
+  @media only screen and (min-width: 500px) {
+    padding-bottom : 100px;
+  }
+`
 
 function App() {
 
   return (
     <Wrapper>
       <BrowserRouter>
-        <Routes>
-          <Route path="/">
-            <Route path="" element={<Main/>}/>
-            <Route path="/board" element={<Board/>}/>
-            <Route path="/search" element={<Search/>}/>
-          </Route>
-        </Routes>
-        <Footer></Footer>
+          <ContentWrapper>
+          <Routes>
+            <Route path="/">
+              <Route path="" element={<Main/>}/>
+              <Route path="/board" element={<Board/>}/>
+              <Route path="/search" element={<Search/>}/>
+            </Route>
+          </Routes>
+          </ContentWrapper>
+          <Footer></Footer>
       </BrowserRouter>
     </Wrapper>
   );
