@@ -33,6 +33,10 @@ const Outline = styled.div<{width: string, margin : string}>`
         padding : 1%;
         width : 100%;
 
+        display : flex;
+        flex-direction: row;
+        align-items: center;
+
         & > input{
             border : none;
             width : 99%;
@@ -47,7 +51,7 @@ const Outline = styled.div<{width: string, margin : string}>`
 `
 
 
-export default function SearchBox({width, margin, name, value, setValue, handleSubmit} : SearchBoxProps) {
+export default function SearchBox({width, margin, name,value, setValue, handleSubmit} : SearchBoxProps) {
   return (
     <Outline width={width} margin = {margin}>
         <img src = {searchIcon}></img>

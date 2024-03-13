@@ -3,17 +3,10 @@ import React from 'react'
 import data from '../../../services/dummy/boardList.json';
 
 import BoardCard from './BoardCard';
-import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  margin : 0% 5% 0% 5%;
-  width : 90%;
-  height : auto;
-`
 
 export default function BoardContainer() {
   return (
-    <Wrapper>
+    <div>
         {data && 
             data.map(data => (
                     <BoardCard
@@ -30,7 +23,6 @@ export default function BoardContainer() {
                         key = {data.id}
                     ></BoardCard>
             ))
-        }
-    </Wrapper>
+        }</div>
   )
 }

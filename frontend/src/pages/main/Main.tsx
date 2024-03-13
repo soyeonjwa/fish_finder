@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Header from './components/Header';
-import SeasonList from './components/SeasonList';
-import MarketList from './components/MarketList';
-import PopularPosts from './components/PopularPosts';
+import Header from '../../components/main/Header';
+import SeasonList from '../../components/main/SeasonList';
+import MarketList from '../../components/main/MarketList';
+import PopularPosts from '../../components/main/PopularPosts';
 
 
 const Wrapper = styled.div`
@@ -12,7 +12,6 @@ const Wrapper = styled.div`
   height : auto;
   margin :0;
 `
-
 
 
 export default function Main() {

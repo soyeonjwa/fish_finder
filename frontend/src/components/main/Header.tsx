@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 
-import MainLogo from '../../../assets/icons/mainLogo.png';
-import SearchIcon from '../../../assets/icons/mainSearch.svg'
-import ScanIcon from '../../../assets/icons/mainScan.svg';
+import MainLogo from '../../assets/icons/mainLogo.png';
+import SearchIcon from '../../assets/icons/mainSearch.svg'
+import ScanIcon from '../../assets/icons/mainScan.svg';
 
 
 const Wrapper = styled.div`

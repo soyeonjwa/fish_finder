@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import Slider from 'react-slick';
 
-import dataSet from '../../../services/dummy/seasonList.json';
+import dataSet from '../../services/dummy/seasonList.json';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import fish1 from '../../../assets/images/fish/방어.png';
-import fish2 from '../../../assets/images/fish/감성돔.jpg';
-import { Button } from '../../../components/common/Button';
+import fish1 from '../../assets/images/fish/방어.png';
+import fish2 from '../../assets/images/fish/감성돔.jpg';
+import { Button } from '../common/Button';
 
 const settings = {
     // dots : true,
