@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 
 
-import dataSet from '../../../services/dummy/popularPost.json';
+import dataSet from '../../services/dummy/popularPost.json';
 import PostCard from './PostCard';
 
 const Wrapper = styled.div`

@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
-import '../../../../node_modules/slick-carousel/slick/slick.css'
-import "../../../../node_modules/slick-carousel/slick/slick-theme.css";
+import '../../../node_modules/slick-carousel/slick/slick.css'
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 
-import marketImage1 from '../../../assets/images/market/노량진1.jpg';
-import marketImage2 from '../../../assets/images/market/노량진2.jpg';
-import marketImage3 from '../../../assets/images/market/노량진3.jpg';
+import marketImage1 from '../../assets/images/market/노량진1.jpg';
+import marketImage2 from '../../assets/images/market/노량진2.jpg';
+import marketImage3 from '../../assets/images/market/노량진3.jpg';
 
 
 const settings = {

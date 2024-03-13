@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components';
 
-import ImageContainer from '../../../components/common/ImageContainer';
-import { gray3, gray4 } from '../../../assets/styles/palettes';
-import ScrapIcon from '../../../assets/icons/scrap.svg';
-import CommentsIcon from '../../../assets/icons/comments.svg';
-import HeartIcon from '../../../assets/icons/heart.svg';
+import ImageContainer from '../common/ImageContainer';
+import { gray3, gray4 } from '../../assets/styles/palettes';
+import ScrapIcon from '../../assets/icons/scrap.svg';
+import CommentsIcon from '../../assets/icons/comments.svg';
+import HeartIcon from '../../assets/icons/heart.svg';
 
 type BoardInfo = {
     id : number,

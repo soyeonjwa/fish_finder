@@ -21,6 +21,7 @@ const Wrapper = styled.div`
     flex-direction : row;
 
     background-color : white;
+    z-index : 1000;
 
     @media only screen and (max-width: 300px) {
         height : 60px;

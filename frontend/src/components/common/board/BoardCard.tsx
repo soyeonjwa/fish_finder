@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 
-import {gray1,gray2, gray3, gray4} from '../../../assets/styles/palettes';
+import {gray2, gray3, primary} from '../../../assets/styles/palettes';
 import ScrapIcon from '../../../assets/icons/scrap.svg';
 import CommentsIcon from '../../../assets/icons/comments.svg';
 import HeartIcon from '../../../assets/icons/heart.svg';
@@ -51,7 +51,7 @@ const MidContent = styled.div`
     font-size : 11px;
     color : ${gray3};
     margin-left : 4%;
-    margin-top : 1%;
+    margin-top : 4%;
 `
 
 const ButtomContent = styled.div`
@@ -108,12 +108,12 @@ export default function BoardCard({id, title,  createdAt, postType, writer, thum
                         <Button
                             width='auto'
                             height='auto'
-                            border='0px'
-                            color= {gray4}
+                            color = {primary}
+                            border = '1px solid #00116A'
                             fontSize = '12px'
                             padding = '2% 4% 2% 4%'
                             margin = '4% 4% 0% 0%'
-                            backcolor={gray1}
+                            backcolor= 'white'
                         >
                             리뷰
                         </Button>
