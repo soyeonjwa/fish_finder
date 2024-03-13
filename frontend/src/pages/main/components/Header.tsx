@@ -12,7 +12,8 @@ const Wrapper = styled.div`
     justify-content: center; 
 
     position: relative;
-    width : 100%;
+    margin : 0% 5% 0% 5%;
+    width : 90%;
 
     padding-top : 7%;
     padding-bottom : 7%;
