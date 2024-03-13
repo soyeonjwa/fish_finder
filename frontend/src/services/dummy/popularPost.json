@@ -1,0 +1,50 @@
+[
+    {
+        "id" : 1,
+        "title" : "광어 가격 올려치기 당함",
+        "content" : "노량진에서 광어 가격 올려치기 당했어요 가지 마세요..",
+        "createdAt" : "2024-03-11T01:00:39.864734",
+        "writer" : "좌랑둥이",
+        "postType" : "review",
+        "thumbnail" : "https://media-cdn.tripadvisor.com/media/photo-s/1c/4e/e5/2a/caption.jpg",
+        "likeCount" : 100,
+        "scrapCount" : 100,
+        "commentCount" : 100
+    },
+    {
+        "id" : 2,
+        "title" : "방어 너무 맛나요",
+        "content" : "노량진에서 광어 가격 올려치기 당했어요 가지 마세요..",
+        "createdAt" : "2024-03-13T01:00:39.864734",
+        "writer" : "좌블리",
+        "postType" : "origin",
+        "thumbnail" : "https://i.namu.wiki/i/lYlIV4bLNPfz6InMYxSb9agvbX9y-xEHGTjSRyDSWCwKz4epaJsoyeSg6bHfCjsLA3ifTZuBi3N__gjpou6hkw.webp",
+        "likeCount" : 90,
+        "scrapCount" : 90,
+        "commentCount" : 100
+    },
+    {
+        "id" : 3,
+        "title" : "광어 가격 올려치기 당함",
+        "content" : "노량진에서 광어 가격 올려치기 당했어요 가지 마세요..",
+        "createdAt" : "2024-03-11T01:00:39.864734",
+        "writer" : "좌랑둥이",
+        "postType" : "review",
+        "thumbnail" : "https://media-cdn.tripadvisor.com/media/photo-s/1c/4e/e5/2a/caption.jpg",
+        "likeCount" : 100,
+        "scrapCount" : 100,
+        "commentCount" : 100
+    },
+    {
+        "id" : 4,
+        "title" : "광어 가격 올려치기 당함",
+        "content" : "노량진에서 광어 가격 올려치기 당했어요 가지 마세요..",
+        "createdAt" : "2024-03-11T01:00:39.864734",
+        "writer" : "좌랑둥이",
+        "postType" : "review",
+        "thumbnail" : "https://media-cdn.tripadvisor.com/media/photo-s/1c/4e/e5/2a/caption.jpg",
+        "likeCount" : 100,
+        "scrapCount" : 100,
+        "commentCount" : 100
+    }
+]

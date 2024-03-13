@@ -20,15 +20,15 @@ const ContentWrapper = styled.div`
     padding-bottom : 60px;
   }
 
-  @media only screen and (min-width: 400px) {
+  @media only screen and (max-width: 400px) {
     padding-bottom : 80px;
   }
 
-  @media only screen and (min-width: 450px) {
+  @media only screen and (max-width: 450px) {
     padding-bottom : 90px;
   }
 
-  @media only screen and (min-width: 500px) {
+  @media only screen and (max-width: 500px) {
     padding-bottom : 100px;
   }
 `
@@ -39,13 +39,13 @@ function App() {
     <Wrapper>
       <BrowserRouter>
           <ContentWrapper>
-          <Routes>
-            <Route path="/">
-              <Route path="" element={<Main/>}/>
-              <Route path="/board" element={<Board/>}/>
-              <Route path="/search" element={<Search/>}/>
-            </Route>
-          </Routes>
+            <Routes>
+              <Route path="/">
+                <Route path="" element={<Main/>}/>
+                <Route path="/board" element={<Board/>}/>
+                <Route path="/search" element={<Search/>}/>
+              </Route>
+            </Routes>
           </ContentWrapper>
           <Footer></Footer>
       </BrowserRouter>

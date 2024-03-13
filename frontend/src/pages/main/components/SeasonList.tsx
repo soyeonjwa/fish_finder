@@ -27,7 +27,9 @@ const Wrapper = styled.div`
     font-size : 18px;
     font-weight : 600;
 
-    width : 100%;
+    margin : 0% 5% 0% 5%;
+    width : 90%;
+    
     height : auto;
     display : flex;
     flex-direction : column;
