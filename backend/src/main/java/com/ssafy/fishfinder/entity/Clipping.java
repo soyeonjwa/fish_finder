@@ -20,17 +20,14 @@ public class Clipping extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "clpiing_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @NotNull
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @NotNull
     private Post post;
     
     // 연관관계 메서드

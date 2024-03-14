@@ -21,12 +21,10 @@ public class Comment extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @NotNull
     private Post post;
 
     @Column(name = "writer_id")

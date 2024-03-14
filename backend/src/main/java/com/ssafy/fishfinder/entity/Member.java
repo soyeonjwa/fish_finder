@@ -23,7 +23,6 @@ public class Member extends BaseTime {
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "member_id")
-    @NotNull
     private Long id;
 
     @Column(columnDefinition = "varchar(10)")

@@ -22,17 +22,14 @@ public class MarketPrice extends BaseTime {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "market_price_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fish_id")
-    @NotNull
     private Fish fish;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "market_id")
-    @NotNull
     private FishMarket fishMarket;
 
     @NotNull

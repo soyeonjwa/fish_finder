@@ -23,7 +23,6 @@ public class FishGroup extends BaseTime {
 
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "fish_group_id")
-    @NotNull
     private Long id;
 
     @Column(columnDefinition = "varchar(20)")
