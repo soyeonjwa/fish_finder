@@ -21,7 +21,7 @@ public class BoardDto {
         private String content;
         private Long writerId;
         private PostType postType;
-        private List<ReviewDto.Request> reviews;
+        private List<FishReviewDto.Request> reviews;
 
         private List<MultipartFile> images;
 
@@ -70,6 +70,22 @@ public class BoardDto {
         private int commentCount;
         private LocalDateTime createdAt;
 
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    public static class GetDetailResponse{
+        private Long boardId;
+        private String title;
+        private String content;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private Long writerId;
+        private String writerNickname;
+        private PostType postType;
+        private List<FishReviewDto.Response> reviews;
+        private List<PostImageDto.Response> images;
     }
 
 }

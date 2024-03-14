@@ -2,14 +2,12 @@ package com.ssafy.fishfinder.service;
 
 
 import com.ssafy.fishfinder.dto.BoardDto;
-import com.ssafy.fishfinder.dto.ReviewDto;
-import com.ssafy.fishfinder.entity.FishReview;
-import com.ssafy.fishfinder.entity.Post;
-import com.ssafy.fishfinder.entity.PostType;
-import com.ssafy.fishfinder.repository.BoardRepository;
-import com.ssafy.fishfinder.repository.CommentRepository;
-import com.ssafy.fishfinder.repository.FishReviewRepository;
-import com.ssafy.fishfinder.repository.MemberRepository;
+import com.ssafy.fishfinder.dto.FishReviewDto;
+import com.ssafy.fishfinder.dto.PostImageDto;
+import com.ssafy.fishfinder.entity.*;
+import com.ssafy.fishfinder.exception.CustomException;
+import com.ssafy.fishfinder.exception.ErrorCode;
+import com.ssafy.fishfinder.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +26,7 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
     private final FishReviewRepository fishReviewRepository;
     private final MemberRepository memberRepository;
-    private final CommentRepository commentRepository;
+    private final PostImagesRepository postImagesRepository;
 
     /**
      * 게시글 생성
@@ -40,7 +38,7 @@ public class BoardServiceImpl implements BoardService{
         Post post = request.of();
         boardRepository.save(post);
         if(request.getReviews() != null) {
-            List<FishReview> reviews = request.getReviews().stream().map(ReviewDto.Request::of).toList();
+            List<FishReview> reviews = request.getReviews().stream().map(FishReviewDto.Request::of).toList();
             reviews.forEach(review -> review.setPost(post));
             fishReviewRepository.saveAll(reviews);
             post.toBuilder().fishReviews(reviews);
@@ -100,6 +98,63 @@ public class BoardServiceImpl implements BoardService{
         });
 
 
+
+        return response;
+    }
+
+    /**
+     * 게시글 상세 조회
+     * @param id
+     * @return BoardDto.GetDetailResponse
+     */
+    @Override
+    public BoardDto.GetDetailResponse getBoardDetail(Long id) {
+        // 게시글 가져오기
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
+        // 작성자
+        Member writer = memberRepository.findById(post.getWriterId()).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+
+        //review 가져오기
+        List<FishReview> reviews = fishReviewRepository.findAllByPostId(id);
+        List<FishReviewDto.Response> reviewList = new ArrayList<>();
+        reviews.forEach(review -> {
+            reviewList.add(FishReviewDto.Response.builder()
+                    .reviewId(review.getId())
+                    .fishId(review.getFishId())
+                    .weight(review.getWeight())
+                    .pricePerKg(review.getPricePerKg())
+                    .totalPrice(review.getTotalPrice())
+                    .build()
+            );
+        });
+
+
+        // 이미지 가져오기
+        List<PostImages> postImages = postImagesRepository.findAllByPostId(id);
+        List<PostImageDto.Response> imageList = new ArrayList<>();
+        postImages.forEach(image -> {
+            imageList.add(PostImageDto.Response.builder()
+                    .imageId(image.getId())
+                    .imageUri(image.getUrl())
+                    .build()
+            );
+        });
+
+
+        // response 생성
+        BoardDto.GetDetailResponse response = BoardDto.GetDetailResponse.builder()
+                .boardId(post.getId())
+                .title(post.getTitle())
+                .content(post.getContent())
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
+                .writerId(post.getWriterId())
+                .writerNickname(writer.getNickname())
+                .postType(post.getPostType())
+                .reviews(reviewList)
+                .images(imageList)
+                .build();
 
         return response;
     }

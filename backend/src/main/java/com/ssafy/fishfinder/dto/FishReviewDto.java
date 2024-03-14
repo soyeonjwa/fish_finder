@@ -3,8 +3,9 @@ package com.ssafy.fishfinder.dto;
 import com.ssafy.fishfinder.entity.FishReview;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-public class ReviewDto {
+public class FishReviewDto {
 
     @Getter
     @Builder
@@ -22,5 +23,16 @@ public class ReviewDto {
                     .totalPrice(totalPrice)
                     .build();
         }
+
+    }
+
+    @Getter @Setter
+    @Builder
+    public static class Response {
+        private Long reviewId;
+        private Long fishId;
+        private float weight;
+        private int pricePerKg;
+        private int totalPrice;
     }
 }
