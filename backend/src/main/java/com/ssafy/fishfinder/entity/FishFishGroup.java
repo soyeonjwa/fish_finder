@@ -20,16 +20,13 @@ public class FishFishGroup extends BaseTime {
 
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "fish_fish_group_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
-    @NotNull
     private FishGroup fishGroup;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fish_id")
-    @NotNull
     private Fish fish;
 }

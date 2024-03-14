@@ -24,7 +24,6 @@ public class FishMarket extends BaseTime{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fish_market_id")
-    @NotNull
     private Long id;
 
     @Column(columnDefinition = "varchar(30)")

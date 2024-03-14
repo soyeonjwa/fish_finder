@@ -20,12 +20,10 @@ public class PostImages extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "post_images_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @NotNull
     private Post post;
 
     @NotNull
