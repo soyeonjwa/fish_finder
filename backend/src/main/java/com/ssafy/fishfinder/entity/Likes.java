@@ -12,7 +12,7 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @SQLDelete(sql = "UPDATE likes SET deleted at = NOW() WHERE likes_id=?")
-@Where(clause = "deleted = false")
+@Where(clause = "deleted_at is null")
 public class Likes extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BoardService {
     BoardDto.CreateResponse createBoard(BoardDto.CreateRequest request, List<MultipartFile> images);
+
+    List<BoardDto.GetListResponse> getBoardList(BoardDto.GetListRequest request);
 }
