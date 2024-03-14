@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,33 @@ public class BoardDto {
     public static class CreateResponse {
         private Long boardId;
         private String uri;
+    }
+
+    @Builder
+    @Getter
+    public static class GetListRequest {
+        private String sortBy;
+        private int limit;
+        private int likeCount;
+        private LocalDateTime createdAt;
+        private PostType postType;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    public static class GetListResponse {
+        private Long boardId;
+        private String title;
+        private String content;
+        private String writer;
+        private PostType postType;
+        private String thumbnail;
+        private int likeCount;
+        private int scrapCount;
+        private int commentCount;
+        private LocalDateTime createdAt;
+
     }
 
 }

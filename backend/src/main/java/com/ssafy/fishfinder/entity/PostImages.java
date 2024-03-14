@@ -15,7 +15,7 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @SQLDelete(sql = "UPDATE post_images SET deleted at = NOW() WHERE post_images_id=?")
-@Where(clause = "deleted = false")
+@Where(clause = "deleted_at is null")
 public class PostImages extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
