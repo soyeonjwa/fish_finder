@@ -1,6 +1,5 @@
 package com.ssafy.fishfinder.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,6 @@ public class Post extends BaseTime {
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "post_id")
-    @NotNull
     private Long id;
 
     @NotNull

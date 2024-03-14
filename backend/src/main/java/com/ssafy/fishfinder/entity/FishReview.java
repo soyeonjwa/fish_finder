@@ -20,12 +20,10 @@ public class FishReview extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "fish_review_id")
-    @NotNull
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @NotNull
     private Post post;
 
     @Column(name = "fish_id")
