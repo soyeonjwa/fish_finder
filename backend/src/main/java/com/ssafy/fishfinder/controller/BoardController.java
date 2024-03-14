@@ -50,4 +50,9 @@ public class BoardController {
         return ResponseEntity.ok(new Message("게시글 목록 조회 완료", boardService.getBoardList(request)));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Message> getBoardDetail(@PathVariable Long id) {
+        return ResponseEntity.ok(new Message("게시글 조회 완료", boardService.getBoardDetail(id)));
+    }
+
 }
