@@ -75,4 +75,12 @@ public class BoardController {
         return ResponseEntity.ok(new Message("댓글 생성 완료", boardService.createComment(id, request)));
     }
 
+    @DeleteMapping("/comment")
+    public ResponseEntity<Message> deleteComment(
+            @RequestHeader(value = "commentId") Long commentId
+    ) {
+        boardService.deleteComment(commentId);
+        return ResponseEntity.ok(new Message("댓글 삭제 완료", null));
+    }
+
 }
