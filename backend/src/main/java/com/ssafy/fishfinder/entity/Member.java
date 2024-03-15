@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@SQLDelete(sql = "UPDATE member SET deleted at = NOW() WHERE member_id=?")
+@SQLDelete(sql = "UPDATE member SET deleted_at = NOW() WHERE member_id=?")
 @Where(clause = "deleted_at is null")
 public class Member extends BaseTime {
 

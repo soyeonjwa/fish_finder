@@ -23,8 +23,6 @@ public class BoardDto {
         private PostType postType;
         private List<FishReviewDto.Request> reviews;
 
-        private List<MultipartFile> images;
-
         public Post of() {
             return Post.builder()
                     .title(title)
@@ -32,7 +30,6 @@ public class BoardDto {
                     .writerId(writerId)
                     .postType(postType)
                     .fishReviews(new ArrayList<>())
-                    .postImages(new ArrayList<>())
                     .build();
         }
     }
@@ -86,6 +83,16 @@ public class BoardDto {
         private PostType postType;
         private List<FishReviewDto.Response> reviews;
         private List<PostImageDto.Response> images;
+    }
+
+    @Setter @Getter
+    @Builder
+    public static class UpdateRequest {
+        private String title;
+        private String content;
+        private PostType postType;
+        private List<FishReviewDto.UpdateRequest> reviews;
+        private List<PostImageDto.Request> oldImages;
     }
 
 }

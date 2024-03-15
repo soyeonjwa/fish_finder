@@ -55,4 +55,13 @@ public class BoardController {
         return ResponseEntity.ok(new Message("게시글 조회 완료", boardService.getBoardDetail(id)));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Message> updateBoard(
+            @PathVariable Long id,
+            @RequestPart(value = "data") BoardDto.UpdateRequest request,
+            @RequestPart(value = "newImages", required = false) List<MultipartFile> images
+    ) {
+        return ResponseEntity.ok(new Message("게시글 수정 완료", boardService.updateBoard(id, request, images)));
+    }
+
 }
