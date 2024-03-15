@@ -1,5 +1,6 @@
 package com.ssafy.fishfinder.dto;
 
+import com.ssafy.fishfinder.entity.Comment;
 import com.ssafy.fishfinder.entity.Post;
 import com.ssafy.fishfinder.entity.PostType;
 import lombok.Builder;
@@ -83,6 +84,10 @@ public class BoardDto {
         private PostType postType;
         private List<FishReviewDto.Response> reviews;
         private List<PostImageDto.Response> images;
+        private int likeCount;
+        private int scrapCount;
+        private int commentCount;
+        private List<BoardDto.CommentResponse> comments;
     }
 
     @Setter @Getter
@@ -93,6 +98,23 @@ public class BoardDto {
         private PostType postType;
         private List<FishReviewDto.UpdateRequest> reviews;
         private List<PostImageDto.Request> oldImages;
+    }
+
+    @Setter @Getter
+    @Builder
+    public static class CommentRequest {
+        private Long writerId;
+        private String content;
+    }
+
+    @Setter @Getter
+    @Builder
+    public static class CommentResponse {
+        private Long commentId;
+        private Long writerId;
+        private String writerNickname;
+        private LocalDateTime createdAt;
+        private String content;
     }
 
 }

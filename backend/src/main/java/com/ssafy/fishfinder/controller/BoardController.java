@@ -70,4 +70,9 @@ public class BoardController {
         return ResponseEntity.ok(new Message("게시글 삭제 완료", null));
     }
 
+    @PostMapping("/comment/{id}")
+    public ResponseEntity<Message> createComment(@PathVariable Long id, @RequestBody BoardDto.CommentRequest request) {
+        return ResponseEntity.ok(new Message("댓글 생성 완료", boardService.createComment(id, request)));
+    }
+
 }
