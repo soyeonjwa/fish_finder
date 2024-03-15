@@ -17,4 +17,6 @@ public interface BoardService {
     void deleteBoard(Long id);
 
     List<BoardDto.CommentResponse> createComment(Long id, BoardDto.CommentRequest request);
+
+    void deleteComment(Long commentId);
 }
