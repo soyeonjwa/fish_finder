@@ -44,8 +44,8 @@ public class BoardServiceImpl implements BoardService{
             post.toBuilder().fishReviews(reviews);
         }
 
-        if(request.getImages() != null) {
-            // 이미지 저장
+        if(images != null) {
+            // todo 이미지 저장
         }
 
         return BoardDto.CreateResponse.builder()
@@ -157,6 +157,69 @@ public class BoardServiceImpl implements BoardService{
                 .build();
 
         return response;
+    }
+
+    /**
+     * 게시글 수정
+     * @param id
+     * @param request
+     * @param images
+     * @return BoardDto.CreateResponse
+     */
+    @Override
+    public BoardDto.CreateResponse updateBoard(Long id, BoardDto.UpdateRequest request, List<MultipartFile> images) {
+
+        // 게시글 가져오기
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
+        // review 가져오기
+        List<FishReview> fishReviews = fishReviewRepository.findAllByPostId(id);
+
+        // 이미지 가져오기
+        List<PostImages> postImages = postImagesRepository.findAllByPostId(id);
+
+        // 삭제된 리뷰 삭제
+        fishReviews.forEach(review ->{
+            if(request.getReviews().stream()
+                    .filter(reviewDto -> reviewDto.getReviewId()!=null)
+                    .noneMatch(reviewDto -> reviewDto.getReviewId().equals(review.getId())
+                    )){
+                fishReviewRepository.delete(review);
+            }
+        });
+
+        // 새로운 리뷰 저장
+        request.getReviews().forEach(reviewDto -> {
+            if(reviewDto.getReviewId() == null){
+                FishReview review = reviewDto.of();
+                review.setPost(post);
+                fishReviewRepository.save(review);
+            }
+        });
+
+        // 삭제된 이미지 삭제
+        postImages.forEach(image ->{
+            if(request.getOldImages().stream()
+                    .filter(imageDto -> imageDto.getImageId()!=null)
+                    .noneMatch(imageDto -> imageDto.getImageId().equals(image.getId()))){
+                postImagesRepository.delete(image);
+            }
+        });
+
+        // todo: 새로운 이미지 저장 기능
+
+        post.toBuilder()
+                .title(request.getTitle())
+                .content(request.getContent())
+                .postType(request.getPostType())
+                .build();
+
+        boardRepository.save(post);
+
+        return BoardDto.CreateResponse.builder()
+                .boardId(post.getId())
+                .uri("/api/board/" + post.getId())
+                .build();
     }
 
 }

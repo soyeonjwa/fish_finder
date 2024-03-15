@@ -1,5 +1,6 @@
 package com.ssafy.fishfinder.dto;
 
+import com.ssafy.fishfinder.entity.PostImages;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,19 @@ public class PostImageDto {
     public static class Response {
         private Long imageId;
         private String imageUri;
+    }
+
+    @Setter @Getter
+    @Builder
+    public static class Request {
+        private Long imageId;
+        private String imageUri;
+
+        public PostImages of() {
+            return PostImages.builder()
+                    .id(imageId)
+                    .url(imageUri)
+                    .build();
+        }
     }
 }

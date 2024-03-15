@@ -35,4 +35,24 @@ public class FishReviewDto {
         private int pricePerKg;
         private int totalPrice;
     }
+
+    @Getter @Setter
+    @Builder
+    public static class UpdateRequest {
+        private Long reviewId;
+        private Long fishId;
+        private float weight;
+        private int pricePerKg;
+        private int totalPrice;
+
+        public FishReview of() {
+            return FishReview.builder()
+                    .id(reviewId)
+                    .fishId(fishId)
+                    .weight(weight)
+                    .pricePerKg(pricePerKg)
+                    .totalPrice(totalPrice)
+                    .build();
+        }
+    }
 }

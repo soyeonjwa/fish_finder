@@ -15,7 +15,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@SQLDelete(sql = "UPDATE comment SET deleted at = NOW() WHERE comment_id=?")
+@SQLDelete(sql = "UPDATE comment SET deleted_at = NOW() WHERE comment_id=?")
 @Where(clause = "deleted_at is null")
 public class Comment extends BaseTime{
 

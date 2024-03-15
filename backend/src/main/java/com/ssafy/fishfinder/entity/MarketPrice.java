@@ -16,7 +16,7 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@SQLDelete(sql = "UPDATE market_price SET deleted at = NOW() WHERE market_price_id=?")
+@SQLDelete(sql = "UPDATE market_price SET deleted_at = NOW() WHERE market_price_id=?")
 @Where(clause = "deleted_at is null")
 public class MarketPrice extends BaseTime {
 
