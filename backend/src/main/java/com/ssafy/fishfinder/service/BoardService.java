@@ -13,4 +13,6 @@ public interface BoardService {
     BoardDto.GetDetailResponse getBoardDetail(Long id);
 
     BoardDto.CreateResponse updateBoard(Long id, BoardDto.UpdateRequest request, List<MultipartFile> images);
+
+    void deleteBoard(Long id);
 }

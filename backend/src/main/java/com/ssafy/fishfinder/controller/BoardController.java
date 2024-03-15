@@ -64,4 +64,10 @@ public class BoardController {
         return ResponseEntity.ok(new Message("게시글 수정 완료", boardService.updateBoard(id, request, images)));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Message> deleteBoard(@PathVariable Long id) {
+        boardService.deleteBoard(id);
+        return ResponseEntity.ok(new Message("게시글 삭제 완료", null));
+    }
+
 }
