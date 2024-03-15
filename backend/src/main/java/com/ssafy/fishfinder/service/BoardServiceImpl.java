@@ -27,6 +27,9 @@ public class BoardServiceImpl implements BoardService{
     private final FishReviewRepository fishReviewRepository;
     private final MemberRepository memberRepository;
     private final PostImagesRepository postImagesRepository;
+    private final CommentRepository commentRepository;
+    private final LikesRepository likesRepository;
+    private final ClippingRepository clippingRepository;
 
     /**
      * 게시글 생성
@@ -220,6 +223,47 @@ public class BoardServiceImpl implements BoardService{
                 .boardId(post.getId())
                 .uri("/api/board/" + post.getId())
                 .build();
+    }
+
+    /**
+     * 게시글 삭제
+     * @param id
+     */
+    @Override
+    public void deleteBoard(Long id) {
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
+        // 연관된 리뷰 삭제
+        if(post.getFishReviews() != null) {
+            List<FishReview> fishReviews = post.getFishReviews();
+            fishReviewRepository.deleteAll(fishReviews);
+        }
+
+        // 연관된 이미지 삭제
+        if(post.getPostImages() != null) {
+            List<PostImages> postImages = post.getPostImages();
+            postImagesRepository.deleteAll(postImages);
+        }
+
+        // 연관된 댓글 삭제
+        if(post.getComments() != null){
+            List<Comment> comments = post.getComments();
+            commentRepository.deleteAll(comments);
+        }
+
+        // 연관된 좋아요 삭제
+        if(post.getLikes() != null){
+            List<Likes> likes = post.getLikes();
+            likesRepository.deleteAll(likes);
+        }
+
+        // 연관된 스크랩 삭제
+        if(post.getClippings() != null){
+            List<Clipping> clippings = post.getClippings();
+            clippingRepository.deleteAll(clippings);
+        }
+
+        boardRepository.delete(post);
     }
 
 }
