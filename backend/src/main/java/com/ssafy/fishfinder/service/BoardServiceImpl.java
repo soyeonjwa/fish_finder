@@ -118,6 +118,7 @@ public class BoardServiceImpl implements BoardService{
         // 작성자
         Member writer = memberRepository.findById(post.getWriterId()).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
 
+
         //review 가져오기
         List<FishReview> reviews = fishReviewRepository.findAllByPostId(id);
         List<FishReviewDto.Response> reviewList = new ArrayList<>();
@@ -144,9 +145,21 @@ public class BoardServiceImpl implements BoardService{
             );
         });
 
+        List<BoardDto.CommentResponse> comment = new ArrayList<>();
+        List<Comment> comments = commentRepository.findAllByPostId(id);
+        comments.forEach(c -> {
+            Member commentWriter = memberRepository.findById(c.getWriterId()).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+            comment.add(BoardDto.CommentResponse.builder()
+                    .commentId(c.getId())
+                    .content(c.getContent())
+                    .writerId(c.getWriterId())
+                    .writerNickname(commentWriter.getNickname())
+                    .createdAt(c.getCreatedAt())
+                    .build()
+            );
+        });
 
-        // response 생성
-        BoardDto.GetDetailResponse response = BoardDto.GetDetailResponse.builder()
+        return BoardDto.GetDetailResponse.builder()
                 .boardId(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -155,11 +168,13 @@ public class BoardServiceImpl implements BoardService{
                 .writerId(post.getWriterId())
                 .writerNickname(writer.getNickname())
                 .postType(post.getPostType())
+                .likeCount(post.getLikes().size())
+                .scrapCount(post.getClippings().size())
+                .commentCount(post.getComments().size())
+                .comments(comment)
                 .reviews(reviewList)
                 .images(imageList)
                 .build();
-
-        return response;
     }
 
     /**
@@ -264,6 +279,43 @@ public class BoardServiceImpl implements BoardService{
         }
 
         boardRepository.delete(post);
+    }
+
+    /**
+     * 댓글 생성
+     * @param id
+     * @param request
+     * @return List<BoardDto.CommentResponse>
+     */
+    @Override
+    public List<BoardDto.CommentResponse> createComment(Long id, BoardDto.CommentRequest request) {
+
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
+        Comment comment = Comment.builder()
+                .content(request.getContent())
+                .post(post)
+                .writerId(request.getWriterId())
+                .build();
+
+        commentRepository.save(comment);
+
+        List<Comment> comments = commentRepository.findAllByPostId(id);
+
+        List<BoardDto.CommentResponse> response = new ArrayList<>();
+        comments.forEach(c -> {
+            Member writer = memberRepository.findById(c.getWriterId()).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+            response.add(BoardDto.CommentResponse.builder()
+                        .commentId(c.getId())
+                        .content(c.getContent())
+                        .writerId(c.getWriterId())
+                        .writerNickname(writer.getNickname())
+                        .createdAt(c.getCreatedAt())
+                        .build()
+            );
+        });
+
+        return response;
     }
 
 }
