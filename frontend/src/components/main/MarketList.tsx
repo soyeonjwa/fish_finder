@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
-import '../../../node_modules/slick-carousel/slick/slick.css'
-import "../../../node_modules/slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css'
+import "slick-carousel/slick/slick-theme.css";
 
 import marketImage1 from '../../assets/images/market/노량진1.jpg';
 import marketImage2 from '../../assets/images/market/노량진2.jpg';
@@ -22,7 +22,7 @@ const settings = {
     appendDots: (dots: boolean) => (
         <div
           style={{
-            width: '100%',
+            width: '90%',
             position: 'absolute',
             bottom: '5%',
             display: 'flex',

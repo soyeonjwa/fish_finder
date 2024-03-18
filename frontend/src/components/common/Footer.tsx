@@ -8,7 +8,7 @@ import MyIcon from '../../assets/icons/footerMy.svg';
 import BoardIcon from '../../assets/icons/footerBoard.svg';
 import SearchIcon from '../../assets/icons/footerSearch.svg';
 import { gray4, primary } from '../../assets/styles/palettes';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 
 const Wrapper = styled.div`
@@ -78,6 +78,8 @@ const CenterBox = styled.div`
 
 export default function Footer() {
   return (
+    <>
+    <Outlet/>
     <Wrapper>
         <Block to="/">
             <Image src = {HomeIcon} ></Image>
@@ -103,5 +105,6 @@ export default function Footer() {
         </Block>
 
     </Wrapper>
+    </>
   )
 }
