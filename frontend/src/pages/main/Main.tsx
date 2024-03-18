@@ -17,12 +17,10 @@ const Wrapper = styled.div`
 export default function Main() {
     return (
         <Wrapper>
-            <Header></Header>
-
-            <MarketList></MarketList>
-            <SeasonList></SeasonList>
-            <PopularPosts></PopularPosts>
-            
+            <Header/>
+            <MarketList/>
+            <SeasonList/>
+            <PopularPosts/>
         </Wrapper>
         
     )

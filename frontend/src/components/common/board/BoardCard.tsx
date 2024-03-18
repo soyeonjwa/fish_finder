@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 import {gray2, gray3, primary} from '../../../assets/styles/palettes';
 import ScrapIcon from '../../../assets/icons/scrap.svg';
@@ -36,7 +37,7 @@ const BoardContents = styled.div`
 
 const UpContent = styled.div`
     display : flex;
-    flex-directions : row;
+    flex-direction : row;
     margin-left : 4%;
 `
 const Title = styled.div`
@@ -51,13 +52,13 @@ const MidContent = styled.div`
     font-size : 11px;
     color : ${gray3};
     margin-left : 4%;
-    margin-top : 4%;
+    margin-top : 2%;
 `
 
 const ButtomContent = styled.div`
     display : flex;
     flex-direction : row;
-    margin : 1% 4% 4% 4%;
+    margin : 3% 4% 4% 4%;
 
     & > div{
         font-size : 11px;
@@ -79,6 +80,7 @@ const Image = styled(ImageContainer)`
 `
 
 export default function BoardCard({id, title,  createdAt, postType, writer, thumbnail, likeCount, scrapCount, commentCount} : BoardInfo) {
+    const navigate = useNavigate();
 
     const formatCreatedAt = (createdAtString : string) => {
         const now = new Date();
@@ -99,9 +101,13 @@ export default function BoardCard({id, title,  createdAt, postType, writer, thum
         }
     };
 
+    const onClickCard = () => {
+        navigate(`/board/${id}`)
+    }   
+
 
     return (
-        <Card key={id}>
+        <Card key={id} onClick = {() => onClickCard()}>
             <BoardContents>
                 <UpContent>
                     {postType==="review" &&

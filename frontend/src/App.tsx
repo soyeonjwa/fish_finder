@@ -7,9 +7,11 @@ import Footer from './components/common/Footer';
 import Main from './pages/main/Main';
 import Board from './pages/board/Board';
 import Search from './pages/search/Search';
+import BoardDetail from './pages/board/detail/BoardDetail';
 
 
 const Wrapper = styled.div`
+  font-family : Pretendard;
   background-color : '#FFFFFF';
   margin : 0;
 `
@@ -40,14 +42,16 @@ function App() {
       <BrowserRouter>
           <ContentWrapper>
             <Routes>
-              <Route path="/">
-                <Route path="" element={<Main/>}/>
-                <Route path="/board" element={<Board/>}/>
-                <Route path="/search" element={<Search/>}/>
+              <Route path="" element={<Footer/>}>
+                <Route path="" element = {<Main/>}/>
+                <Route path="board" element={<Board/>}/>
+                <Route path="search" element={<Search/>}/>
+              </Route>
+              <Route path = "board">
+                <Route path=":boardId" element={<BoardDetail/>}/>
               </Route>
             </Routes>
           </ContentWrapper>
-          <Footer></Footer>
       </BrowserRouter>
     </Wrapper>
   );

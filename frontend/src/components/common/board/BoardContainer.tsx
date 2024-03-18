@@ -9,7 +9,7 @@ export default function BoardContainer() {
     <div>
         {data && 
             data.map(data => (
-                    <BoardCard
+                      <BoardCard
                         id = {data.id}
                         title = {data.title}
                         content = {data.content}
@@ -21,7 +21,7 @@ export default function BoardContainer() {
                         scrapCount={data.scrapCount}
                         commentCount={data.commentCount}
                         key = {data.id}
-                    ></BoardCard>
+                      ></BoardCard>
             ))
         }</div>
   )
