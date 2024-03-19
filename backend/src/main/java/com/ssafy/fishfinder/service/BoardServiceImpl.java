@@ -335,11 +335,21 @@ public class BoardServiceImpl implements BoardService{
         return response;
     }
 
+    /**
+     * 댓글 삭제
+     * @param commentId
+     */
     @Override
     public void deleteComment(Long commentId) {
         commentRepository.deleteById(commentId);
     }
 
+    /**
+     * 좋아요 및 취소
+     * @param id
+     * @param memberId
+     * @return String
+     */
     @Override
     public String likeBoard(Long id, Long memberId) {
         // 게시글 조회
@@ -372,6 +382,12 @@ public class BoardServiceImpl implements BoardService{
         }
     }
 
+    /**
+     * 스크랩 및 취소
+     * @param id
+     * @param memberId
+     * @return String
+     */
     @Override
     public String scrapBoard(Long id, Long memberId) {
         // 게시글 조회
@@ -403,6 +419,53 @@ public class BoardServiceImpl implements BoardService{
                 return "스크랩 완료";
             }
         }
+    }
+
+    /**
+     * 스크랩 목록 조회
+     * @param memberId
+     * @return List<BoardDto.GetListResponse>
+     */
+    @Override
+    public List<BoardDto.GetListResponse> getScrapList(Long memberId) {
+        // 멤버 조회
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+
+        // 스크랩 조회
+        List<Clipping> clippings = clippingRepository.findAllByMemberId(memberId);
+
+        List<Post> posts = new ArrayList<>();
+
+        // 스크랩된 게시글 조회
+        clippings.forEach(clipping -> {
+            posts.add(clipping.getPost());
+        });
+
+        List<BoardDto.GetListResponse> response = new ArrayList<>();
+
+        // Dto 변환
+        posts.forEach(post -> {
+            String writer = "";
+            if(memberRepository.findById(post.getWriterId()).isPresent()) {
+                writer = memberRepository.findById(post.getWriterId()).get().getNickname();
+            }
+
+            response.add(BoardDto.GetListResponse.builder()
+                    .boardId(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .writer(writer)
+                    .postType(post.getPostType())
+                    .thumbnail("") // todo 추후 추가예정
+                    .likeCount(post.getLikes().size())
+                    .scrapCount(post.getClippings().size())
+                    .commentCount(post.getComments().size())
+                    .createdAt(post.getCreatedAt())
+                    .build()
+            );
+        });
+
+        return response;
     }
 
 }
