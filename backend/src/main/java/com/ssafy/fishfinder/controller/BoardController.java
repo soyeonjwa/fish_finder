@@ -83,4 +83,12 @@ public class BoardController {
         return ResponseEntity.ok(new Message("댓글 삭제 완료", null));
     }
 
+    @PostMapping("/like/{id}")
+    public ResponseEntity<Message> likeBoard(
+            @PathVariable Long id,
+            @RequestHeader(value = "memberId") Long memberId
+    ) {
+        return ResponseEntity.ok(new Message(boardService.likeBoard(id, memberId)));
+    }
+
 }

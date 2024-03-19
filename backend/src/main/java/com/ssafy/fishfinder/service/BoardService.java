@@ -19,4 +19,6 @@ public interface BoardService {
     List<BoardDto.CommentResponse> createComment(Long id, BoardDto.CommentRequest request);
 
     void deleteComment(Long commentId);
+
+    String likeBoard(Long id, Long memberId);
 }
