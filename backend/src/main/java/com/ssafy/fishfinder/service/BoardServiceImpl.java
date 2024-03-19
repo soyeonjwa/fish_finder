@@ -344,6 +344,7 @@ public class BoardServiceImpl implements BoardService{
     public String likeBoard(Long id, Long memberId) {
         // 게시글 조회
         Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
         // 멤버 조회
         Member member = memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
 
@@ -367,6 +368,39 @@ public class BoardServiceImpl implements BoardService{
                 likes.setDeletedAt(null); // todo setter말고 toBuilder로 변경 예정 baseTime 엔티티랑 엮여있어 builder로 변경이 어려움
                 likesRepository.save(likes);
                 return "좋아요 완료";
+            }
+        }
+    }
+
+    @Override
+    public String scrapBoard(Long id, Long memberId) {
+        // 게시글 조회
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+
+        // 멤버 조회
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+
+        // 스크랩 내역조회
+        Clipping clipping = clippingRepository.findClipping(id, memberId);
+
+        // 없으면 스크랩 생성
+        if(clipping == null){
+            clipping = Clipping.builder()
+                    .post(post)
+                    .member(member)
+                    .build();
+            clippingRepository.save(clipping);
+            return "스크랩 완료";
+        }
+        else{ // 이미 존재할 경우
+            if(clipping.getDeletedAt() == null){ // 삭제 되지 않았을 시
+                clippingRepository.delete(clipping);
+                return "스크랩 취소";
+            }
+            else{ // 이미 취소되었을 시
+                clipping.setDeletedAt(null); // todo setter말고 toBuilder로 변경 예정 baseTime 엔티티랑 엮여있어 builder로 변경이 어려움
+                clippingRepository.save(clipping);
+                return "스크랩 완료";
             }
         }
     }

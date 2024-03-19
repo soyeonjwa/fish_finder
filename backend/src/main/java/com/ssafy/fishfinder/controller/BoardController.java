@@ -94,4 +94,12 @@ public class BoardController {
         return ResponseEntity.ok(new Message(boardService.likeBoard(id, memberId)));
     }
 
+    @PostMapping("/scrap/{id}")
+    public ResponseEntity<Message> scrapBoard(
+            @PathVariable Long id,
+            @RequestHeader(value = "memberId") Long memberId
+    ) {
+        return ResponseEntity.ok(new Message(boardService.scrapBoard(id, memberId)));
+    }
+
 }

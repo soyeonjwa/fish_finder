@@ -19,7 +19,7 @@ import org.hibernate.annotations.Where;
 public class Clipping extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "clpiing_id")
+    @Column(name = "clipping_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
