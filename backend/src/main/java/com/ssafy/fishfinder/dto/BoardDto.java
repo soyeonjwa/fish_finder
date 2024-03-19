@@ -87,6 +87,8 @@ public class BoardDto {
         private int likeCount;
         private int scrapCount;
         private int commentCount;
+        private boolean isLiked;
+        private boolean isScrapped;
         private List<BoardDto.CommentResponse> comments;
     }
 
