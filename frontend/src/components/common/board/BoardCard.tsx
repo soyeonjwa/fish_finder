@@ -8,6 +8,7 @@ import CommentsIcon from '../../../assets/icons/comments.svg';
 import HeartIcon from '../../../assets/icons/heart.svg';
 import ImageContainer from '../ImageContainer';
 import { Button } from '../Button';
+import { formatCreatedAt } from '../FormatCreatedAt';
 
 type BoardInfo = {
     id : number,
@@ -81,25 +82,6 @@ const Image = styled(ImageContainer)`
 
 export default function BoardCard({id, title,  createdAt, postType, writer, thumbnail, likeCount, scrapCount, commentCount} : BoardInfo) {
     const navigate = useNavigate();
-
-    const formatCreatedAt = (createdAtString : string) => {
-        const now = new Date();
-        const createdAt = new Date(createdAtString);
-
-        const isSameDay = now.getDate() === createdAt.getDate() &&
-                          now.getMonth() === createdAt.getMonth() &&
-                          now.getFullYear() === createdAt.getFullYear();
-    
-        if (isSameDay) {
-            const hours = createdAt.getHours().toString().padStart(2, '0');
-            const minutes = createdAt.getMinutes().toString().padStart(2, '0');
-            return `${hours}:${minutes}`;
-        } else {
-            const month = (createdAt.getMonth() + 1).toString().padStart(2, '0'); 
-            const date = createdAt.getDate().toString().padStart(2, '0');
-            return `${month}.${date}`;
-        }
-    };
 
     const onClickCard = () => {
         navigate(`/board/${id}`)

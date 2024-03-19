@@ -1,0 +1,47 @@
+
+{
+		"id" : 1,
+		"title" : "노량진 수산시장 방어",
+		"content" : "방어 가격 알아왔어용", 
+		"createdAt" :  "2024-03-06T01:00:39.864734",
+		"modifiedAt" : "2024-03-06T01:00:39.864734",
+		"writerId" : 1, 
+		"writerNickname" : "좌랑둥이", 
+		"postType" : "review",
+        "likeCount" : 100,
+		"reviews" : [
+			{
+				"reviewId" : 1, 
+				"fishId" : 1, 
+				"weight" : 100,
+				"pricePerKg" : 100, 
+				"totalPrice" : 10000 
+			}
+		],
+		"images" : [
+			{
+				"imageId" : 1, 
+				"imageUri" : "https://media-cdn.tripadvisor.com/media/photo-s/1c/4e/e5/2a/caption.jpg" 
+			},
+			{
+				"imageId" : 2,
+				"imageUri" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFGnV4UdK55psmZji9bPkfqZX6qvMBeZF8NTFyjYjdNg&s"
+			}
+		 ],
+		"comments" : [
+				{
+					"commentId" : 1, 
+					"commentWriterId" : 2, 
+					"commentCreatedAt" : "2024-03-06T01:00:39.864734",
+					"commentWriterNickname" : "soyonii",
+					"commentContent" : "진짜 맛잇겠네요ㅠㅠ"
+				},
+				{
+					"commentId" : 2, 
+					"commentWriterId" : 3, 
+					"commentCreatedAt" : "2024-03-06T01:00:39.864734",
+					"commentWriterNickname" : "hogupot",
+					"commentContent" : "좌방구 이거 진짜 맞음?"
+				}
+		 ]
+}

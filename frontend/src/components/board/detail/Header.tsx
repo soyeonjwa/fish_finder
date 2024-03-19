@@ -9,8 +9,16 @@ import MenuIcon from '../../../assets/icons/dotsThree.svg';
 
 
 const Wrapper = styled.div`
-  width : 100%;
-  height : auto;
+  position : fixed;
+  top : 0;
+  left: 0;
+
+  background-color: white;
+
+  width : 90%;
+  height : 70px;
+
+  padding : 0 5% 0 5%;
 
   display : flex;
   flex-direction: row;

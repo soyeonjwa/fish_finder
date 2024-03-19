@@ -8,7 +8,12 @@ import "slick-carousel/slick/slick-theme.css";
 
 interface MidContentProps{
     content : string;
-    thumbnail : string[];
+    thumbnail : image[];
+}
+
+interface image{
+  imageId : number,
+  imageUri : string
 }
 
 const Wrapper = styled.div`
@@ -48,9 +53,9 @@ export default function MidContent({content, thumbnail} : MidContentProps) {
         <div style={{fontSize:'16px', marginBottom : '2%'}}>{content}</div>
           <Slider {...settings}>
             {thumbnail && thumbnail.map((image)=>(
-              <div key = {image}>
+              <div key = {image.imageId}>
                 <ImageContainer
-                  src = {image}
+                  src = {image.imageUri}
                   alt = "썸네일"
                   width = '100%'
                   height = '300px'
