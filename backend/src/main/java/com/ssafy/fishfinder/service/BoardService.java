@@ -10,7 +10,7 @@ public interface BoardService {
 
     List<BoardDto.GetListResponse> getBoardList(BoardDto.GetListRequest request);
 
-    BoardDto.GetDetailResponse getBoardDetail(Long id);
+    BoardDto.GetDetailResponse getBoardDetail(Long id, Long memberId);
 
     BoardDto.CreateResponse updateBoard(Long id, BoardDto.UpdateRequest request, List<MultipartFile> images);
 

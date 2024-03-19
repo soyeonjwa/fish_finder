@@ -51,8 +51,11 @@ public class BoardController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Message> getBoardDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(new Message("게시글 조회 완료", boardService.getBoardDetail(id)));
+    public ResponseEntity<Message> getBoardDetail(
+            @PathVariable Long id,
+            @RequestHeader(value = "memberId", required = false) Long memberId
+    ) {
+        return ResponseEntity.ok(new Message("게시글 조회 완료", boardService.getBoardDetail(id, memberId)));
     }
 
     @PutMapping("/{id}")

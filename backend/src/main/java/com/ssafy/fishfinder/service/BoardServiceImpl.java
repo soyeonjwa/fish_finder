@@ -111,13 +111,29 @@ public class BoardServiceImpl implements BoardService{
      * @return BoardDto.GetDetailResponse
      */
     @Override
-    public BoardDto.GetDetailResponse getBoardDetail(Long id) {
+    public BoardDto.GetDetailResponse getBoardDetail(Long id, Long memberId) {
         // 게시글 가져오기
         Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
 
         // 작성자
         Member writer = memberRepository.findById(post.getWriterId()).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
 
+        boolean isLiked = false;
+        boolean isScrapped = false;
+        // 현재 사용자
+        if(memberId != null){
+            memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+            // 좋아요 여부
+            if(likesRepository.findLikesByPostIdAndMemberId(id, memberId).isPresent()){
+                isLiked = true;
+            }
+
+            // 스크랩 여부
+            if(clippingRepository.findClippingByPostIdAndMemberId(id, memberId).isPresent()){
+                isScrapped = true;
+            }
+
+        }
 
         //review 가져오기
         List<FishReview> reviews = fishReviewRepository.findAllByPostId(id);
@@ -132,7 +148,6 @@ public class BoardServiceImpl implements BoardService{
                     .build()
             );
         });
-
 
         // 이미지 가져오기
         List<PostImages> postImages = postImagesRepository.findAllByPostId(id);
@@ -171,6 +186,8 @@ public class BoardServiceImpl implements BoardService{
                 .likeCount(post.getLikes().size())
                 .scrapCount(post.getClippings().size())
                 .commentCount(post.getComments().size())
+                .isLiked(isLiked)
+                .isScrapped(isScrapped)
                 .comments(comment)
                 .reviews(reviewList)
                 .images(imageList)
