@@ -323,4 +323,35 @@ public class BoardServiceImpl implements BoardService{
         commentRepository.deleteById(commentId);
     }
 
+    @Override
+    public String likeBoard(Long id, Long memberId) {
+        // 게시글 조회
+        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+        // 멤버 조회
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+
+        // 좋아요 내역조회
+        Likes likes = likesRepository.findLikes(id, memberId);
+        // 없으면 likes 생성
+        if(likes == null){
+            likes = Likes.builder()
+                    .post(post)
+                    .member(member)
+                    .build();
+            likesRepository.save(likes);
+            return "좋아요 완료";
+        }
+        else{ // 이미 존재할 경우
+            if(likes.getDeletedAt() == null){ // 삭제 되지 않았을 시
+                likesRepository.delete(likes);
+                return "좋아요 취소";
+            }
+            else{ // 이미 취소되었을 시
+                likes.setDeletedAt(null); // todo setter말고 toBuilder로 변경 예정 baseTime 엔티티랑 엮여있어 builder로 변경이 어려움
+                likesRepository.save(likes);
+                return "좋아요 완료";
+            }
+        }
+    }
+
 }
