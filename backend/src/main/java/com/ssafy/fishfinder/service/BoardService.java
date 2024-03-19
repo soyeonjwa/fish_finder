@@ -21,4 +21,6 @@ public interface BoardService {
     void deleteComment(Long commentId);
 
     String likeBoard(Long id, Long memberId);
+
+    String scrapBoard(Long id, Long memberId);
 }
