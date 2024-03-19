@@ -4,6 +4,7 @@ import com.ssafy.fishfinder.entity.Clipping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ClippingRepository extends JpaRepository<Clipping, Long> {
@@ -15,4 +16,5 @@ public interface ClippingRepository extends JpaRepository<Clipping, Long> {
     Optional<Clipping> findClippingByPostIdAndMemberId(Long id, Long memberId);
 
 
+    List<Clipping> findAllByMemberId(Long memberId);
 }

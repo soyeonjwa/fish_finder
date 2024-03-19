@@ -102,4 +102,11 @@ public class BoardController {
         return ResponseEntity.ok(new Message(boardService.scrapBoard(id, memberId)));
     }
 
+    @GetMapping("/scrap")
+    public ResponseEntity<Message> getScrapList(
+            @RequestHeader(value = "memberId") Long memberId
+    ) {
+        return ResponseEntity.ok(new Message("스크랩 목록 조회 완료", boardService.getScrapList(memberId)));
+    }
+
 }
