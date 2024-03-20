@@ -18,7 +18,7 @@ type SearchBoxProps = {
 const Outline = styled.div<{width: string, margin : string}>`
     border : 1px solid;
     border-color : ${gray2};
-    border-radius : 0.5em;
+    border-radius : 5px;
     height : auto;
     width : ${props => props.width};
     display : flex;

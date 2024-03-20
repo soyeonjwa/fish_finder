@@ -5,23 +5,23 @@ import Header from '../../components/main/Header';
 import SeasonList from '../../components/main/SeasonList';
 import MarketList from '../../components/main/MarketList';
 import PopularPosts from '../../components/main/PopularPosts';
+import { NavBarWrapper } from '../../components/common/Wrapper';
 
 
-const Wrapper = styled.div`
+const StyledWrapper = styled(NavBarWrapper)`
   width : 100%;
-  height : auto;
   margin :0;
 `
 
 
 export default function Main() {
     return (
-        <Wrapper>
+        <StyledWrapper>
             <Header/>
             <MarketList/>
             <SeasonList/>
             <PopularPosts/>
-        </Wrapper>
+        </StyledWrapper>
         
     )
 }

@@ -22,7 +22,7 @@ export default function BackButton({onClickBtn}: BackButtonProps) {
           height = 'auto'
           backcolor='transparent'
           border = '0px'
-          margin = '5% 0 5% 0'  
+          margin = '3% 0 3% 0'  
           padding = '0px'        
         >
           <Icon src = {BackIcon}/>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 
 import BoardContainer from '../../components/common/board/BoardContainer'
 import SearchBox from '../../components/common/SearchBox'
@@ -7,11 +8,10 @@ import { Button } from '../../components/common/Button'
 import { primary, black } from '../../assets/styles/palettes'
 import { Modal } from '../../components/common/Modal'
 import { Overlay } from '../../components/common/Overlay'
+import { NavBarWrapper } from '../../components/common/Wrapper'
 
-const Wrapper = styled.div<{isOpen:boolean}>`
-  margin : 0% 5% 0% 5%;
-  width : 90%;
-  height : auto;
+
+const StyledWrapper = styled(NavBarWrapper)<{isOpen:boolean}>`
 `
 
 const Header = styled.div`
@@ -76,6 +76,7 @@ export default function Board() {
   const [value, setValue] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [sort, setSort] = useState("최신순");
+  const navigate = useNavigate();
 
   const onClickRadio = (name : string) => {
     setSort(name);
@@ -90,15 +91,27 @@ export default function Board() {
     console.log({value})
   }
 
+  const onClickRegisterBtn = () => {
+    navigate("/board/register")
+  }
+
+  const StyledButton = styled(Button)`
+    position : fixed;
+    bottom : 90px;
+    right : 5%;
+    border-radius: 20px;
+    font-weight: 500;
+  `
+
   return (
     <div>
-    <Wrapper isOpen = {isOpen}>
+    <StyledWrapper isOpen = {isOpen}>
       {isOpen && <Overlay onClick={onClickBtn}/>}
       <Header>
         <SearchBox
           width = '80%'
           name = 'boardSearch'
-          margin = '5% 0 5% 0'
+          margin = '5% 1% 5% 0'
           value = {value}
           setValue={setValue}
           handleSubmit={handleSubmit}
@@ -115,7 +128,7 @@ export default function Board() {
       <MidContent>
         <BoardContainer></BoardContainer>
       </MidContent>
-    </Wrapper>
+    </StyledWrapper>
      {
       isOpen &&
       (
@@ -139,6 +152,17 @@ export default function Board() {
         </StyledModal>
       )
      }
+    <StyledButton
+      border = '0px'
+      color = 'white'
+      backcolor= {primary}
+      margin = '0'
+      width='25%'
+      height='auto'
+      padding = '3% 3% 3% 3%'
+      fontSize='16px'
+      onClick={()=>onClickRegisterBtn()}
+    >+ 글쓰기</StyledButton>
     </div>
   )
 }
