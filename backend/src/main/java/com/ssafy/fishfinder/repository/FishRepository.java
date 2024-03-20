@@ -1,0 +1,16 @@
+package com.ssafy.fishfinder.repository;
+
+import com.ssafy.fishfinder.entity.Fish;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface FishRepository extends JpaRepository<Fish, Long> {
+
+    @Query("SELECT f FROM Fish f ORDER BY f.name")
+    List<Fish> findAllOrderByName();
+
+    @Query("SELECT f FROM Fish f WHERE f.id != :fishId AND f IN (SELECT g.fish FROM FishFishGroup g WHERE g.fishGroup IN (SELECT g FROM FishGroup g WHERE g.groupType = 'similarity' AND g IN (SELECT g.fishGroup FROM FishFishGroup g WHERE g.fish.id = :fishId)))")
+    List<Fish> findAllBySimilarFish(Long fishId);
+}
