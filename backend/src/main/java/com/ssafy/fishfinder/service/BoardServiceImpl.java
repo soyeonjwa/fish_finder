@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class BoardServiceImpl implements BoardService{
                     .content(post.getContent())
                     .writer(writer)
                     .postType(post.getPostType())
-                    .thumbnail("") // 추후 추가예정
+                    .thumbnail(post.getThumbnail())
                     .likeCount(post.getLikes().size())
                     .scrapCount(post.getClippings().size())
                     .commentCount(post.getComments().size())
@@ -456,7 +457,38 @@ public class BoardServiceImpl implements BoardService{
                     .content(post.getContent())
                     .writer(writer)
                     .postType(post.getPostType())
-                    .thumbnail("") // todo 추후 추가예정
+                    .thumbnail(post.getThumbnail())
+                    .likeCount(post.getLikes().size())
+                    .scrapCount(post.getClippings().size())
+                    .commentCount(post.getComments().size())
+                    .createdAt(post.getCreatedAt())
+                    .build()
+            );
+        });
+
+        return response;
+    }
+
+    @Override
+    public List<BoardDto.GetListResponse> getPopularBoardList() {
+        // 7일 이내 썸네일이 있는 게시글 Top4 조회
+        List<Post> posts = boardRepository.findTop4PopularBoardList();
+
+        List<BoardDto.GetListResponse> response = new ArrayList<>();
+
+        posts.forEach(post -> {
+            String writer = "";
+            if(memberRepository.findById(post.getWriterId()).isPresent()) {
+                writer = memberRepository.findById(post.getWriterId()).get().getNickname();
+            }
+
+            response.add(BoardDto.GetListResponse.builder()
+                    .boardId(post.getId())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .writer(writer)
+                    .postType(post.getPostType())
+                    .thumbnail(post.getThumbnail())
                     .likeCount(post.getLikes().size())
                     .scrapCount(post.getClippings().size())
                     .commentCount(post.getComments().size())
