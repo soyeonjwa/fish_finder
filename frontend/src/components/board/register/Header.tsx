@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 
 import BackButton from '../../common/BackButton'
-import IconButton from '../../common/IconButton'
-import ExportIcon from '../../../assets/icons/export.svg';
-import MenuIcon from '../../../assets/icons/dotsThree.svg';
+import { Button } from '../../common/Button'
+import { primary } from '../../../assets/styles/palettes'
 
 
 const Wrapper = styled.div`
@@ -14,6 +13,7 @@ const Wrapper = styled.div`
   left: 0;
 
   background-color: white;
+  z-index: 1000;
 
   width : 90%;
   height : 60px;
@@ -44,10 +44,17 @@ export default function Header() {
     return (
         <Wrapper>
             <BackButton onClickBtn={onClickBackBtn}></BackButton>
-            <div>
-            <IconButton width = '45%' icon = {ExportIcon}></IconButton>
-            <IconButton width = '45%' icon = {MenuIcon}></IconButton>
-            </div>
+            <Button
+                color='white'
+                width = '20%'
+                height= 'auto'
+                backcolor= {primary}
+                margin = '4% 0 4% 0'
+                border = '0px'
+                fontWeight='500'
+            >
+            등록
+            </Button>
         </Wrapper>
     )
 }

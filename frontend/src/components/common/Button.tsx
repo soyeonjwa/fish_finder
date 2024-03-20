@@ -12,6 +12,7 @@ type ButtonProps = {
     padding? : string;
     border? : string;
     cursor? : string;
+    fontWeight? : string;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -21,11 +22,10 @@ export const Button = styled.button<ButtonProps>`
     color : ${props => props.color || `${gray2}`};
     font-family : Pretendard;
     font-size : ${props => props.fontSize};
-    font-weight : bold;
-    text-alight : center;
+    font-weight : ${props => props.fontWeight? props.fontWeight : 'bold'};
+    text-align : center;
     padding : ${props => props.padding || "1% 4% 1% 4%"};
     margin : ${props => props.margin};
-    cursor : ${props => props.cursor} || 'pointer';
     background-color : ${props => props.backcolor || 'white'};
     border-radius : 5px;
 `

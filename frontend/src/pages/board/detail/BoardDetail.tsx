@@ -6,31 +6,31 @@ import TopContents from '../../../components/board/detail/TopContents';
 import MidContent from '../../../components/board/detail/MidContent';
 import BottomContent from '../../../components/board/detail/BottomContent';
 import CommentContainer from '../../../components/board/detail/CommentContainer';
+import CommentInput from '../../../components/board/detail/CommentInput';
+import { Wrapper } from '../../../components/common/Wrapper';
+
 
 import data from '../../../services/dummy/boardDetail.json';
-import CommentInput from '../../../components/board/detail/CommentInput';
 
 
-const Wrapper = styled.div`
-  margin : 0% 5% 0% 5%;
-  width : 90%;
-  height : auto;
-
+const StyledWrapper = styled(Wrapper)`
   display : flex;
   flex-direction : column;
+
+  padding-bottom : 40px;
 `
 
 const Contents = styled.div`
   width : 100%;
   height: auto;
 
-  padding-top : 70px;
+  padding-top : 60px;
 `
 
 
 export default function BoardDetail() {
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Header/>
       <Contents>
         <TopContents
@@ -47,12 +47,12 @@ export default function BoardDetail() {
           likeCount={data.likeCount}
           commentCount={data.comments.length}
         />
+        <hr style={{width : '100%'}}></hr>
+        <CommentContainer
+          comments = {data.comments}
+        />
       </Contents>
-      <hr style={{width : '100%'}}></hr>
-      <CommentContainer
-        comments = {data.comments}
-      />
       <CommentInput/>
-    </Wrapper>
+    </StyledWrapper>
   )
 }
