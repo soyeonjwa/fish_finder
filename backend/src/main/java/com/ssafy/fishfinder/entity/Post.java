@@ -40,6 +40,9 @@ public class Post extends BaseTime {
     @Column(name = "post_type")
     private PostType postType;
 
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
     @OneToMany(mappedBy = "post")
     private List<Likes> likes = new ArrayList<>();
 

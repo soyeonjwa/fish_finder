@@ -109,4 +109,9 @@ public class BoardController {
         return ResponseEntity.ok(new Message("스크랩 목록 조회 완료", boardService.getScrapList(memberId)));
     }
 
+    @GetMapping("/popular")
+    public ResponseEntity<Message> getPopularBoardList() {
+        return ResponseEntity.ok(new Message("인기 게시글 목록 조회 완료", boardService.getPopularBoardList()));
+    }
+
 }
