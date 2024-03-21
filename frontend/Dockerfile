@@ -1,15 +1,15 @@
 # 부모 이미지 지정
 FROM node:20.10.0
 # yarn 설치
-RUN npm install yarn
+RUN yarn install
 # 작업 디렉토리 생성
 WORKDIR /usr/src/app
 # 의존성 설치
 COPY package*.json ./
-RUN yarn
+RUN yarn build
 # 소스 추가
 COPY . .
 # 포트 매핑
 EXPOSE 8020
 # 실행 명령
-CMD [ "node", "app.js" ]
+CMD [ "yarn", "start" ]
