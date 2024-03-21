@@ -30,4 +30,12 @@ public class FishController {
         return ResponseEntity.ok(new Message("어류 상세 조회 완료", fishService.getFishDetail(fishId)));
     }
 
+    @GetMapping("/differences/{sourceFishId}/{targetFishId}")
+    public ResponseEntity<Message> getFishDifferences(
+            @PathVariable Long sourceFishId,
+            @PathVariable Long targetFishId
+    ) {
+        return ResponseEntity.ok(new Message("어류 비교 조회 완료", fishService.getFishDifferences(sourceFishId, targetFishId)));
+    }
+
 }

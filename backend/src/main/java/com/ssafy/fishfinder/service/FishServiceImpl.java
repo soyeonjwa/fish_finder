@@ -1,9 +1,12 @@
 package com.ssafy.fishfinder.service;
 
+import com.ssafy.fishfinder.dto.FishDiffDto;
 import com.ssafy.fishfinder.dto.FishDto;
+import com.ssafy.fishfinder.entity.mongo.FishDiff;
 import com.ssafy.fishfinder.entity.mysql.Fish;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
+import com.ssafy.fishfinder.repository.mongo.FishDiffRepository;
 import com.ssafy.fishfinder.repository.mysql.FishRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Transactional
@@ -20,7 +24,12 @@ import java.util.List;
 public class FishServiceImpl implements FishService{
 
     private final FishRepository fishRepository;
+    private final FishDiffRepository fishDiffRepository;
 
+    /**
+     * 어류 목록 조회
+     * @return List<FishDto.FishListResponseDto>
+     */
     @Override
     public List<FishDto.FishListResponseDto> getFishList() {
         // 어류 목록 이름순으로 조회
@@ -40,6 +49,11 @@ public class FishServiceImpl implements FishService{
         return response;
     }
 
+    /**
+     * 어류 상세 조회
+     * @param fishId
+     * @return FishDto.FishDetailResponseDto
+     */
     @Override
     public FishDto.FishDetailResponseDto getFishDetail(Long fishId) {
         // 어류 상세 조회
@@ -68,6 +82,65 @@ public class FishServiceImpl implements FishService{
                 .ourPrice(0)   // TODO: 우리 가격 조회 로직 추가
                 .similarFish(similarFishList)
                 .build();
+
+        return response;
+    }
+
+    /**
+     * 어류 비교 정보 조회
+     * @param sourceFishId
+     * @param targetFishId
+     * @return FishDiffDto.FishDiffResponseDto
+     */
+    @Override
+    public FishDiffDto.FishDiffResponseDto getFishDifferences(Long sourceFishId, Long targetFishId) {
+        //sourceFish 존재 여부 확인
+        Fish sourceFish = fishRepository.findById(sourceFishId).orElseThrow(()-> new CustomException(ErrorCode.NO_FISH));
+
+        //targetFish 존재 여부 확인
+        Fish targetFish = fishRepository.findById(targetFishId).orElseThrow(()-> new CustomException(ErrorCode.NO_FISH));
+
+        //sourceFish와 targetFish의 차이점 조회
+        FishDiff fishDiff = fishDiffRepository.findBySourceFishAndTargetFish(sourceFish.getName(), targetFish.getName());
+        if(fishDiff == null){
+            throw new CustomException(ErrorCode.NO_FISH_DIFF);
+        }
+
+        // 순서 다를경우 변경
+        if(!sourceFish.getName().equals(fishDiff.getSource())){
+            Fish TempFish = sourceFish;
+            sourceFish = targetFish;
+            targetFish = TempFish;
+        }
+
+        List<FishDiffDto.FishAttributeDto> attributes = new ArrayList<>();
+
+        for (Map<String, Object> diff : fishDiff.getDiff()) {
+            attributes.add(FishDiffDto.FishAttributeDto.builder()
+                    .attribute(diff.get("attribute").toString())
+                    .source_value(diff.get("source_value").toString())
+                    .target_value(diff.get("target_value").toString())
+                    .source_img(diff.get("source_img").toString())
+                    .target_img(diff.get("target_img").toString())
+                    .build());
+        }
+
+        FishDiffDto.FishDiffResponseDto response = FishDiffDto.FishDiffResponseDto.builder()
+                .sourceFish(FishDto.FishDetailResponseDto.builder()
+                        .fishId(sourceFish.getId())
+                        .name(sourceFish.getName())
+                        .imgUri(sourceFish.getImg_url())
+                        .description(sourceFish.getDescription())
+                        .build())
+                .targetFish(FishDto.FishDetailResponseDto.builder()
+                        .fishId(targetFish.getId())
+                        .name(targetFish.getName())
+                        .imgUri(targetFish.getImg_url())
+                        .description(targetFish.getDescription())
+                        .build())
+                .attributes(attributes)
+                .build();
+
 
         return response;
     }
