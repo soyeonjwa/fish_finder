@@ -1,8 +1,7 @@
-package com.ssafy.fishfinder.repository;
+package com.ssafy.fishfinder.repository.mysql;
 
-import com.ssafy.fishfinder.dto.BoardDto;
-import com.ssafy.fishfinder.entity.Post;
-import com.ssafy.fishfinder.entity.PostType;
+import com.ssafy.fishfinder.entity.mysql.Post;
+import com.ssafy.fishfinder.entity.mysql.PostType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

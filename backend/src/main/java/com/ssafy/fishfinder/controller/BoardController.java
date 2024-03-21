@@ -3,7 +3,7 @@ package com.ssafy.fishfinder.controller;
 
 import com.ssafy.fishfinder.controller.constants.Message;
 import com.ssafy.fishfinder.dto.BoardDto;
-import com.ssafy.fishfinder.entity.PostType;
+import com.ssafy.fishfinder.entity.mysql.PostType;
 import com.ssafy.fishfinder.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

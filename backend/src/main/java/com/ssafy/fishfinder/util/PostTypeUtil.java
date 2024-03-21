@@ -1,6 +1,6 @@
 package com.ssafy.fishfinder.util;
 
-import com.ssafy.fishfinder.entity.PostType;
+import com.ssafy.fishfinder.entity.mysql.PostType;
 
 import java.util.List;
 

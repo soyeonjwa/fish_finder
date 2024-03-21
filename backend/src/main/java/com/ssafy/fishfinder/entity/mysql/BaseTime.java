@@ -1,4 +1,4 @@
-package com.ssafy.fishfinder.entity;
+package com.ssafy.fishfinder.entity.mysql;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

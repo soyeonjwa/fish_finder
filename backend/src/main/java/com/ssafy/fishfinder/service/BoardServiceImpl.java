@@ -4,17 +4,16 @@ package com.ssafy.fishfinder.service;
 import com.ssafy.fishfinder.dto.BoardDto;
 import com.ssafy.fishfinder.dto.FishReviewDto;
 import com.ssafy.fishfinder.dto.PostImageDto;
-import com.ssafy.fishfinder.entity.*;
+import com.ssafy.fishfinder.entity.mysql.*;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
-import com.ssafy.fishfinder.repository.*;
+import com.ssafy.fishfinder.repository.mysql.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

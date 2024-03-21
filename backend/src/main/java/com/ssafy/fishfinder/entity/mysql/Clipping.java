@@ -1,7 +1,6 @@
-package com.ssafy.fishfinder.entity;
+package com.ssafy.fishfinder.entity.mysql;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,24 +13,30 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@SQLDelete(sql = "UPDATE post_images SET deleted_at = NOW() WHERE post_images_id=?")
+@SQLDelete(sql = "UPDATE clipping SET deleted_at = NOW() WHERE clipping_id=?")
 @Where(clause = "deleted_at is null")
-public class PostImages extends BaseTime{
+public class Clipping extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "post_images_id")
+    @Column(name = "clipping_id")
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
-
-    @NotNull
-    private String url;
-
+    
     // 연관관계 메서드
+    public void setMember(Member member){
+        this.member = member;
+        member.getClippings().add(this);
+    }
+
     public void setPost(Post post){
         this.post = post;
-        post.getPostImages().add(this);
+        post.getClippings().add(this);
     }
 }
