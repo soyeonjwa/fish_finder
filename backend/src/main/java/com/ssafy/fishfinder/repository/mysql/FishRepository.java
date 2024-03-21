@@ -1,6 +1,6 @@
-package com.ssafy.fishfinder.repository;
+package com.ssafy.fishfinder.repository.mysql;
 
-import com.ssafy.fishfinder.entity.Fish;
+import com.ssafy.fishfinder.entity.mysql.Fish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,5 +1,4 @@
-package com.ssafy.fishfinder.entity;
-
+package com.ssafy.fishfinder.entity.mysql;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -15,23 +14,24 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@SQLDelete(sql = "UPDATE comment SET deleted_at = NOW() WHERE comment_id=?")
+@SQLDelete(sql = "UPDATE post_images SET deleted_at = NOW() WHERE post_images_id=?")
 @Where(clause = "deleted_at is null")
-public class Comment extends BaseTime{
+public class PostImages extends BaseTime{
 
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "post_images_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Column(name = "writer_id")
     @NotNull
-    private Long writerId;
+    private String url;
 
-    @Column(columnDefinition = "TEXT")
-    @NotNull
-    private String content;
+    // 연관관계 메서드
+    public void setPost(Post post){
+        this.post = post;
+        post.getPostImages().add(this);
+    }
 }

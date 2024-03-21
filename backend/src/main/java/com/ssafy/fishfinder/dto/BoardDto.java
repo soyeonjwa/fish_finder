@@ -1,12 +1,10 @@
 package com.ssafy.fishfinder.dto;
 
-import com.ssafy.fishfinder.entity.Comment;
-import com.ssafy.fishfinder.entity.Post;
-import com.ssafy.fishfinder.entity.PostType;
+import com.ssafy.fishfinder.entity.mysql.Post;
+import com.ssafy.fishfinder.entity.mysql.PostType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

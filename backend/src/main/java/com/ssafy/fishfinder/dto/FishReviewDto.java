@@ -1,6 +1,6 @@
 package com.ssafy.fishfinder.dto;
 
-import com.ssafy.fishfinder.entity.FishReview;
+import com.ssafy.fishfinder.entity.mysql.FishReview;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

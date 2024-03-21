@@ -1,10 +1,10 @@
 package com.ssafy.fishfinder.service;
 
 import com.ssafy.fishfinder.dto.FishDto;
-import com.ssafy.fishfinder.entity.Fish;
+import com.ssafy.fishfinder.entity.mysql.Fish;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
-import com.ssafy.fishfinder.repository.FishRepository;
+import com.ssafy.fishfinder.repository.mysql.FishRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

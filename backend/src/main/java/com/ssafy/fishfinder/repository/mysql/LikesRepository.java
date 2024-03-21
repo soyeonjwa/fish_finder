@@ -1,6 +1,6 @@
-package com.ssafy.fishfinder.repository;
+package com.ssafy.fishfinder.repository.mysql;
 
-import com.ssafy.fishfinder.entity.Likes;
+import com.ssafy.fishfinder.entity.mysql.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

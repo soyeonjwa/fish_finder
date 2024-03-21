@@ -1,6 +1,6 @@
 package com.ssafy.fishfinder.dto;
 
-import com.ssafy.fishfinder.entity.PostImages;
+import com.ssafy.fishfinder.entity.mysql.PostImages;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
