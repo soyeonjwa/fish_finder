@@ -1,7 +1,7 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
 import Footer from './components/common/Footer';
 import Main from './pages/main/Main';
@@ -10,6 +10,9 @@ import Search from './pages/search/Search';
 import BoardDetail from './pages/board/detail/BoardDetail';
 import BoardRegister from './pages/board/register/BoardRegister';
 
+// import Login from "./pages/login/Login";
+// import Nickname from "./pages/signup/Nickname";
+// import Mypage from "./pages/myPage/MyPage";
 
 const Wrapper = styled.div`
   font-family : Pretendard;
@@ -18,7 +21,6 @@ const Wrapper = styled.div`
 `
 
 function App() {
-
   return (
     <Wrapper>
       <BrowserRouter>

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 import Header from '../../../components/board/detail/Header';
 import TopContents from '../../../components/board/detail/TopContents';
@@ -12,6 +12,8 @@ import { Wrapper } from '../../../components/common/Wrapper';
 
 import data from '../../../services/dummy/boardDetail.json';
 
+import data from "../../../services/dummy/boardDetail.json";
+import CommentInput from "../../../components/board/detail/CommentInput";
 
 const StyledWrapper = styled(Wrapper)`
   display : flex;
@@ -27,6 +29,12 @@ const Contents = styled.div`
   padding-top : 60px;
 `
 
+const Contents = styled.div`
+  width: 100%;
+  height: auto;
+
+  padding-top: 70px;
+`;
 
 export default function BoardDetail() {
   return (
@@ -34,15 +42,12 @@ export default function BoardDetail() {
       <Header/>
       <Contents>
         <TopContents
-          postType = {data.postType}
-          title = {data.title}
-          writer = {data.writerNickname}
-          createdAt= {data.createdAt}
+          postType={data.postType}
+          title={data.title}
+          writer={data.writerNickname}
+          createdAt={data.createdAt}
         />
-        <MidContent
-          content = {data.content}
-          thumbnail = {data.images}
-        />
+        <MidContent content={data.content} thumbnail={data.images} />
         <BottomContent
           likeCount={data.likeCount}
           commentCount={data.comments.length}
