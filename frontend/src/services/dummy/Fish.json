@@ -1,0 +1,20 @@
+{
+    "id" : 1,
+    "name" : "방어",
+    "description" : "몸은 방추형으로 짧고 통통하며 체고가 높은 편이다. 위턱 뒷끝 부분은 눈의 중앙 아래에 도달하며 뒤끝 윗부분은 둥글다.",
+    "imgUri" : "http://www.suhyupnews.co.kr/news/photo/202207/29429_24322_1251.jpg",
+    "otherPrice" : 10000,
+    "ourPrice" : 15000,
+    "similarFish" : [
+        {
+            "fishId" : 2,
+            "name" : "잿방어",
+            "imgUri" : "http://www.suhyupnews.co.kr/news/photo/202207/29429_24324_1317.jpg"
+        },
+        {
+            "fishId" : 3,
+            "name" : "부시리",
+            "imgUri" : "http://www.suhyupnews.co.kr/news/photo/202207/29429_24323_133.jpg"
+        }
+    ]
+}

@@ -10,5 +10,11 @@
         "name" : "감성돔",
         "season" : "겨울",
         "description" : "감성돔 태어나서 처음 들어봄"
+    },
+    {
+        "id" : 3,
+        "name" : "잿방어",
+        "season" : "겨울",
+        "description" : "방어 짭"
     }
 ]

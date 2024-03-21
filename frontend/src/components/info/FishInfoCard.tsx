@@ -1,16 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import Fish from "../../assets/images/fishcard/잿방어.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
 interface FishInfoCardProps {
   name: string;
-  information: string;
-  price1: number;
-  price2: number;
-  similarFish?: string[];
-  //   imageURL?: string;
+  description: string;
+  otherPrice: number;
+  ourPrice: number;
+  imgUri: string;
 }
 
 const Wrapper = styled.div`
@@ -56,15 +54,16 @@ const Td = styled.td`
 `;
 export default function FishInfoCard({
   name,
-  information,
-  price1,
-  price2,
+  description,
+  otherPrice,
+  ourPrice,
+  imgUri
 }: FishInfoCardProps) {
   return (
     <Wrapper>
-      <Image src={Fish} />
+      <Image src={imgUri} />
       <p>{name}</p>
-      <span>{information}</span>
+      <span>{description}</span>
       <Table>
         <thead>
           <tr>
@@ -80,8 +79,8 @@ export default function FishInfoCard({
         <tbody>
           <tr>
             <Td>1kg 당</Td>
-            <Td> {price1}원~</Td>
-            <Td> {price2}원~</Td>
+            <Td> {otherPrice}원~</Td>
+            <Td> {ourPrice}원~</Td>
           </tr>
         </tbody>
       </Table>

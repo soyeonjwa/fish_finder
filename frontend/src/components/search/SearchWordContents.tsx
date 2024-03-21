@@ -3,10 +3,11 @@ import styled from "styled-components";
 
 import { Button } from "../common/Button";
 import { gray3 } from "../../assets/styles/palettes";
+import { useNavigate } from "react-router-dom";
 
 interface ContentProps {
   title: string;
-  fishlist: string[];
+  fishlist: {id : number, name : string}[];
 }
 
 const Wrapper = styled.div`
@@ -33,14 +34,16 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   margin-bottom: 5%;
 `;
+
 export default function Contents({ title, fishlist }: ContentProps) {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Line />
       <Title>{title}</Title>
 
       <ButtonWrapper>
-        {fishlist.map((fish, index) => (
+        {fishlist.map((fish) => (
           <Button
             width="30%"
             height="35px"
@@ -48,9 +51,10 @@ export default function Contents({ title, fishlist }: ContentProps) {
             color={gray3}
             fontWeight={500}
             border={`1px solid ${gray3}`}
-            key={index}
+            key={fish.id}
+            onClick={() => {navigate(`/info/${fish.id}`)}}
           >
-            {fish}
+            {fish.name}
           </Button>
         ))}
       </ButtonWrapper>

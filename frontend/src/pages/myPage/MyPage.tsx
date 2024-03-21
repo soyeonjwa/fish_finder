@@ -5,19 +5,21 @@ import BoardContainer from "../../components/common/board/BoardContainer";
 import EditIcon from "../../assets/icons/edit.svg";
 import marketImage1 from "../../assets/images/market/노량진1.jpg";
 import { gray3, primary } from "../../assets/styles/palettes";
+import { NavBarWrapper } from "../../components/common/Wrapper";
 interface TagBoxProps {
   active: boolean;
 }
-const Wrapper = styled.div`
-  width: 100%;
-  height: auto;
-  margin: 0;
-`;
+
+const Wrapper = styled(NavBarWrapper)`
+  padding-top : 200px;
+`
 
 const Header = styled.div`
-  position: relative;
+  position: fixed;
+  top : 0;
   width: 100%;
   height: 150px;
+  z-index:1000;
 `;
 
 const ImageContainer = styled.img`
@@ -61,9 +63,14 @@ const Nickname = styled.span`
 `;
 
 const Tag = styled.div`
+  background-color: white;
+  width: 90%;
+  position : fixed;
+  top : 144px;
   display: flex;
   flex-direction: row;
   margin-top: 2%;
+  z-index: 1000;
 `;
 
 const TagBox = styled.div<TagBoxProps>`
@@ -87,7 +94,7 @@ const Contents = styled.div`
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
   return (
-    <Wrapper>
+    <Wrapper width = '100%' height="auto" margin="0">
       <Header>
         <ImageContainer src={marketImage1} alt="노량진" />
         <GradientOverlay></GradientOverlay>
@@ -122,9 +129,6 @@ export default function MyPage() {
         </Tag>
 
         <BoardContainer></BoardContainer>
-        {activeTab === "작성글" && <div>내가 쓴 글 리스트</div>}
-        {activeTab === "댓글단 글" && <div>내가 쓴 댓글 리스트</div>}
-        {activeTab === "스크랩한 글" && <div>스크랩한 글 리스트</div>}
       </Contents>
     </Wrapper>
   );
