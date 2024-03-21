@@ -1,118 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import SearchBox from "../../components/common/SearchBox";
 import WordContents from "../../components/search/SearchWordContents";
+import { useLocation, useNavigate } from "react-router-dom";
+import FishCompareCard from "../../components/search/FishCompareCard";
+import { NavBarWrapper } from "../../components/common/Wrapper";
 // import FishInfoCard from "../../components/search/FishInfoCard";
 // import FishCompareCard from "../../components/search/FishCompareCard";
 // import Warning from "../../assets/icons/warning.svg";
 
-const Wrapper = styled.div`
-  width: 100%;
-  margin: 0% 5% 0% 5%;
-  height: auto;
-  margin: 0;
+const Wrapper = styled(NavBarWrapper)`
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 const Header = styled.div`
+  height : 60px;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
-
-  position: relative;
-  margin: 0% 5% 0% 5%;
-  width: 90%;
-  padding-top: 7%;
+  align-items: center;
 
   & > span {
     font-size: 18px;
     font-weight: bold;
   }
 `;
-
 const Content = styled.div`
-  width: 90%;
+  width: 100%;
   height: auto;
-  margin-left: 5%;
-  margin-right: 5%;
 `;
 
-// const Warn = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   color: red;
-//   font-size: 16px;
-// `;
 
-// const WarnImg = styled.img`
-//   margin-right: 5px;
-// `;
+const CardContent = styled.div`
+  display : grid;
+  grid-template-columns: repeat(2,1fr);
+  row-gap :5%; 
+  column-gap: 3%;
+`
 
-// const SimliarFishContainer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-// `;
-
-// const data = {
-//   name: "잿방어",
-//   information:
-//     "몸은 방추형으로 짧고 통통하며 체고가 높은 편이다. 위턱 뒷끝 부분은 눈의 중앙 아래에 도달하며 뒤끝 윗부분은 둥글다...",
-//   price1: 45000,
-//   price2: 40000,
-//   similarFish: ["방어", "부시리"],
-// };
 
 export default function Search() {
-  const [value, setValue] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParam = new URLSearchParams(location.search);
+
+  const [value, setValue] = useState<string|null>("");
   const handleSubmit = () => {
     console.log({ value });
   };
+
+  const onClickCard = (id : number) => {
+    navigate(`/info/${id}`)
+  }
+
+  useEffect(()=>{
+    setValue(queryParam.get("query"))
+  }, [queryParam.get("query")])
+  
   return (
     <Wrapper>
       <Header>
         <span>어종검색</span>
       </Header>
       <SearchBox
-        width="90%"
-        name="fishSearch"
-        margin="5% 0 5% 0"
-        value={value}
+        width="100%"
+        name="query"
+        margin="0 0 5% 0"
+        value={value?value:""}
         setValue={setValue}
         handleSubmit={handleSubmit}
       ></SearchBox>
-      <Content>
-        <WordContents
-          title="최근 검색어"
-          fishlist={["방어", "부시리", "잿방어", "광어", "연어", "참돔"]}
-        ></WordContents>
-        <WordContents
-          title="추천 검색어"
-          fishlist={["방어", "부시리", "잿방어", "광어", "연어", "참돔"]}
-        ></WordContents>
-        {/* <FishInfoCard
-          name={data.name}
-          information={data.information}
-          price1={data.price1}
-          price2={data.price2}
-        ></FishInfoCard>
-        {data.similarFish && (
-          <>
-            <Warn>
-              <WarnImg src={Warning} alt="" />
-              <p>유사어종에 주의하세요</p>
-            </Warn>
-            <SimliarFishContainer>
-              {data.similarFish.map((fish, index) => (
-                <FishCompareCard name={fish} key={index}></FishCompareCard>
-              ))}
-            </SimliarFishContainer>
-          </>
-        )} */}
-      </Content>
+      
+        {
+          !queryParam.get("query")? (
+            <Content>
+              <WordContents
+                title="최근 검색어종"
+                fishlist={[{id : 1, name : "방어"}, {id:2, name: "잿방어"}, {id:3, name:"부시리"}]}
+              ></WordContents>
+              <div>{queryParam}</div>
+              <WordContents
+                title="추천 검색어종"
+                fishlist={[{id : 1, name : "방어"}, {id:2, name: "잿방어"}, {id:3, name:"부시리"}]}
+              ></WordContents>
+            </Content>
+          ):
+          (
+            <CardContent>
+              <FishCompareCard fishId = {1} name = '잿방어' imgUri="http://www.suhyupnews.co.kr/news/photo/202207/29429_24324_1317.jpg" onClickCard={onClickCard}/>
+            </CardContent>
+          )
+        }
+        
     </Wrapper>
   );
 }
