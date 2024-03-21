@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import SearchBox from "../../components/common/SearchBox";
 import WordContents from "../../components/search/SearchWordContents";
-import FishInfoCard from "../../components/search/FishInfoCard";
-import FishCompareCard from "../../components/search/FishCompareCard";
-import Warning from "../../assets/icons/warning.svg";
+// import FishInfoCard from "../../components/search/FishInfoCard";
+// import FishCompareCard from "../../components/search/FishCompareCard";
+// import Warning from "../../assets/icons/warning.svg";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -34,36 +34,37 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
+  width: 90%;
   height: auto;
   margin-left: 5%;
   margin-right: 5%;
 `;
 
-const Warn = styled.div`
-  display: flex;
-  flex-direction: row;
-  color: red;
-  font-size: 16px;
-`;
+// const Warn = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   color: red;
+//   font-size: 16px;
+// `;
 
-const WarnImg = styled.img`
-  margin-right: 5px;
-`;
+// const WarnImg = styled.img`
+//   margin-right: 5px;
+// `;
 
-const SimliarFishContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
+// const SimliarFishContainer = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+// `;
 
-const data = {
-  name: "잿방어",
-  information:
-    "몸은 방추형으로 짧고 통통하며 체고가 높은 편이다. 위턱 뒷끝 부분은 눈의 중앙 아래에 도달하며 뒤끝 윗부분은 둥글다...",
-  price1: 45000,
-  price2: 40000,
-  similarFish: ["방어", "부시리"],
-};
+// const data = {
+//   name: "잿방어",
+//   information:
+//     "몸은 방추형으로 짧고 통통하며 체고가 높은 편이다. 위턱 뒷끝 부분은 눈의 중앙 아래에 도달하며 뒤끝 윗부분은 둥글다...",
+//   price1: 45000,
+//   price2: 40000,
+//   similarFish: ["방어", "부시리"],
+// };
 
 export default function Search() {
   const [value, setValue] = useState("");
@@ -92,7 +93,7 @@ export default function Search() {
           title="추천 검색어"
           fishlist={["방어", "부시리", "잿방어", "광어", "연어", "참돔"]}
         ></WordContents>
-        <FishInfoCard
+        {/* <FishInfoCard
           name={data.name}
           information={data.information}
           price1={data.price1}
@@ -110,7 +111,7 @@ export default function Search() {
               ))}
             </SimliarFishContainer>
           </>
-        )}
+        )} */}
       </Content>
     </Wrapper>
   );

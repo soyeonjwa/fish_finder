@@ -9,11 +9,7 @@ import CommentContainer from '../../../components/board/detail/CommentContainer'
 import CommentInput from '../../../components/board/detail/CommentInput';
 import { Wrapper } from '../../../components/common/Wrapper';
 
-
 import data from '../../../services/dummy/boardDetail.json';
-
-import data from "../../../services/dummy/boardDetail.json";
-import CommentInput from "../../../components/board/detail/CommentInput";
 
 const StyledWrapper = styled(Wrapper)`
   display : flex;
@@ -29,12 +25,6 @@ const Contents = styled.div`
   padding-top : 60px;
 `
 
-const Contents = styled.div`
-  width: 100%;
-  height: auto;
-
-  padding-top: 70px;
-`;
 
 export default function BoardDetail() {
   return (
