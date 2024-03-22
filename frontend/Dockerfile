@@ -8,7 +8,6 @@ RUN yarn install
 # 소스 추가
 COPY . .
 RUN yarn build
-# 포트 매핑
-EXPOSE 26060
+
 # 실행 명령
 CMD [ "yarn", "start" ]

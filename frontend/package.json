@@ -35,7 +35,7 @@
     "zustand": "^4.5.2"
   },
   "scripts": {
-    "start": "export PORT=26060 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
