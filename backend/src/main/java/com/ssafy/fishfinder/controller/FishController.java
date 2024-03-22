@@ -42,4 +42,11 @@ public class FishController {
         return ResponseEntity.ok(new Message("제철 물고기 조회 완료", fishService.getFishSeason(ss)));
     }
 
+    @GetMapping("price")
+    public ResponseEntity<Message> getFishPrice(
+            @RequestParam Long fishId
+    ) {
+        return ResponseEntity.ok(new Message("어류 가격 조회 완료", fishService.getFishPrice(fishId)));
+    }
+
 }

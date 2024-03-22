@@ -37,8 +37,4 @@ public class FishMarket extends BaseTime{
     @Column(precision = 10, scale = 7)
     private BigDecimal longitude;
 
-    @OneToMany(mappedBy = "fishMarket")
-    List<MarketPrice> marketPrices = new ArrayList<>();
-
-
 }
