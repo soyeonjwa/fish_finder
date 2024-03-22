@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MainLogo from '../../assets/icons/mainLogo.png';
 import SearchIcon from '../../assets/icons/mainSearch.svg'
 import ScanIcon from '../../assets/icons/mainScan.svg';
+import { useNavigate } from 'react-router-dom';
 
 
 const Wrapper = styled.div`
@@ -41,11 +42,12 @@ const IconDiv = styled.div`
 `
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
         <LogoImg src = {MainLogo}></LogoImg>
         <IconDiv>
-            <img src = {SearchIcon}></img>
+            <img src = {SearchIcon} onClick={()=>{navigate("/search")}}></img>
             <img src = {ScanIcon}></img>
         </IconDiv>
     </Wrapper>

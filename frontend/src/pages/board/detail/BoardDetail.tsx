@@ -22,7 +22,7 @@ const Contents = styled.div`
   width : 100%;
   height: auto;
 
-  padding-top : 60px;
+  padding-top : 65px;
 `
 
 

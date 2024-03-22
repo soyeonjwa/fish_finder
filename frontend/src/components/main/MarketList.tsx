@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import marketImage1 from '../../assets/images/market/노량진1.jpg';
 import marketImage2 from '../../assets/images/market/노량진2.jpg';
 import marketImage3 from '../../assets/images/market/노량진3.jpg';
+import { useNavigate } from 'react-router-dom';
 
 
 const settings = {
@@ -69,11 +70,12 @@ const ImageContainer = styled.img`
 
 export default function MarketList() {
     const [nickname] = useState("좌랑둥이"); //나중에 zustand를 이용해서 처리해야 됨
+    const navigate = useNavigate();
 
     return (
         <Wrapper>
             <UpContents>
-                {nickname && <span>{nickname}님</span>}
+                {nickname && <span onClick={()=>{navigate('/mypage')}}>{nickname}님</span>}
                 주변 수산물 시장
             </UpContents>
             <Slider {...settings}>

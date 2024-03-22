@@ -52,7 +52,7 @@ export default function Info() {
   return (
     <Wrapper>
       <Header>
-        <BackButton onClickBtn={()=>{navigate("/search")}}></BackButton>
+        <BackButton onClickBtn={()=>{navigate(-1)}}></BackButton>
         <span>어종검색</span>
         <div style={{width:'7%'}}></div>
       </Header>

@@ -1,16 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Slider from 'react-slick';
-
-import dataSet from '../../services/dummy/seasonList.json';
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import fish1 from '../../assets/images/fish/방어.png';
-import fish2 from '../../assets/images/fish/감성돔.jpg';
 import { Button } from '../common/Button';
 
+import dataSet from '../../services/dummy/seasonList.json';
+import { useNavigate } from 'react-router-dom';
 const settings = {
     // dots : true,
     infinite : true,
@@ -86,16 +83,12 @@ const GradientOverlay = styled.div`
 
 
 export default function SeasonList() {
+    const navigate = useNavigate();
     let order = 0;
 
     const calcOrder = () => {
         order = order+1;
         return order;
-    }
-
-    const fishName = (name : string) => {
-        if(name === "방어") return {fish1}.fish1;
-        else if(name === "감성돔") return {fish2}.fish2;
     }
 
 
@@ -107,8 +100,8 @@ export default function SeasonList() {
                     dataSet && (
                         dataSet.map(data => (
                             <SlideContent key = {data.id}>
-                                <SeasonFish src = {fishName(data.name)}></SeasonFish>
-                                <GradientOverlay></GradientOverlay>
+                                <SeasonFish src = {data.imgUri}></SeasonFish>
+                                <GradientOverlay onClick = {() => {navigate(`info/${data.id}`)}}></GradientOverlay>
                                 <OrderButton
                                     color = '#FFFFFF'
                                     width = 'auto'
