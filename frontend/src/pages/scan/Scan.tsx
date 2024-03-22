@@ -31,8 +31,8 @@ const ScanButton = styled.img`
 `;
 
 export default function Scan() {
-  const videoRef = useRef(null);
-  const photoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const photoRef = useRef<HTMLCanvasElement>(null);
 
   const getVideo = () => {
     // 미디어 설정에서 후면 카메라를 지정
@@ -73,6 +73,12 @@ export default function Scan() {
     }
 
     const context = photo.getContext("2d");
+
+    // Ensure context is not null
+    if (!context) {
+      console.error("캔버스 컨텍스트를 찾을 수 없습니다.");
+      return;
+    }
 
     // video의 크기에 맞게 canvas 크기를 조절
     photo.width = video.videoWidth;
