@@ -39,7 +39,7 @@ export default function Header() {
 
     const onClickBackBtn = () => {
         navigate(-1);
-      }
+    }
 
     return (
         <Wrapper>

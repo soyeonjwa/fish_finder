@@ -6,6 +6,7 @@ import { gray3, gray4 } from '../../assets/styles/palettes';
 import ScrapIcon from '../../assets/icons/scrap.svg';
 import CommentsIcon from '../../assets/icons/comments.svg';
 import HeartIcon from '../../assets/icons/heart.svg';
+import { useNavigate } from 'react-router-dom';
 
 type BoardInfo = {
     id : number,
@@ -50,10 +51,11 @@ const ButtomContent = styled.div`
 
 
 
-export default function PostCard({title, writer, thumbnail, likeCount, scrapCount, commentCount} : BoardInfo) {
+export default function PostCard({id,title, writer, thumbnail, likeCount, scrapCount, commentCount} : BoardInfo) {
+  const navigate = useNavigate();
 
   return (
-    <Wrapper>
+    <Wrapper onClick={()=>{navigate(`/board/${id}`)}}>
         <ImageContainer
             src = {thumbnail}
             alt = "썸네일"

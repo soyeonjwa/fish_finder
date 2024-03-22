@@ -28,7 +28,8 @@ export default function PostContainer() {
                 likeCount={data.likeCount}
                 scrapCount={data.scrapCount}
                 commentCount={data.commentCount}
-                key = {data.id}></PostCard>
+                key = {data.id}
+                ></PostCard>
             ))
         }
     </Wrapper>
