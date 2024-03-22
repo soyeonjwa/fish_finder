@@ -4,9 +4,11 @@ import com.ssafy.fishfinder.dto.FishDiffDto;
 import com.ssafy.fishfinder.dto.FishDto;
 import com.ssafy.fishfinder.entity.mongo.FishDiff;
 import com.ssafy.fishfinder.entity.mysql.Fish;
+import com.ssafy.fishfinder.entity.mysql.FishGroup;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
 import com.ssafy.fishfinder.repository.mongo.FishDiffRepository;
+import com.ssafy.fishfinder.repository.mysql.FishGroupRepository;
 import com.ssafy.fishfinder.repository.mysql.FishRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class FishServiceImpl implements FishService{
 
     private final FishRepository fishRepository;
     private final FishDiffRepository fishDiffRepository;
+    private final FishGroupRepository fishGroupRepository;
 
     /**
      * 어류 목록 조회
@@ -141,6 +144,38 @@ public class FishServiceImpl implements FishService{
                 .attributes(attributes)
                 .build();
 
+
+        return response;
+    }
+
+    /**
+     * 어류 계절별 조회
+     * @param ss
+     * @return FishDto.FishSeasonResponseDto
+     */
+    @Override
+    public FishDto.FishSeasonResponseDto getFishSeason(String ss) {
+        FishGroup fishGroup = fishGroupRepository.findSeasonByName(ss);
+        if(fishGroup == null) throw new CustomException(ErrorCode.NO_FISH_GROUP);
+
+        List<Fish> fishes = fishRepository.findAllByFishGroup(fishGroup.getId());
+
+        List<FishDto.FishListResponseDto> fishList = new ArrayList<>();
+
+        for (Fish fish : fishes) {
+            fishList.add(FishDto.FishListResponseDto.builder()
+                    .fishId(fish.getId())
+                    .name(fish.getName())
+                    .imgUri(fish.getImg_url())
+                    .description(fish.getDescription())
+                    .build());
+        }
+
+        FishDto.FishSeasonResponseDto response = FishDto.FishSeasonResponseDto.builder()
+                .season(fishGroup.getGroupName())
+                .seasonDescription(fishGroup.getDescription())
+                .fishList(fishList)
+                .build();
 
         return response;
     }

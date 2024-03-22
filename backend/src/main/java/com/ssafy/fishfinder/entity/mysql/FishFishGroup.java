@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -28,4 +29,11 @@ public class FishFishGroup extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fish_id")
     private Fish fish;
+
+    @ColumnDefault("false")
+    private boolean isBanner;
+
+    private String seasonText;
+
+    private String seasonImg;
 }

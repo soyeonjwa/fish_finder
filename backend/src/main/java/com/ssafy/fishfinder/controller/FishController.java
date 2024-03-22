@@ -5,10 +5,7 @@ import com.ssafy.fishfinder.service.FishService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,6 +33,13 @@ public class FishController {
             @PathVariable Long targetFishId
     ) {
         return ResponseEntity.ok(new Message("어류 비교 조회 완료", fishService.getFishDifferences(sourceFishId, targetFishId)));
+    }
+
+    @GetMapping("season")
+    public ResponseEntity<Message> getFishSeason(
+            @RequestParam String ss // season ex)"1월"
+    ) {
+        return ResponseEntity.ok(new Message("제철 물고기 조회 완료", fishService.getFishSeason(ss)));
     }
 
 }
