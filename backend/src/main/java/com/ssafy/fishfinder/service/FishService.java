@@ -15,4 +15,6 @@ public interface FishService {
 
     FishDto.FishSeasonResponseDto getFishSeason(String ss);
 
+    FishDto.FishPriceResponseDto getFishPrice(Long fishId);
+
 }

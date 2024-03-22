@@ -28,10 +28,6 @@ public class MarketPrice extends BaseTime {
     @JoinColumn(name = "fish_id")
     private Fish fish;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "market_id")
-    private FishMarket fishMarket;
-
     @NotNull
     private int price;
 

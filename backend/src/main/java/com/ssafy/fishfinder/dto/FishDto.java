@@ -37,4 +37,25 @@ public class FishDto {
         private List<FishListResponseDto> fishList;
     }
 
+    @Getter @Setter
+    @Builder
+    public static class FishPriceResponseDto{
+        private Long fishId;
+        private String name;
+        private String imgUri;
+        private int otherPrice;
+        private int ourPrice;
+        private List<MarketPriceDto> ourWeeklyPrice;
+        private List<MarketPriceDto> ourMonthlyPrice;
+        private List<MarketPriceDto> ourHalfYearPrice;
+        private List<MarketPriceDto> otherWeeklyPrice;
+        private List<MarketPriceDto> otherMonthlyPrice;
+        private List<MarketPriceDto> otherHalfYearPrice;
+    }
+
+    public static interface MarketPriceDto{
+        String getDate();
+        int getPrice();
+    }
+
 }

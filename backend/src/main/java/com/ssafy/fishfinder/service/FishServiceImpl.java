@@ -5,11 +5,14 @@ import com.ssafy.fishfinder.dto.FishDto;
 import com.ssafy.fishfinder.entity.mongo.FishDiff;
 import com.ssafy.fishfinder.entity.mysql.Fish;
 import com.ssafy.fishfinder.entity.mysql.FishGroup;
+import com.ssafy.fishfinder.entity.mysql.MarketPrice;
+import com.ssafy.fishfinder.entity.mysql.Source;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
 import com.ssafy.fishfinder.repository.mongo.FishDiffRepository;
 import com.ssafy.fishfinder.repository.mysql.FishGroupRepository;
 import com.ssafy.fishfinder.repository.mysql.FishRepository;
+import com.ssafy.fishfinder.repository.mysql.MarketPriceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +31,7 @@ public class FishServiceImpl implements FishService{
     private final FishRepository fishRepository;
     private final FishDiffRepository fishDiffRepository;
     private final FishGroupRepository fishGroupRepository;
+    private final MarketPriceRepository marketPriceRepository;
 
     /**
      * 어류 목록 조회
@@ -175,6 +179,42 @@ public class FishServiceImpl implements FishService{
                 .season(fishGroup.getGroupName())
                 .seasonDescription(fishGroup.getDescription())
                 .fishList(fishList)
+                .build();
+
+        return response;
+    }
+
+    @Override
+    public FishDto.FishPriceResponseDto getFishPrice(Long fishId) {
+        // 물고기 존재 여부 확인
+        Fish fish = fishRepository.findById(fishId).orElseThrow(()-> new CustomException(ErrorCode.NO_FISH));
+
+        // 오늘 시세 조회
+        MarketPrice ourTodayPrice = marketPriceRepository.findTodayPrice(fishId, Source.users);
+        MarketPrice otherTodayPrice = marketPriceRepository.findTodayPrice(fishId, Source.others);
+
+        // 일주일, 한달, 6개월 시세 조회(우리)
+        List<FishDto.MarketPriceDto> ourWeeklyPrices = marketPriceRepository.findWeeklyPrices(fishId, "users");
+        List<FishDto.MarketPriceDto> ourMonthlyPrices = marketPriceRepository.findMonthlyPrices(fishId, "users");
+        List<FishDto.MarketPriceDto> ourHalfYearPrices = marketPriceRepository.findHalfYearPrices(fishId, "users");
+
+        // 일주일, 한달, 6개월 시세 조회(타사)
+        List<FishDto.MarketPriceDto> otherWeeklyPrices = marketPriceRepository.findWeeklyPrices(fishId, "others");
+        List<FishDto.MarketPriceDto> otherMonthlyPrices = marketPriceRepository.findMonthlyPrices(fishId, "others");
+        List<FishDto.MarketPriceDto> otherHalfYearPrices = marketPriceRepository.findHalfYearPrices(fishId, "others");
+
+        FishDto.FishPriceResponseDto response = FishDto.FishPriceResponseDto.builder()
+                .fishId(fish.getId())
+                .name(fish.getName())
+                .imgUri(fish.getImg_url())
+                .ourPrice(ourTodayPrice==null?0:ourTodayPrice.getPrice()) // 없을 경우 0
+                .otherPrice(otherTodayPrice==null?0:otherTodayPrice.getPrice()) // 없을 경우 0
+                .ourWeeklyPrice(ourWeeklyPrices)
+                .ourMonthlyPrice(ourMonthlyPrices)
+                .ourHalfYearPrice(ourHalfYearPrices)
+                .otherWeeklyPrice(otherWeeklyPrices)
+                .otherMonthlyPrice(otherMonthlyPrices)
+                .otherHalfYearPrice(otherHalfYearPrices)
                 .build();
 
         return response;
