@@ -29,4 +29,12 @@ public class FishDto {
         private List<FishListResponseDto> similarFish;
     }
 
+    @Getter @Setter
+    @Builder
+    public static class FishSeasonResponseDto{
+        private String season;
+        private String seasonDescription;
+        private List<FishListResponseDto> fishList;
+    }
+
 }

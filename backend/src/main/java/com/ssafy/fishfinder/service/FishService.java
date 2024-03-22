@@ -13,4 +13,6 @@ public interface FishService {
 
     FishDiffDto.FishDiffResponseDto getFishDifferences(Long sourceFishId, Long targetFishId);
 
+    FishDto.FishSeasonResponseDto getFishSeason(String ss);
+
 }
