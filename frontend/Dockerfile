@@ -9,6 +9,6 @@ RUN yarn install
 COPY . .
 RUN yarn build
 # 포트 매핑
-EXPOSE 7070
+EXPOSE 6060
 # 실행 명령
 CMD [ "yarn", "start" ]
