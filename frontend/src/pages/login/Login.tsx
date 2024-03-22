@@ -51,7 +51,7 @@ export default function Login() {
           <p>간편하게 로그인하고</p>
           <p>다양한 서비스를 이용해보세요</p>
         </Content>
-        <img src={KakaoLogin} alt="kakaoLogin" onClick={()=>window.open("http://localhost:8080/oauth")}/>
+        <img src={KakaoLogin} alt="kakaoLogin" onClick={()=>window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7d5f2d8e91d5566b9e9cf07c36b7a2d2&redirect_uri= http://localhost:8080/oauth")}/>
       </Contents>
     </Wrapper>
   );
