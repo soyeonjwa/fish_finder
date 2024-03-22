@@ -9,6 +9,7 @@ import BoardIcon from '../../assets/icons/footerBoard.svg';
 import SearchIcon from '../../assets/icons/footerSearch.svg';
 import { gray4, primary } from '../../assets/styles/palettes';
 import { Link, Outlet } from 'react-router-dom';
+import { userStore } from '../../stores/userStore';
 
 
 const Wrapper = styled.div`
@@ -77,6 +78,7 @@ const CenterBox = styled.div`
 `
 
 export default function Footer() {
+  const {userId} = userStore();
   return (
     <>
     <Outlet/>
@@ -99,7 +101,7 @@ export default function Footer() {
             <Image src = {BoardIcon} ></Image>
             <Title>게시판</Title>
         </Block>
-        <Block to="/mypage">
+        <Block to={(userId==-1)?`/login`:'/mypage'}>
             <Image src = {MyIcon} ></Image>
             <Title>MY</Title>
         </Block>
