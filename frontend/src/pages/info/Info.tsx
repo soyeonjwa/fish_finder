@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
+
 
 import { Wrapper } from '../../components/common/Wrapper'
 import FishInfoCard from '../../components/info/FishInfoCard';
 import BackButton from '../../components/common/BackButton';
 import Warning from "../../assets/icons/warning.svg";
 import FishCompareCard from '../../components/search/FishCompareCard';
+import ModalHeader from '../../components/info/modal/Header';
+import ModalFishCompare from '../../components/info/modal/FishCompare';
 
 import data from '../../services/dummy/Fish.json';
 
@@ -47,8 +51,17 @@ const SimliarFishContainer = styled.div`
 `;
 
 
+
 export default function Info() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [targetFishId, setTargetFishId] = useState(-1);
+
+  const chooseComparedFish = (key : number) => {
+    setIsOpen(true);
+    setTargetFishId(key)
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -57,6 +70,7 @@ export default function Info() {
         <div style={{width:'7%'}}></div>
       </Header>
       <FishInfoCard
+        id = {data.id}
         name  = {data.name}
         description = {data.description}
         otherPrice={data.otherPrice}
@@ -71,11 +85,35 @@ export default function Info() {
             </Warn>
             <SimliarFishContainer>
               {data.similarFish.map((fish) => (
-                <FishCompareCard fishId={fish.fishId} name = {fish.name} imgUri={fish.imgUri} onClickCard={()=>{alert(fish.name)}} key={fish.fishId}></FishCompareCard>
+                <FishCompareCard fishId={fish.fishId} name = {fish.name} imgUri={fish.imgUri} onClickCard={()=>chooseComparedFish(fish.fishId)} key={fish.fishId}></FishCompareCard>
               ))}
             </SimliarFishContainer>
           </>
       )}
+      <Modal
+        isOpen = {isOpen}
+        ariaHideApp={false}
+        style = {{
+          overlay : {
+            backgroundColor : 'rgb(26,26,26,0.5)'
+          },
+          content : {
+            width : '70%',
+            display : 'flex',
+            flexDirection : 'column',
+            alignSelf : 'center',
+            justifySelf : 'center',
+            borderRadius : '10px',
+            height : '400px',
+            overflow: 'auto',
+            fontFamily : 'Pretendard',
+            padding : '5%'
+          }
+        }}
+      >
+        <ModalHeader setIsOpen={setIsOpen}/>
+        <ModalFishCompare sourceFishId = {data.id} targetFishId = {targetFishId}/>
+      </Modal>
     </Wrapper>
   )
 }

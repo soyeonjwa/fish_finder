@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { gray3, gray5 } from "../../assets/styles/palettes";
+import { gray3, gray5, black } from "../../assets/styles/palettes";
+import { Link } from "react-router-dom";
+import RightArrow from '../../assets/icons/rightArrow.svg'
+
 
 interface FishInfoCardProps {
+  id : number,
   name: string;
   description: string;
   otherPrice: number;
@@ -52,7 +56,21 @@ const Td = styled.td`
   padding: 8px;
   text-align: center;
 `;
+
+const StyledLink = styled(Link)`
+  color : ${black};
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  & > img{
+    width : 7%;
+    margin-left : 5%;
+  }
+`
 export default function FishInfoCard({
+  id,
   name,
   description,
   otherPrice,
@@ -80,7 +98,9 @@ export default function FishInfoCard({
           <tr>
             <Td>1kg 당</Td>
             <Td> {otherPrice}원~</Td>
-            <Td> {ourPrice}원~</Td>
+            <Td> <StyledLink to = {`/marketCondition/${id}`}>{ourPrice}원~
+              <img src = {RightArrow}></img>
+            </StyledLink></Td>
           </tr>
         </tbody>
       </Table>

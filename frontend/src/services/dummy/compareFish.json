@@ -1,0 +1,40 @@
+[
+    {
+        "fishId" : 1,
+        "name" : "방어",
+        "imgUri" : "http://www.suhyupnews.co.kr/news/photo/202207/29429_24322_1251.jpg",
+        "contentList" : [
+            {
+                "content" : "방어는 맛있고 특히 겨울에 먹으면 진짜 대존맛 !!"
+            },
+            {
+                "content" : "방어는 맛잇다"
+            },            
+            {
+                "content" : "방어는 맛잇다"
+            },
+            {
+                "content" : "방어는 맛잇다"
+            }
+        ] 
+    },
+    {
+        "fishId" : 2,
+        "name" : "잿방어",
+        "imgUri" : "http://www.suhyupnews.co.kr/news/photo/202207/29429_24324_1317.jpg",
+        "contentList" : [
+            {
+                "content" : "잿방어는 방어짭"
+            },
+            {
+                "content" : "잿방어는 방어짭"
+            },            
+            {
+                "content" : "잿방어는 방어짭"
+            },            
+            {
+                "content" : "잿방어는 방어짭"
+            }
+        ] 
+    }
+]
