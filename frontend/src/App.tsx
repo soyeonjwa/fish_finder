@@ -11,6 +11,7 @@ import BoardDetail from './pages/board/detail/BoardDetail';
 import BoardRegister from './pages/board/register/BoardRegister';
 import MyPage from "./pages/myPage/MyPage";
 import Info from "./pages/info/Info";
+import MarketCondition from "./components/marketCondition/MarketCondition";
 
 // import Login from "./pages/login/Login";
 // import Nickname from "./pages/signup/Nickname";
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route path = "info">
                 <Route path = ":fishId" element = {<Info/>}/>
+              </Route>
+              <Route path = "marketCondition">
+                <Route path = ":fishId" element  = {<MarketCondition/>}/>
               </Route>
             </Routes>
       </BrowserRouter>
