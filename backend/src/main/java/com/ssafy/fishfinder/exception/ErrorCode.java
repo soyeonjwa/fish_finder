@@ -11,6 +11,7 @@ public enum ErrorCode {
     NO_FISH(400, "어종이 존재하지 않습니다."),
     NO_FISH_DIFF(400, "어종 비교 정보가 존재하지 않습니다."),
     NO_FISH_GROUP(400, "어종 그룹이 존재하지 않습니다."),
+    FILE_UPLOAD_ERROR(400, "파일 업로드에 실패하였습니다."),
     NO_BOARD(400, "게시글이 존재하지 않습니다.");
     private final int status;
     private final String message;
