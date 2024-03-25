@@ -30,9 +30,6 @@ public class Member extends BaseTime {
     private String nickname;
 
     @NotNull
-    private String password;
-
-    @NotNull
     @Column(columnDefinition = "varchar(30)")
     private String email;
 
