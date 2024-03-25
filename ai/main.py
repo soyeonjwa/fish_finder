@@ -10,14 +10,6 @@ class Photo(BaseModel):
     photoStr: str
 
 
-class Label:
-    name: str
-    x: float
-    y: float
-    width: float
-    height: float
-
-
 def base64_to_image(base64_string):
     # base64 문자열을 디코딩하여 이미지로 변환
     decoded_data = base64.b64decode(base64_string)
@@ -34,17 +26,7 @@ model = YOLO(model_path)
 model.info()
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
-
-@app.post("/fishes")
+@app.post("/ai/fishes")
 async def predict(photo: Photo):
     image = base64_to_image(photo.photoStr)
     results = model.predict(source=image, conf=0.5)
