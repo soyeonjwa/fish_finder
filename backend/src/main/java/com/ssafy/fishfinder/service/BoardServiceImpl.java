@@ -11,7 +11,7 @@ import com.ssafy.fishfinder.repository.mysql.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
-@RestController
+@Service
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
