@@ -3,7 +3,7 @@ package com.ssafy.fishfinder.service;
 import com.ssafy.fishfinder.dto.OauthDto;
 import com.ssafy.fishfinder.dto.UserDto;
 import com.ssafy.fishfinder.entity.mysql.Member;
-import com.ssafy.fishfinder.repository.MemberRepository;
+import com.ssafy.fishfinder.repository.mysql.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
