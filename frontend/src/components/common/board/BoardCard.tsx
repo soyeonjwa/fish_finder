@@ -70,7 +70,8 @@ const ButtomContent = styled.div`
 `
 const BoardImage = styled.div`
     position : relative;
-    width : 20%;
+    width : 70px;
+    height: 70px;
     padding : 2%;
 `
 
