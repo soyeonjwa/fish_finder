@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,11 @@ public class BoardServiceImpl implements BoardService{
 
         if(images != null) {
             uploadImages(images, post);
+            try{
+                post.updateThumbnail(s3UploadService.uploadThumbnail(images.get(0), "thumbnail", post.getId()));
+            } catch (IOException e) {
+                throw new CustomException(ErrorCode.FILE_UPLOAD_ERROR);
+            }
         }
 
         return BoardDto.CreateResponse.builder()
@@ -235,6 +241,7 @@ public class BoardServiceImpl implements BoardService{
 
         // 삭제된 이미지 삭제
         if(request.getOldImages() != null) {
+            // todo 썸네일 삭제시 새로운 썸네일 추가 코드
             for (PostImages postImage : postImages) { // 저장되어 있는 이미지들
                 boolean flag = false;
                 for (PostImageDto.Request image : request.getOldImages()) { // 계속 저장할 기존 이미지들
@@ -252,14 +259,10 @@ public class BoardServiceImpl implements BoardService{
         if(images != null) {
             uploadImages(images, post);
         }
-
-        post.toBuilder()
-                .title(request.getTitle())
-                .content(request.getContent())
-                .postType(request.getPostType())
-                .build();
-
-        boardRepository.save(post);
+        
+        post.updateTitle(request.getTitle());
+        post.updateContent(request.getContent());
+        post.updatePostType(request.getPostType());
 
         return BoardDto.CreateResponse.builder()
                 .boardId(post.getId())
@@ -508,7 +511,6 @@ public class BoardServiceImpl implements BoardService{
 
         return response;
     }
-
 
     /**
      * 이미지 업로드
