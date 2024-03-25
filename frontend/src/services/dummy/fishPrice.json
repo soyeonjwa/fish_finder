@@ -1,0 +1,141 @@
+{
+  "fishId": 1,
+    "name": "광어",
+    "imgUri": "https://fish-finder.s3.ap-northeast-2.amazonaws.com/fishImages/%EA%B4%91%EC%96%B4.jpg",
+    "otherPrice": 7000,
+    "ourPrice": 0,
+    "ourWeeklyPrice": [
+      {
+        "date": "2024-03-19",
+        "price": 7700
+      },
+      {
+        "date": "2024-03-20",
+        "price": 8000
+      },
+      {
+        "date": "2024-03-21",
+        "price": 9800
+      },
+      {
+        "date": "2024-03-22",
+        "price": 5700
+      }
+    ],
+    "ourMonthlyPrice": [
+      {
+        "date": "202408",
+        "price": 7400
+      },
+      {
+        "date": "202409",
+        "price": 6800
+      },
+      {
+        "date": "202410",
+        "price": 7900
+      },
+      {
+        "date": "202411",
+        "price": 7900
+      }
+    ],
+    "ourHalfYearPrice": [
+      {
+        "date": "2023-09",
+        
+        "price": 7300
+      },
+      {
+        "date": "2023-10",
+        "price": 7500
+      },
+      {
+        "date": "2023-11",
+        "price": 7200
+      },
+      {
+        "date": "2023-12",
+        "price": 7600
+      },
+      {
+        "date": "2024-01",
+        "price": 7300
+      },
+      {
+        "date": "2024-02",
+        "price": 7500
+      },
+      {
+        "date": "2024-03",
+        "price": 7500
+      }
+    ],
+    "otherWeeklyPrice": [
+      {
+        "date": "2024-03-19",
+        "price": 6000
+      },
+      {
+        "date": "2024-03-20",
+        "price": 7000
+      },
+      {
+        "date": "2024-03-21",
+        "price": 8800
+      },
+      {
+        "date": "2024-03-22",
+        "price": 5700
+      }
+    ],
+    "otherMonthlyPrice": [
+      {
+        "date": "202408",
+        "price": 7000
+      },
+      {
+        "date": "202409",
+        "price": 6000
+      },
+      {
+        "date": "202410",
+        "price": 7000
+      },
+      {
+        "date": "202411",
+        "price": 7000
+      }
+    ],
+    "otherHalfYearPrice": [
+      {
+        "date": "2023-09",
+        
+        "price": 7000
+      },
+      {
+        "date": "2023-10",
+        "price": 7000
+      },
+      {
+        "date": "2023-11",
+        "price": 7000
+      },
+      {
+        "date": "2023-12",
+        "price": 7000
+      },
+      {
+        "date": "2024-01",
+        "price": 7000
+      },
+      {
+        "date": "2024-02",
+        "price": 7000
+      },
+      {
+        "date": "2024-03",
+        "price": 7000
+      }
+    ]
+  }
