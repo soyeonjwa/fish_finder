@@ -16,4 +16,6 @@ public interface S3UploadService {
     void removeNewFile(File targetFile);
 
     Optional<File> convert(MultipartFile file) throws IOException;
+
+    String uploadThumbnail(MultipartFile multipartFile, String dirName, Long id) throws IOException;
 }

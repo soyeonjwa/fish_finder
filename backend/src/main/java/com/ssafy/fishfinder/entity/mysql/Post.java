@@ -58,4 +58,20 @@ public class Post extends BaseTime {
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
+    public void updateThumbnail(String thumbnail){
+        this.thumbnail = thumbnail;
+    }
+
+    public void updateTitle(String title){
+        this.title = title;
+    }
+
+    public void updateContent(String content){
+        this.content = content;
+    }
+
+    public void updatePostType(PostType postType){
+        this.postType = postType;
+    }
+
 }
