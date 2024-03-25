@@ -43,8 +43,6 @@ public class S3UploadServiceImpl implements S3UploadService{
 
     public String upload(File uploadFile, String dirName, Long id) {
         String uuid = UUID.nameUUIDFromBytes(uploadFile.getName().getBytes()).toString();
-//        String uuid = UUID.randomUUID().toString();
-//        String fileName = dirName + "/" + uploadFile.getName();
         String fileName = dirName + "/" + id.toString() + "/" + uuid + ".jpg";
         String uploadImageUrl = putS3(uploadFile, fileName);
 

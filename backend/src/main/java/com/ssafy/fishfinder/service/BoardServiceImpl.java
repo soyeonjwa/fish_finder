@@ -22,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class BoardServiceImpl implements BoardService{
+    private final S3UploadService s3UploadService;
 
     private final BoardRepository boardRepository;
     private final FishReviewRepository fishReviewRepository;
@@ -48,7 +49,7 @@ public class BoardServiceImpl implements BoardService{
         }
 
         if(images != null) {
-            // todo 이미지 저장
+            uploadImages(images, post);
         }
 
         return BoardDto.CreateResponse.builder()
@@ -233,15 +234,24 @@ public class BoardServiceImpl implements BoardService{
         });
 
         // 삭제된 이미지 삭제
-        postImages.forEach(image ->{
-            if(request.getOldImages().stream()
-                    .filter(imageDto -> imageDto.getImageId()!=null)
-                    .noneMatch(imageDto -> imageDto.getImageId().equals(image.getId()))){
-                postImagesRepository.delete(image);
+        if(request.getOldImages() != null) {
+            for (PostImages postImage : postImages) { // 저장되어 있는 이미지들
+                boolean flag = false;
+                for (PostImageDto.Request image : request.getOldImages()) { // 계속 저장할 기존 이미지들
+                    if (postImage.getId().equals(image.getImageId())) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) postImagesRepository.deleteById(postImage.getId());
             }
-        });
+        }
+        else postImagesRepository.deleteAll(postImages);
 
-        // todo: 새로운 이미지 저장 기능
+        // 새로운 이미지 저장
+        if(images != null) {
+            uploadImages(images, post);
+        }
 
         post.toBuilder()
                 .title(request.getTitle())
@@ -499,4 +509,25 @@ public class BoardServiceImpl implements BoardService{
         return response;
     }
 
+
+    /**
+     * 이미지 업로드
+     * @param images
+     * @param post
+     */
+    private void uploadImages(List<MultipartFile> images, Post post) {
+        images.forEach(image -> {
+            try {
+                String imageUrl = s3UploadService.upload(image, "board", post.getId());
+                PostImages postImage = PostImages.builder()
+                        .url(imageUrl)
+                        .post(post)
+                        .build();
+                postImagesRepository.save(postImage);
+            } catch (Exception e) {
+                log.error("이미지 업로드 실패", e);
+                throw new CustomException(ErrorCode.FILE_UPLOAD_ERROR);
+            }
+        });
+    }
 }
