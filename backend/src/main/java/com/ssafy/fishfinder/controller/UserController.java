@@ -23,16 +23,29 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/login")
-    public ResponseEntity<Message> logIn(@RequestParam String code, HttpServletRequest request){
+    public ResponseEntity<Message> UserLogIn(@RequestParam String code, HttpServletRequest request){
         OauthDto userInfo = oauthService.getUserInfo(code);
-        UserDto.Response responseDto = userService.getMember(userInfo);
+        UserDto userDto = userService.getMember(userInfo);
 
         HttpSession session = request.getSession();
-        session.setAttribute("id", responseDto.getId());
-        session.setAttribute("nickname", responseDto.getNickname());
+        session.setAttribute("id", userDto.getId());
+        session.setAttribute("nickname", userDto.getNickname());
 
         Message message = new Message("로그인 완료");
         return ResponseEntity.ok(message);
     }
 
+    @ResponseBody
+    @PostMapping("/update")
+    public ResponseEntity<Message> UserUpdate(@RequestBody UserDto userDto, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Long id = (Long) session.getAttribute("id");
+        userDto.setId(id);
+        userService.updateMember(userDto);
+
+        session.setAttribute("nickname", userDto.getNickname());
+
+        Message message = new Message("닉네임 수정 완료");
+        return ResponseEntity.ok(message);
+    }
 }
