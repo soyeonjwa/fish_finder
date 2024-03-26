@@ -38,4 +38,6 @@ public class Member extends BaseTime {
 
     @OneToMany(mappedBy = "member")
     private List<Clipping> clippings = new ArrayList<>();
+
+    public void updateNickname(String nickname) { this.nickname = nickname; }
 }
