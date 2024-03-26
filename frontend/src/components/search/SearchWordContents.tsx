@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ContentProps {
   title: string;
-  fishlist: {id : number, name : string}[];
+  fishlist: {fishId : number, name : string}[];
 }
 
 const Wrapper = styled.div`
@@ -28,11 +28,11 @@ const Line = styled.hr`
 
 const ButtonWrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns:repeat(3, 1fr);
   margin-bottom: 5%;
+  row-gap : 5%;
+  column-gap: 3%;
 `;
 
 export default function Contents({ title, fishlist }: ContentProps) {
@@ -45,14 +45,14 @@ export default function Contents({ title, fishlist }: ContentProps) {
       <ButtonWrapper>
         {fishlist.map((fish) => (
           <Button
-            width="30%"
+            width="100%"
             height="35px"
             margin="2% 0 2% 0"
             color={gray3}
             fontWeight={500}
             border={`1px solid ${gray3}`}
-            key={fish.id}
-            onClick={() => {navigate(`/info/${fish.id}`)}}
+            key={fish.fishId}
+            onClick={() => {navigate(`/info/${fish.fishId}`)}}
           >
             {fish.name}
           </Button>

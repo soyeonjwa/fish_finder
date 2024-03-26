@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 
-import data from '../../../services/dummy/compareFish.json';
 import { gray3 } from '../../../assets/styles/palettes';
+
+import { axiosInstance } from '../../../services/axios';
+import { AxiosResponse } from 'axios';
 
 interface FishCompareProps{
     sourceFishId : number,
     targetFishId : number
+}
+
+interface Compare{
+    fishId : number
+    name : string
+    imgUri : string
+    contentList : Content[]
+}
+
+
+interface Content{
+    content : string
 }
 
 const Wrapper = styled.div`
@@ -49,37 +63,52 @@ const Line = styled.div`
 `
 
 export default function FishCompare({sourceFishId, targetFishId} : FishCompareProps) {
-  return (
-    <Wrapper>
-        <div style = {{display:'none'}}>{sourceFishId} {targetFishId}</div>
-        <Contents>
-            <Image src = {data[0].imgUri}></Image>
-            <Name>{data[0].name}</Name>
-            {
-                data[0].contentList && (
-                    data[0].contentList.map((content, index)=>(
-                        <Content key = {index}>
-                            {content.content}
-                        </Content>
-                    ))
-                )
-            }
-        </Contents>
-        <Line style = {{borderRight : `1px solid ${gray3}`}}></Line>
-        <Contents>
-            <Image src = {data[1].imgUri}></Image>
-                <Name>{data[1].name}</Name>
-                {
-                    data[1].contentList && (
-                        data[1].contentList.map((content, index)=>(
-                            <Content key = {index}>
-                                {content.content}
-                            </Content>
-                        ))
-                    )
-                }    
-        </Contents>  
-    </Wrapper>
-    
-  )
-}
+  
+    const [data, setData] = useState<Compare[]>();
+
+    useEffect(()=>{
+        axiosInstance.get(`/api/fishes/differences/${sourceFishId}/${targetFishId}`)
+            .then((res:AxiosResponse) => {
+                setData(res.data.data)
+            })
+            .catch((error) => {throw new Error(error.message)})
+    },[])
+  
+    return (
+        <Wrapper>
+            <div style = {{display:'none'}}>{sourceFishId} {targetFishId}</div>
+            { data && 
+                <>
+                <Contents>
+                    <Image src = {data[0].imgUri}></Image>
+                    <Name>{data[0].name}</Name>
+                    {
+                        data[0].contentList && (
+                            data[0].contentList.map((content, index)=>(
+                                <Content key = {index}>
+                                    {content.content}
+                                </Content>
+                            ))
+                        )
+                    }
+                </Contents>
+                <Line style = {{borderRight : `1px solid ${gray3}`}}></Line>
+                <Contents>
+                    <Image src = {data[1].imgUri}></Image>
+                        <Name>{data[1].name}</Name>
+                        {
+                            data[1].contentList && (
+                                data[1].contentList.map((content, index)=>(
+                                    <Content key = {index}>
+                                        {content.content}
+                                    </Content>
+                                ))
+                            )
+                        }    
+                </Contents>
+                </>
+            }  
+        </Wrapper>
+        
+    )
+    }

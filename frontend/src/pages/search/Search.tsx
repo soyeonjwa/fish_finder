@@ -6,9 +6,15 @@ import WordContents from "../../components/search/SearchWordContents";
 import { useLocation, useNavigate } from "react-router-dom";
 import FishCompareCard from "../../components/search/FishCompareCard";
 import { NavBarWrapper } from "../../components/common/Wrapper";
-// import FishInfoCard from "../../components/search/FishInfoCard";
-// import FishCompareCard from "../../components/search/FishCompareCard";
-// import Warning from "../../assets/icons/warning.svg";
+
+import { axiosInstance } from "../../services/axios";
+import { AxiosResponse } from "axios";
+
+interface fishData{
+  fishId : number
+  name : string
+}
+
 
 const Wrapper = styled(NavBarWrapper)`
   display: flex;
@@ -42,10 +48,13 @@ const CardContent = styled.div`
 `
 
 
+
 export default function Search() {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParam = new URLSearchParams(location.search);
+
+  const [seasonFishList, setSeasonFishList] = useState<fishData[]>([]);
 
   const [value, setValue] = useState<string|null>("");
   const handleSubmit = () => {
@@ -56,9 +65,20 @@ export default function Search() {
     navigate(`/info/${id}`)
   }
 
+ 
+
   useEffect(()=>{
-    setValue(queryParam.get("query"))
+    if(!queryParam.get("query")){
+      const todayMonth = new Date().getMonth();
+
+      axiosInstance.get(`/api/fishes/season?ss=${todayMonth}월`)
+        .then((res : AxiosResponse)=>{
+          setSeasonFishList(res.data.data.fishList)
+        })
+    }
+    else setValue(queryParam.get("query"))
   }, [queryParam.get("query")])
+
   
   return (
     <Wrapper>
@@ -79,12 +99,12 @@ export default function Search() {
             <Content>
               <WordContents
                 title="최근 검색어종"
-                fishlist={[{id : 1, name : "방어"}, {id:2, name: "잿방어"}, {id:3, name:"부시리"}]}
+                fishlist={[{fishId : 1, name : "방어"}, {fishId:2, name: "잿방어"}, {fishId:3, name:"부시리"}]}
               ></WordContents>
               <div>{queryParam}</div>
               <WordContents
                 title="추천 검색어종"
-                fishlist={[{id : 1, name : "방어"}, {id:2, name: "잿방어"}, {id:3, name:"부시리"}]}
+                fishlist={seasonFishList}
               ></WordContents>
             </Content>
           ):
