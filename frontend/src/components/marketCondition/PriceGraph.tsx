@@ -15,13 +15,20 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Legend);
 import { gray2, gray3, gray4, primary } from '../../assets/styles/palettes';
 import { Button } from '../common/Button';
 
-import apiData from '../../services/dummy/fishPrice.json'
 
 interface PriceGraphProps {
-    fishId : number;
+    ourWeeklyPrice : Price[]
+    ourMonthlyPrice : Price[]
+    ourHalfYearPrice : Price[]
+    otherWeeklyPrice : Price[]
+    otherMonthlyPrice : Price[]
+    otherHalfYearPrice : Price[]
 }
 
-const labels : string[]= []; //x축 기준
+interface Price{
+    date : string
+    price : number
+}
 
 interface PriceData{
     x : string,
@@ -111,10 +118,17 @@ const options = {
 
 
 
-export default function PriceGraph({fishId} : PriceGraphProps) {
+export default function PriceGraph({
+    ourWeeklyPrice,
+    ourMonthlyPrice,
+    ourHalfYearPrice,
+    otherWeeklyPrice,
+    otherMonthlyPrice,
+    otherHalfYearPrice} : PriceGraphProps) {
     const [selectedBtn, setSelectedBtn] = useState("oneWeek");
     const [priceDatas, setPriceDatas] = useState<PriceData[]>([]);
     const [otherPriceDatas, setOtherPriceDatas] = useState<PriceData[]>([]);
+    const [labels , setLabels] = useState<string[]>([]);
   
     const data = {
         labels,
@@ -136,17 +150,19 @@ export default function PriceGraph({fishId} : PriceGraphProps) {
     }
 
     useEffect(()=>{
+        setLabels([]);
+
         if(selectedBtn==="oneWeek"){
-            setPriceDatas(apiData.ourWeeklyPrice.map(entry => ({ x : entry.date.split("-")[2]+"일", y : entry.price})))
-            setOtherPriceDatas(apiData.otherWeeklyPrice.map(entry => ({ x : entry.date.split("-")[2]+"일", y : entry.price})))
+            setPriceDatas(ourWeeklyPrice.map(entry => ({ x : entry.date.split("-")[2]+"일", y : entry.price})))
+            setOtherPriceDatas(otherWeeklyPrice.map(entry => ({ x : entry.date.split("-")[2]+"일", y : entry.price})))
         }
         else if(selectedBtn==="oneMonth"){
-            setPriceDatas(apiData.ourMonthlyPrice.map(entry => ({ x: entry.date[4]+entry.date[5]+'주', y: entry.price })))
-            setOtherPriceDatas(apiData.otherMonthlyPrice.map(entry => ({ x: entry.date[4]+entry.date[5]+'주', y: entry.price })))
+            setPriceDatas(ourMonthlyPrice.map(entry => ({ x: entry.date[4]+entry.date[5]+'주', y: entry.price })))
+            setOtherPriceDatas(otherMonthlyPrice.map(entry => ({ x: entry.date[4]+entry.date[5]+'주', y: entry.price })))
         }
         else if(selectedBtn==="sixMonth"){
-            setPriceDatas(apiData.ourHalfYearPrice.map(entry => ({ x: entry.date.split("-")[1]+"월", y: entry.price })))
-            setOtherPriceDatas(apiData.otherHalfYearPrice.map(entry => ({ x: entry.date.split("-")[1]+"월", y: entry.price })))
+            setPriceDatas(ourHalfYearPrice.map(entry => ({ x: entry.date.split("-")[1]+"월", y: entry.price })))
+            setOtherPriceDatas(otherHalfYearPrice.map(entry => ({ x: entry.date.split("-")[1]+"월", y: entry.price })))
         }
     },[selectedBtn])
 
@@ -154,7 +170,6 @@ export default function PriceGraph({fishId} : PriceGraphProps) {
 
     return (
     <Wrapper>
-        <div style = {{display:'none'}}>{fishId}</div>
         <Title>잿방어</Title>
         <Buttons>
             <Button
