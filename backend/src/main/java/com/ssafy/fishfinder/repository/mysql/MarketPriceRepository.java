@@ -35,6 +35,6 @@ public interface MarketPriceRepository extends JpaRepository<MarketPrice, Long>{
     List<FishDto.MarketPriceDto> findHalfYearPrices(Long fishId, String s);
 
     // 특정 물고기의 오늘 시세 조회
-    @Query("SELECT p FROM MarketPrice p WHERE p.fish.id = :fishId AND DATE(p.date) = CURDATE() AND p.source = :source")
+    @Query("SELECT p FROM MarketPrice p WHERE p.fish.id = :fishId AND DATE(p.date) = CURDATE()-1 AND p.source = :source")
     MarketPrice findTodayPrice(Long fishId, Source source);
 }
