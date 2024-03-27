@@ -5,11 +5,9 @@ WORKDIR /usr/src/app
 # yarn 설치
 COPY package*.json ./
 RUN yarn install
-# 의존성 설치
 # 소스 추가
 COPY . .
 RUN yarn build
-# 포트 매핑
-EXPOSE 8020
+
 # 실행 명령
 CMD [ "yarn", "start" ]
