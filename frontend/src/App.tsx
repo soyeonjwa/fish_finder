@@ -29,7 +29,6 @@ function App() {
           <Route path="" element={<Footer />}>
             <Route path="" element={<Main />} />
             <Route path="board" element={<Board />} />
-            <Route path="scan" element={<Scan />} />
             <Route path="search" element={<Search />} />
             <Route path="mypage" element={<MyPage />} />
           </Route>
@@ -40,6 +39,7 @@ function App() {
           <Route path="info">
             <Route path=":fishId" element={<Info />} />
           </Route>
+          <Route path="scan" element={<Scan />} />
         </Routes>
       </BrowserRouter>
     </Wrapper>
