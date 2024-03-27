@@ -187,11 +187,21 @@ export default function Scan() {
     // video의 크기에 맞게 canvas 크기를 조절
     photo.width = video.getBoundingClientRect().width;
     photo.height = video.getBoundingClientRect().height;
-    context.drawImage(video, 0, 0, photo.width, photo.height);
+    const tempWidth = (video.videoHeight * photo.width) / photo.height;
+    context.drawImage(
+      video,
+      (video.videoWidth - tempWidth) / 2,
+      0,
+      tempWidth,
+      video.videoHeight,
+      0,
+      0,
+      photo.width,
+      photo.height
+    );
 
     // canvas에서 이미지 데이터 가져오기 (예: PNG 형식)
     const imageData = photo.toDataURL("image/png");
-    console.log(video.videoWidth, video.videoHeight, photo.width, photo.height);
     console.log(imageData); // 이 데이터를 사용하거나 저장
     video.pause();
 
@@ -237,6 +247,8 @@ export default function Scan() {
             ref={photoRef}
             style={{
               display: photoTaken ? "block" : "none",
+              width: "100%",
+              height: "100%",
               objectFit: "contain",
             }}
           ></canvas>
