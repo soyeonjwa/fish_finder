@@ -4,6 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ssafy.fishfinder.dto.OauthDto;
+import com.ssafy.fishfinder.exception.CustomException;
+import com.ssafy.fishfinder.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,9 @@ public class OauthServiceImpl implements OauthService{
              * 응답
              */
             int responseCode = conn.getResponseCode();
+            if (responseCode != 200) {
+                throw new CustomException(ErrorCode.WRONG_CODE);
+            }
 //            System.out.println("responseCode : " + responseCode);
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
