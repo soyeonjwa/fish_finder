@@ -3,6 +3,8 @@ package com.ssafy.fishfinder.controller;
 import com.ssafy.fishfinder.controller.constants.Message;
 import com.ssafy.fishfinder.dto.OauthDto;
 import com.ssafy.fishfinder.dto.UserDto;
+import com.ssafy.fishfinder.exception.CustomException;
+import com.ssafy.fishfinder.exception.ErrorCode;
 import com.ssafy.fishfinder.service.UserService;
 import com.ssafy.fishfinder.service.OauthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,8 +45,7 @@ public class UserController {
     public ResponseEntity<Message> UserUpdate(@RequestBody UserDto userDto, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
-            Message message = new Message("세션이 존재하지 않음");
-            return new ResponseEntity(message, HttpStatus.UNAUTHORIZED);
+            throw new CustomException(ErrorCode.NO_AUTHORITY);
         }
         Long id = (Long) session.getAttribute("id");
         userDto.setId(id);
@@ -53,18 +54,32 @@ public class UserController {
         session.setAttribute("nickname", userDto.getNickname());
 
         Message message = new Message("닉네임 수정 완료");
-        return new ResponseEntity(message, HttpStatus.CREATED);
+        return ResponseEntity.ok(message);
     }
 
     @GetMapping("/logout")
     public ResponseEntity<Message> UserLogout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
-            Message message = new Message("세션이 존재하지 않음");
-            return new ResponseEntity(message, HttpStatus.UNAUTHORIZED);
+            throw new CustomException(ErrorCode.NO_AUTHORITY);
         }
         session.invalidate();
+
         Message message = new Message("로그아웃 완료");
+        return ResponseEntity.ok(message);
+    }
+
+    @DeleteMapping("/signout")
+    public ResponseEntity<Message> UserSignOut(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            throw new CustomException(ErrorCode.NO_AUTHORITY);
+        }
+        Long id = (Long) session.getAttribute("id");
+        userService.deleteMember(id);
+        session.invalidate();
+
+        Message message = new Message("회원탈퇴 완료");
         return ResponseEntity.ok(message);
     }
 }

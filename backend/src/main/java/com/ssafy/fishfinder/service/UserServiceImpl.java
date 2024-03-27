@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getMember(UserDto userdto) {
-        return null;
+    public void deleteMember(Long id) {
+        Member member = memberRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NO_MEMBER));
+        memberRepository.delete(member);
     }
+
 }
