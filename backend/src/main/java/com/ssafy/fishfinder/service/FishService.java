@@ -9,6 +9,8 @@ public interface FishService {
 
     List<FishDto.FishListResponseDto> getFishList();
 
+    List<FishDto.FishListResponseDto> getFishListByName(String keyword);
+
     FishDto.FishDetailResponseDto getFishDetail(Long fishId);
 
     FishDiffDto.FishDiffResponseDto getFishDifferences(Long sourceFishId, Long targetFishId);
