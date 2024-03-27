@@ -10,6 +10,8 @@ RUN apt-get -y install libgl1-mesa-glx
 
 RUN apt-get -y install tesseract-ocr
 
+RUN pip install --upgrade pip
+
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY . .
