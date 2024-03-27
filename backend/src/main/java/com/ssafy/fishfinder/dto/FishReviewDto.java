@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
 public class FishReviewDto {
 
     @Getter
@@ -54,5 +56,12 @@ public class FishReviewDto {
                     .totalPrice(totalPrice)
                     .build();
         }
+    }
+
+    public static interface AvgPriceDto {
+        int getPrice();
+        long getId();
+
+        Date getDate();
     }
 }

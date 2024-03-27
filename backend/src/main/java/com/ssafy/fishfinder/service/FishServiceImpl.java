@@ -2,16 +2,15 @@ package com.ssafy.fishfinder.service;
 
 import com.ssafy.fishfinder.dto.FishDiffDto;
 import com.ssafy.fishfinder.dto.FishDto;
+import com.ssafy.fishfinder.dto.FishReviewDto;
 import com.ssafy.fishfinder.entity.mongo.FishDiff;
-import com.ssafy.fishfinder.entity.mysql.Fish;
-import com.ssafy.fishfinder.entity.mysql.FishGroup;
-import com.ssafy.fishfinder.entity.mysql.MarketPrice;
-import com.ssafy.fishfinder.entity.mysql.Source;
+import com.ssafy.fishfinder.entity.mysql.*;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
 import com.ssafy.fishfinder.repository.mongo.FishDiffRepository;
 import com.ssafy.fishfinder.repository.mysql.FishGroupRepository;
 import com.ssafy.fishfinder.repository.mysql.FishRepository;
+import com.ssafy.fishfinder.repository.mysql.FishReviewRepository;
 import com.ssafy.fishfinder.repository.mysql.MarketPriceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +33,7 @@ public class FishServiceImpl implements FishService{
     private final FishDiffRepository fishDiffRepository;
     private final FishGroupRepository fishGroupRepository;
     private final MarketPriceRepository marketPriceRepository;
+    private final FishReviewRepository fishReviewRepository;
     private final WebClientService webClientService;
 
     /**
@@ -82,13 +83,17 @@ public class FishServiceImpl implements FishService{
                     .build());
         }
 
+        // 오늘 시세 조회
+        MarketPrice ourTodayPrice = marketPriceRepository.findTodayPrice(fishId, Source.users);
+        MarketPrice otherTodayPrice = marketPriceRepository.findTodayPrice(fishId, Source.others);
+
         FishDto.FishDetailResponseDto response = FishDto.FishDetailResponseDto.builder()
                 .fishId(fish.getId())
                 .name(fish.getName())
                 .imgUri(fish.getImg_url())
                 .description(fish.getDescription())
-                .otherPrice(0) // TODO: 다른 가격 조회 로직 추가
-                .ourPrice(0)   // TODO: 우리 가격 조회 로직 추가
+                .otherPrice(otherTodayPrice==null?0:otherTodayPrice.getPrice()) // TODO: 다른 가격 조회 로직 추가
+                .ourPrice(ourTodayPrice==null?0:ourTodayPrice.getPrice())   // TODO: 우리 가격 조회 로직 추가
                 .similarFish(similarFishList)
                 .build();
 
@@ -234,6 +239,27 @@ public class FishServiceImpl implements FishService{
     public void setFishPrice() {
         // 다른 사이트에서 데이터를 가져와서 저장하는 메소드
         webClientService.getOtherSiteData();
+        
+        // 유저게시판에서 데이터를 가져와서 저장하는 메소드
+        setOurSiteData();
+    }
+
+    /**
+     * 유저게시판에서 데이터를 가져와서 저장하는 메소드
+     */
+    public void setOurSiteData() {
+        List<FishReviewDto.AvgPriceDto> avgPrices = fishReviewRepository.findAvgPriceAll();
+
+        for (FishReviewDto.AvgPriceDto avgPriceDto : avgPrices) {
+            Fish fish = fishRepository.findById(avgPriceDto.getId()).orElse(null);
+            if (fish == null) continue;
+            marketPriceRepository.save(MarketPrice.builder()
+                    .fish(fish)
+                    .price(avgPriceDto.getPrice())
+                    .date(avgPriceDto.getDate())
+                    .source(Source.users)
+                    .build());
+        }
     }
 
 }
