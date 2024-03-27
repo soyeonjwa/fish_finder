@@ -59,6 +59,26 @@ public class FishServiceImpl implements FishService{
         return response;
     }
 
+    @Override
+    public List<FishDto.FishListResponseDto> getFishListByName(String keyword) {
+        // 어류 목록 이름으로 조회
+        List<Fish> fishes = fishRepository.findAllByName(keyword);
+
+        List<FishDto.FishListResponseDto> response = new ArrayList<>();
+
+        for (Fish fish : fishes) {
+            response.add(FishDto.FishListResponseDto.builder()
+                    .fishId(fish.getId())
+                    .name(fish.getName())
+                    .imgUri(fish.getImg_url())
+                    .description(fish.getDescription())
+                    .build());
+        }
+
+        return response;
+    }
+
+
     /**
      * 어류 상세 조회
      * @param fishId
@@ -92,8 +112,8 @@ public class FishServiceImpl implements FishService{
                 .name(fish.getName())
                 .imgUri(fish.getImg_url())
                 .description(fish.getDescription())
-                .otherPrice(otherTodayPrice==null?0:otherTodayPrice.getPrice()) // TODO: 다른 가격 조회 로직 추가
-                .ourPrice(ourTodayPrice==null?0:ourTodayPrice.getPrice())   // TODO: 우리 가격 조회 로직 추가
+                .otherPrice(otherTodayPrice==null?0:otherTodayPrice.getPrice())
+                .ourPrice(ourTodayPrice==null?0:ourTodayPrice.getPrice())
                 .similarFish(similarFishList)
                 .build();
 

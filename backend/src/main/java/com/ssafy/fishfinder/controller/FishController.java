@@ -20,6 +20,13 @@ public class FishController {
         return ResponseEntity.ok(new Message("어류 목록 조회 완료", fishService.getFishList()));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Message> searchFish(
+            @RequestParam String keyword
+    ) {
+        return ResponseEntity.ok(new Message("어류 검색 완료", fishService.getFishListByName(keyword)));
+    }
+
     @GetMapping("/{fishId}")
     public ResponseEntity<Message> getFishDetail(
             @PathVariable Long fishId

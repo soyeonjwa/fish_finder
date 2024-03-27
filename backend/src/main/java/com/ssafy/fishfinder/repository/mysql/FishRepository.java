@@ -16,4 +16,7 @@ public interface FishRepository extends JpaRepository<Fish, Long> {
 
     @Query("SELECT f FROM Fish f WHERE f in (SELECT g.fish FROM FishFishGroup g WHERE g.fishGroup.id = :id)")
     List<Fish> findAllByFishGroup(Long id);
+
+    @Query("SELECT f FROM Fish f WHERE f.name LIKE %:keyword% ORDER BY f.name")
+    List<Fish> findAllByName(String keyword);
 }
