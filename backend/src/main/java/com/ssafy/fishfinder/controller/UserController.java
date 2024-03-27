@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,6 @@ public class UserController {
     private final OauthService oauthService;
     private final UserService userService;
 
-    @ResponseBody
     @GetMapping("/login")
     public ResponseEntity<Message> UserLogIn(@RequestParam String code, HttpServletRequest request){
         OauthDto userInfo = oauthService.getUserInfo(code);
@@ -31,14 +31,21 @@ public class UserController {
         session.setAttribute("id", userDto.getId());
         session.setAttribute("nickname", userDto.getNickname());
 
+        if (userDto.getCreatedNow() == true){
+            Message message = new Message("회원가입 완료");
+            return new ResponseEntity(message, HttpStatus.CREATED);
+        }
         Message message = new Message("로그인 완료");
         return ResponseEntity.ok(message);
     }
 
-    @ResponseBody
-    @PostMapping("/update")
+    @PatchMapping("/update")
     public ResponseEntity<Message> UserUpdate(@RequestBody UserDto userDto, HttpServletRequest request){
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            Message message = new Message("세션이 존재하지 않음");
+            return new ResponseEntity(message, HttpStatus.UNAUTHORIZED);
+        }
         Long id = (Long) session.getAttribute("id");
         userDto.setId(id);
         userService.updateMember(userDto);
@@ -46,6 +53,18 @@ public class UserController {
         session.setAttribute("nickname", userDto.getNickname());
 
         Message message = new Message("닉네임 수정 완료");
+        return new ResponseEntity(message, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<Message> UserLogout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            Message message = new Message("세션이 존재하지 않음");
+            return new ResponseEntity(message, HttpStatus.UNAUTHORIZED);
+        }
+        session.invalidate();
+        Message message = new Message("로그아웃 완료");
         return ResponseEntity.ok(message);
     }
 }

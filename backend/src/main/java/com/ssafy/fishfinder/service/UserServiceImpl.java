@@ -28,8 +28,13 @@ public class UserServiceImpl implements UserService {
         if (member == null){ // 신규 회원
             member = userInfo.toEntity();
             memberRepository.save(member);
+            UserDto userDto = UserDto.toUserDto(member);
+            userDto.setCreatedNow(true);
+            return userDto;
         }
-        return UserDto.toUserDto(member);
+        UserDto userDto = UserDto.toUserDto(member);
+        userDto.setCreatedNow(false);
+        return userDto;
     }
 
     /**

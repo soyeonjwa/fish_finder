@@ -12,6 +12,7 @@ public class UserDto {
 
     private Long id;
     private String nickname;
+    private Boolean createdNow;
 
     public static UserDto toUserDto(Member member){
         return UserDto.builder()
