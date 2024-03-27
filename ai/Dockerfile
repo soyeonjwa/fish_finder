@@ -1,10 +1,18 @@
 FROM python:3.10
 
-COPY . .
-WORKDIR /src
+WORKDIR /app
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+COPY ./requirements.txt /app/requirements.txt
+
+RUN apt-get update
+
+RUN apt-get -y install libgl1-mesa-glx
+
+RUN apt-get -y install tesseract-ocr
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+COPY . .
 
 EXPOSE 8030
 
