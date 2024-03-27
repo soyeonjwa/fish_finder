@@ -5,6 +5,7 @@ import { gray3 } from '../../../assets/styles/palettes';
 
 import { axiosInstance } from '../../../services/axios';
 import { AxiosResponse } from 'axios';
+import ImageContainer from '../../common/ImageContainer';
 
 interface FishCompareProps{
     sourceFishId : number,
@@ -12,16 +13,25 @@ interface FishCompareProps{
 }
 
 interface Compare{
+    sourceFish : FishData
+    targetFish : FishData
+    attributes : Attribute[]
+}
+
+interface FishData{
     fishId : number
     name : string
     imgUri : string
-    contentList : Content[]
 }
 
-
-interface Content{
-    content : string
+interface Attribute{
+    attribute : string
+    source_value : string
+    target_value : string
+    source_img : string
+    target_img : string
 }
+
 
 const Wrapper = styled.div`
     width: 100%;
@@ -39,12 +49,6 @@ const Contents = styled.div`
     align-items: center;
 `
 
-const Image = styled.img`
-    width: 95%;
-    object-fit: cover;
-    margin-bottom : 5%;
-`
-
 const Name = styled.div`
     font-size : 17px;
     margin : 5% 0 10% 0;
@@ -54,8 +58,10 @@ const Content = styled.div`
     display : flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     font-size : 15px;
-    height : 70px;
+    height : 55px;
 `
 
 const Line = styled.div`
@@ -64,7 +70,7 @@ const Line = styled.div`
 
 export default function FishCompare({sourceFishId, targetFishId} : FishCompareProps) {
   
-    const [data, setData] = useState<Compare[]>();
+    const [data, setData] = useState<Compare>();
 
     useEffect(()=>{
         axiosInstance.get(`/api/fishes/differences/${sourceFishId}/${targetFishId}`)
@@ -80,13 +86,18 @@ export default function FishCompare({sourceFishId, targetFishId} : FishComparePr
             { data && 
                 <>
                 <Contents>
-                    <Image src = {data[0].imgUri}></Image>
-                    <Name>{data[0].name}</Name>
+                    <ImageContainer
+                        src = {data.targetFish.imgUri}
+                        alt = "비교 어종 사진 없음"
+                        width = '100%'
+                        height = '70px'
+                    />
+                    <Name>{data.targetFish.name}</Name>
                     {
-                        data[0].contentList && (
-                            data[0].contentList.map((content, index)=>(
+                        data.attributes && (
+                            data.attributes.map((content, index)=>(
                                 <Content key = {index}>
-                                    {content.content}
+                                    {content.target_value}
                                 </Content>
                             ))
                         )
@@ -94,17 +105,22 @@ export default function FishCompare({sourceFishId, targetFishId} : FishComparePr
                 </Contents>
                 <Line style = {{borderRight : `1px solid ${gray3}`}}></Line>
                 <Contents>
-                    <Image src = {data[1].imgUri}></Image>
-                        <Name>{data[1].name}</Name>
+                    <ImageContainer
+                            src = {data.sourceFish.imgUri}
+                            alt = "비교 어종 사진 없음"
+                            width = '100%'
+                            height = '70px'
+                        />
+                        <Name>{data.sourceFish.name}</Name>
                         {
-                            data[1].contentList && (
-                                data[1].contentList.map((content, index)=>(
+                            data.attributes && (
+                                data.attributes.map((content, index)=>(
                                     <Content key = {index}>
-                                        {content.content}
+                                        {content.source_value}
                                     </Content>
                                 ))
                             )
-                        }    
+                        }
                 </Contents>
                 </>
             }  

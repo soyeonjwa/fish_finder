@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { gray2, gray3, primary} from '../../assets/styles/palettes';
 
 interface OtherPriceContainerProps{
+    name : string
     otherPrice : number;
 }
 
@@ -45,11 +46,11 @@ const Content = styled.div`
 `
 
 
-export default function OtherPriceContainer({otherPrice} : OtherPriceContainerProps) {
+export default function OtherPriceContainer({name, otherPrice} : OtherPriceContainerProps) {
   return (
     <Wrapper>
         <Title>
-            <div>잿방어</div>
+            <div>{name}</div>
             <span>1kg당</span>
         </Title>
         <Content>

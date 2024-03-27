@@ -38,6 +38,16 @@ const InfoIcon = styled.img`
   width: 20px;
 `;
 
+const ImageWrapper = styled.div`
+  width: 100%;
+  height : 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+`
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
@@ -49,7 +59,10 @@ export default function FishCompareCard({ fishId, name, imgUri, onClickCard }: F
   return (
     <Wrapper onClick={()=>onClickCard(fishId)}>
       <InfoIcon src={Info} />
-      <Image src={imgUri} />
+      <ImageWrapper>
+        <Image src={imgUri} />
+      </ImageWrapper>
+      
       <span>{name}</span>
     </Wrapper>
   );
