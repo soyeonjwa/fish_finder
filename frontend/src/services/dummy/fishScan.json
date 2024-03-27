@@ -1,0 +1,21 @@
+[
+  {
+    "class": 1,
+    "class_name": "방어",
+    "bbox": [100, 200, 300, 400],
+    "confidence": 0.8
+  },
+  {
+    "class": 21,
+    "class_name": "방방방어",
+    "bbox": [300, 600, 200, 900],
+    "confidence": 0.7
+  },
+
+  {
+    "class": 14,
+    "class_name": "방방어",
+    "bbox": [600, 700, 300, 300],
+    "confidence": 0.9
+  }
+]
