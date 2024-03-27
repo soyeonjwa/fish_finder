@@ -16,6 +16,7 @@ import com.ssafy.fishfinder.repository.mysql.MarketPriceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class FishServiceImpl implements FishService{
     private final FishDiffRepository fishDiffRepository;
     private final FishGroupRepository fishGroupRepository;
     private final MarketPriceRepository marketPriceRepository;
+    private final WebClientService webClientService;
 
     /**
      * 어류 목록 조회
@@ -184,6 +186,11 @@ public class FishServiceImpl implements FishService{
         return response;
     }
 
+    /**
+     * 어류 가격 조회
+     * @param fishId
+     * @return FishDto.FishPriceResponseDto
+     */
     @Override
     public FishDto.FishPriceResponseDto getFishPrice(Long fishId) {
         // 물고기 존재 여부 확인
@@ -219,4 +226,14 @@ public class FishServiceImpl implements FishService{
 
         return response;
     }
+
+    /**
+     * 유저게시판, 다른 사이트에서 데이터를 가져와서 저장하는 메소드
+     */
+    @Scheduled(cron = "0 50 23 * * *") // 매일 23시 50분에 실행
+    public void setFishPrice() {
+        // 다른 사이트에서 데이터를 가져와서 저장하는 메소드
+        webClientService.getOtherSiteData();
+    }
+
 }
