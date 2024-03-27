@@ -24,6 +24,8 @@ public class WebClientServiceImpl implements WebClientService{
 
     // 다른 사이트에서 데이터를 가져와서 저장하는 메소드
     public void getOtherSiteData() {
+        log.info("==========타 사이트 크롤링 시작==========");
+
         WebClient webClient = WebClient
                 .builder()
                 .baseUrl("https://pub-api.tpirates.com/v2/www/retail-price/price/aggregate/region?&orderState=default&page=0&size=200")
@@ -50,5 +52,6 @@ public class WebClientServiceImpl implements WebClientService{
                 }
             }
         }
+        log.info("==========타 사이트 크롤링 종료==========");
     }
 }
