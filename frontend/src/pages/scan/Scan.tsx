@@ -44,11 +44,11 @@ const VideoBox = styled.div`
   width: 100%;
   height: 75vh;
 
-  & > video {
+  /* & > video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
+  } */
 `;
 
 const ScanButton = styled.img`
@@ -110,10 +110,31 @@ const Td = styled.td`
   padding: 8px;
   text-align: center;
 `;
+
 export default function Scan() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
   const [page, setPage] = useState("cam");
+  const [photoTaken, setPhotoTaken] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const photo = photoRef.current;
+
+    if (video && photo) {
+      const resizeCanvas = () => {
+        photo.width = video.videoWidth;
+        photo.height = video.videoHeight;
+      };
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      return () => {
+        window.removeEventListener("resize", resizeCanvas);
+      };
+    }
+  }, []);
 
   const getVideo = () => {
     // 미디어 설정에서 후면 카메라를 지정
@@ -164,18 +185,20 @@ export default function Scan() {
     }
 
     // video의 크기에 맞게 canvas 크기를 조절
-    photo.width = video.videoWidth;
-    photo.height = video.videoHeight;
+    photo.width = video.getBoundingClientRect().width;
+    photo.height = video.getBoundingClientRect().height;
     context.drawImage(video, 0, 0, photo.width, photo.height);
 
     // canvas에서 이미지 데이터 가져오기 (예: PNG 형식)
     const imageData = photo.toDataURL("image/png");
+    console.log(video.videoWidth, video.videoHeight, photo.width, photo.height);
     console.log(imageData); // 이 데이터를 사용하거나 저장
     video.pause();
 
     //data 백으로 보내기
 
-    setPage("Image");
+    // setPage("Image");
+    setPhotoTaken(true);
   };
 
   if (page === "cam") {
@@ -199,69 +222,80 @@ export default function Scan() {
         <span>어종 스캔</span>
       </Header>
 
-      {page === "cam" ? (
-        <Contents>
-          <VideoBox>
-            <video ref={videoRef}></video>
-          </VideoBox>
-          <ScanButton src={CameraButton} onClick={takePhoto}></ScanButton>
-          <canvas ref={photoRef} style={{ display: "none" }}></canvas>
-          <Info>
-            <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
-          </Info>
-        </Contents>
-      ) : (
-        <Contents>
-          {boxdata &&
-            boxdata.map((data, index) => (
-              <button onClick={() => setOpen(true)} key={index}>
-                Open sheet
-              </button>
-            ))}
+      <Contents>
+        <VideoBox>
+          <video
+            ref={videoRef}
+            style={{
+              display: photoTaken ? "none" : "block",
+              objectFit: "cover",
+              width: "100%",
+              height: "100%",
+            }}
+          ></video>
+          <canvas
+            ref={photoRef}
+            style={{
+              display: photoTaken ? "block" : "none",
+              objectFit: "contain",
+            }}
+          ></canvas>
+        </VideoBox>
+        <ScanButton src={CameraButton} onClick={takePhoto}></ScanButton>
 
-          <Sheet
-            isOpen={isOpen}
-            onClose={() => setOpen(false)}
-            detent="content-height"
-            snapPoints={[1200, 750]}
-            onSnap={handleSnap}
-            initialSnap={1}
-          >
-            <Sheet.Container>
-              <Sheet.Header />
-              <Sheet.Content>
-                <FishInfo>
-                  <Image src={data.imgUri} />
-                  <p>{data.name}</p>
-                  <Table>
-                    <thead>
-                      <tr>
-                        <Th></Th>
-                        <Th>
-                          <span>타사이트</span>
-                        </Th>
-                        <Th>
-                          물어바종
-                          <br />
-                          평균거래가
-                        </Th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <Td>1kg 당</Td>
-                        <Td> {data.otherPrice}원~</Td>
-                        <Td> {data.ourPrice}원~</Td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </FishInfo>
-              </Sheet.Content>
-            </Sheet.Container>
-            <Sheet.Backdrop />
-          </Sheet>
-        </Contents>
-      )}
+        <Info>
+          <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
+        </Info>
+
+        {boxdata &&
+          boxdata.map((data, index) => (
+            <button onClick={() => setOpen(true)} key={index}>
+              Open sheet
+            </button>
+          ))}
+
+        <Sheet
+          isOpen={isOpen}
+          onClose={() => setOpen(false)}
+          detent="content-height"
+          snapPoints={[1200, 750]}
+          onSnap={handleSnap}
+          initialSnap={1}
+        >
+          <Sheet.Container>
+            <Sheet.Header />
+            <Sheet.Content>
+              <FishInfo>
+                <Image src={data.imgUri} />
+                <p>{data.name}</p>
+                <Table>
+                  <thead>
+                    <tr>
+                      <Th></Th>
+                      <Th>
+                        <span>타사이트</span>
+                      </Th>
+                      <Th>
+                        물어바종
+                        <br />
+                        평균거래가
+                      </Th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <Td>1kg 당</Td>
+                      <Td> {data.otherPrice}원~</Td>
+                      <Td> {data.ourPrice}원~</Td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </FishInfo>
+            </Sheet.Content>
+          </Sheet.Container>
+          <Sheet.Backdrop />
+        </Sheet>
+      </Contents>
     </Wrapper>
   );
 }
