@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import Sheet, { SheetRef } from "react-modal-sheet";
-import { useState } from "react";
+import Sheet from "react-modal-sheet";
+// import { SheetRef } from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 
 import CameraButton from "../../assets/icons/scanCamera.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
 import data from "../../services/dummy/Fish.json";
+import boxdata from "../../services/dummy/fishScan.json";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -112,6 +113,7 @@ const Td = styled.td`
 export default function Scan() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
+  const [page, setPage] = useState("cam");
 
   const getVideo = () => {
     // 미디어 설정에서 후면 카메라를 지정
@@ -128,7 +130,6 @@ export default function Scan() {
         if (video) {
           video.pause();
           video.srcObject = stream;
-
           video.play();
         } else {
           console.error("Video element not found.");
@@ -171,12 +172,18 @@ export default function Scan() {
     const imageData = photo.toDataURL("image/png");
     console.log(imageData); // 이 데이터를 사용하거나 저장
     video.pause();
+
+    //data 백으로 보내기
+
+    setPage("Image");
   };
 
-  getVideo();
+  if (page === "cam") {
+    getVideo();
+  }
 
   const [isOpen, setOpen] = useState(false);
-  const ref = useRef<SheetRef>();
+  // const ref = useRef<SheetRef>();
   const navigate = useNavigate();
 
   const handleSnap = (snapIndex: number) => {
@@ -191,61 +198,70 @@ export default function Scan() {
       <Header>
         <span>어종 스캔</span>
       </Header>
-      <Contents>
-        <VideoBox>
-          <video ref={videoRef}></video>
-        </VideoBox>
-        <ScanButton src={CameraButton} onClick={takePhoto}></ScanButton>
-        <canvas ref={photoRef} style={{ display: "none" }}></canvas>
-        <Info>
-          <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
-        </Info>
-      </Contents>
 
-      {/* <Contents>
-        <button onClick={() => setOpen(true)}>Open sheet</button>
-        <Sheet
-          isOpen={isOpen}
-          onClose={() => setOpen(false)}
-          detent="content-height"
-          snapPoints={[1200, 750]}
-          onSnap={handleSnap}
-          initialSnap={1}
-        >
-          <Sheet.Container>
-            <Sheet.Header />
-            <Sheet.Content>
-              <FishInfo>
-                <Image src={data.imgUri} />
-                <p>{data.name}</p>
-                <Table>
-                  <thead>
-                    <tr>
-                      <Th></Th>
-                      <Th>
-                        <span>타사이트</span>
-                      </Th>
-                      <Th>
-                        물어바종
-                        <br />
-                        평균거래가
-                      </Th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <Td>1kg 당</Td>
-                      <Td> {data.otherPrice}원~</Td>
-                      <Td> {data.ourPrice}원~</Td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </FishInfo>
-            </Sheet.Content>
-          </Sheet.Container>
-          <Sheet.Backdrop />
-        </Sheet>
-      </Contents> */}
+      {page === "cam" ? (
+        <Contents>
+          <VideoBox>
+            <video ref={videoRef}></video>
+          </VideoBox>
+          <ScanButton src={CameraButton} onClick={takePhoto}></ScanButton>
+          <canvas ref={photoRef} style={{ display: "none" }}></canvas>
+          <Info>
+            <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
+          </Info>
+        </Contents>
+      ) : (
+        <Contents>
+          {boxdata &&
+            boxdata.map((data, index) => (
+              <button onClick={() => setOpen(true)} key={index}>
+                Open sheet
+              </button>
+            ))}
+
+          <Sheet
+            isOpen={isOpen}
+            onClose={() => setOpen(false)}
+            detent="content-height"
+            snapPoints={[1200, 750]}
+            onSnap={handleSnap}
+            initialSnap={1}
+          >
+            <Sheet.Container>
+              <Sheet.Header />
+              <Sheet.Content>
+                <FishInfo>
+                  <Image src={data.imgUri} />
+                  <p>{data.name}</p>
+                  <Table>
+                    <thead>
+                      <tr>
+                        <Th></Th>
+                        <Th>
+                          <span>타사이트</span>
+                        </Th>
+                        <Th>
+                          물어바종
+                          <br />
+                          평균거래가
+                        </Th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <Td>1kg 당</Td>
+                        <Td> {data.otherPrice}원~</Td>
+                        <Td> {data.ourPrice}원~</Td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </FishInfo>
+              </Sheet.Content>
+            </Sheet.Container>
+            <Sheet.Backdrop />
+          </Sheet>
+        </Contents>
+      )}
     </Wrapper>
   );
 }
