@@ -10,15 +10,20 @@ interface ContentProps {
   fishlist: {fishId : number, name : string}[];
 }
 
+interface Fish{
+  fishId : number
+  name : string
+}
+
 const Wrapper = styled.div`
   width: 100%;
-  height: auto;
+  height: 200px;
 `;
 
 const Title = styled.div`
   font-size: 16px;
   font-weight: 600;
-  margin: 2% 0 2% 0;
+  margin: 2% 0 3% 0;
 `;
 
 const Line = styled.hr`
@@ -37,6 +42,18 @@ const ButtonWrapper = styled.div`
 
 export default function Contents({ title, fishlist }: ContentProps) {
   const navigate = useNavigate();
+
+  const onClickBtn = (fish : Fish) => {
+    const recentSearch : Fish[]  = JSON.parse(localStorage.getItem("RecentSearch")||'[]').filter((e:Fish) => e.fishId != fish.fishId)
+    
+    if(recentSearch.length>=6) recentSearch.splice(0,1);
+
+    recentSearch.push({fishId : fish.fishId, name : fish.name})
+    localStorage.setItem("RecentSearch", JSON.stringify(recentSearch))
+
+    navigate(`/info/${fish.fishId}`);
+  }
+
   return (
     <Wrapper>
       <Line />
@@ -52,7 +69,7 @@ export default function Contents({ title, fishlist }: ContentProps) {
             fontWeight={500}
             border={`1px solid ${gray3}`}
             key={fish.fishId}
-            onClick={() => {navigate(`/info/${fish.fishId}`)}}
+            onClick={() => onClickBtn({fishId : fish.fishId, name : fish.name})}
           >
             {fish.name}
           </Button>

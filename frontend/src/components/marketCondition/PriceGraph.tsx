@@ -99,14 +99,18 @@ const options = {
     responsive: true,
     scales : {
         y : {
-            ticks : {color : `${gray2}`}
+            ticks : {
+                color : `${gray2}`,
+            },
+            // suggestedMin : 0
         },
         x : {
             ticks : {color : `${gray2}`},
             grid : {
                 color : 'transparent'
             }
-        },
+        }
+
     },
     plugins : {
         legend : {
@@ -125,6 +129,7 @@ export default function PriceGraph({
     otherWeeklyPrice,
     otherMonthlyPrice,
     otherHalfYearPrice} : PriceGraphProps) {
+
     const [selectedBtn, setSelectedBtn] = useState("oneWeek");
     const [priceDatas, setPriceDatas] = useState<PriceData[]>([]);
     const [otherPriceDatas, setOtherPriceDatas] = useState<PriceData[]>([]);
@@ -166,7 +171,9 @@ export default function PriceGraph({
         }
     },[selectedBtn])
 
-
+    useEffect(()=>{
+        
+    },[])
 
     return (
     <Wrapper>

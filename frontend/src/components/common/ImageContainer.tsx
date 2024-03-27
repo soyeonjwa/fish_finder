@@ -10,13 +10,17 @@ type Props = {
 }
 
 const Wrapper = styled.div<{width: string, height: string}>`
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width : ${props => props.width };
   height : ${props => props.height};
 `
 
 const Image = styled.img`
   width : 100%;
-  height : 100%;
+  height : auto;
   object-fit : cover;
   border-radius : 10px; 
 `

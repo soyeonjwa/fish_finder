@@ -34,6 +34,16 @@ const Wrapper = styled.div`
   }
 `;
 
+const ImageWrapper = styled.div`
+  width: 100%;
+  height : 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+`
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
@@ -79,7 +89,10 @@ export default function FishInfoCard({
 }: FishInfoCardProps) {
   return (
     <Wrapper>
-      <Image src={imgUri} />
+      <ImageWrapper>
+        <Image src={imgUri} />
+      </ImageWrapper>
+      
       <p>{name}</p>
       <span>{description}</span>
       <Table>

@@ -56,7 +56,7 @@ export default function MarketCondition() {
               otherMonthlyPrice={data.otherMonthlyPrice}
               otherHalfYearPrice={data.otherHalfYearPrice}
             />
-            <OtherPriceContainer otherPrice={data.otherPrice}/>
+            <OtherPriceContainer name={data.name} otherPrice={data.otherPrice}/>
             <OurPriceContainer ourWeeklyPrice={data.ourWeeklyPrice}/>   
           </>
 

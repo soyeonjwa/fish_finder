@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ import BoardRegister from "./pages/board/register/BoardRegister";
 import MyPage from "./pages/myPage/MyPage";
 import Info from "./pages/info/Info";
 import Scan from "./pages/scan/Scan";
+import MarketCondition from "./pages/marketCondition/MarketCondition";
 // import Login from "./pages/login/Login";
 // import Nickname from "./pages/signup/Nickname";
 
@@ -22,6 +23,12 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  useEffect(()=>{
+    if(!localStorage.getItem('RecentSearch')){
+      localStorage.setItem('RecentSearch', JSON.stringify([]));
+    }
+  },[])
+
   return (
     <Wrapper>
       <BrowserRouter>
@@ -38,6 +45,9 @@ function App() {
           </Route>
           <Route path="info">
             <Route path=":fishId" element={<Info />} />
+          </Route>
+          <Route path = "marketCondition">
+              <Route path = ":fishId" element  = {<MarketCondition/>}/>
           </Route>
           <Route path="scan" element={<Scan />} />
         </Routes>

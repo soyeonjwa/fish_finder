@@ -15,6 +15,9 @@ interface fishData{
   name : string
 }
 
+interface fishResultData extends fishData{
+  imgUri : string
+}
 
 const Wrapper = styled(NavBarWrapper)`
   display: flex;
@@ -54,17 +57,31 @@ export default function Search() {
   const navigate = useNavigate();
   const queryParam = new URLSearchParams(location.search);
 
+  const [recentFishList, setRecentFishList] = useState<fishData[]>([]);
   const [seasonFishList, setSeasonFishList] = useState<fishData[]>([]);
+  const [resultFishList, setResultFishList] = useState<fishResultData[]>([]);
 
   const [value, setValue] = useState<string|null>("");
   const handleSubmit = () => {
     console.log({ value });
   };
 
-  const onClickCard = (id : number) => {
-    navigate(`/info/${id}`)
+  const onClickCard = (fish : fishData) => {
+    const recentSearch : fishData[]  = JSON.parse(localStorage.getItem("RecentSearch")||'[]').filter((e:fishData) => e.fishId != fish.fishId)
+    
+    if(recentSearch.length>=6) recentSearch.splice(0,1);
+
+    recentSearch.push({fishId : fish.fishId, name : fish.name})
+    localStorage.setItem("RecentSearch", JSON.stringify(recentSearch))
+
+    navigate(`/info/${fish.fishId}`);
   }
 
+
+  useEffect(()=>{
+    const recentSearch : fishData[] = JSON.parse(localStorage.getItem("RecentSearch")||'[]');
+    setRecentFishList(recentSearch)
+  },[])
  
 
   useEffect(()=>{
@@ -76,7 +93,14 @@ export default function Search() {
           setSeasonFishList(res.data.data.fishList)
         })
     }
-    else setValue(queryParam.get("query"))
+    else{
+      setValue(queryParam.get("query"))
+
+      axiosInstance.get(`/api/fishes/search?keyword=${queryParam.get("query")}`)
+        .then((res : AxiosResponse) => {
+          setResultFishList(res.data.data)
+        })
+    }
   }, [queryParam.get("query")])
 
   
@@ -99,9 +123,8 @@ export default function Search() {
             <Content>
               <WordContents
                 title="최근 검색어종"
-                fishlist={[{fishId : 1, name : "방어"}, {fishId:2, name: "잿방어"}, {fishId:3, name:"부시리"}]}
+                fishlist={[...recentFishList].reverse()}
               ></WordContents>
-              <div>{queryParam}</div>
               <WordContents
                 title="추천 검색어종"
                 fishlist={seasonFishList}
@@ -109,9 +132,20 @@ export default function Search() {
             </Content>
           ):
           (
-            <CardContent>
-              <FishCompareCard fishId = {1} name = '잿방어' imgUri="http://www.suhyupnews.co.kr/news/photo/202207/29429_24324_1317.jpg" onClickCard={onClickCard}/>
-            </CardContent>
+            
+            (resultFishList && resultFishList.length > 0) ? (
+              <CardContent>
+                {
+                  resultFishList.map((fish : fishResultData)=>(
+                    <FishCompareCard key = {fish.fishId} fishId = {fish.fishId} name = {fish.name} imgUri= {fish.imgUri} onClickCard={()=> onClickCard({fishId : fish.fishId, name : fish.name})}/>
+                  ))
+                }
+              </CardContent>
+            )
+            :
+            (
+              <div>검색 결과 없습니다.</div>
+            )
           )
         }
         
