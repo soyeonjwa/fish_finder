@@ -4,6 +4,6 @@ RUN yarn global add serve
 
 RUN mkdir ./build
 
-COPY ./build ./build
+COPY . .
 
 CMD [ "serve", "-s", "build"]
