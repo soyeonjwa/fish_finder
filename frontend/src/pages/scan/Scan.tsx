@@ -4,15 +4,21 @@ import Sheet from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 
 import ScanBox from "../../components/scan/ScanFishBox";
-
 import CameraButton from "../../assets/icons/scanCamera.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
-import data from "../../services/dummy/Fish.json";
-import boxdata from "../../services/dummy/fishScan.json";
+// import data from "../../services/dummy/Fish.json";
+// import boxdata from "../../services/dummy/fishScan.json";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
+
+interface FishScanData {
+  class: number;
+  class_name: string;
+  confidence: number;
+  bbox: number[];
+}
 
 const Wrapper = styled.div`
   width: 100%;
@@ -93,8 +99,9 @@ const FishInfo = styled.div`
 `;
 
 const Image = styled.img`
-  width: 80%;
-  object-fit: cover;
+  height: 15vh;
+  /* width: 80%;
+  object-fit: cover; */
   margin-bottom: 10px;
 `;
 
@@ -120,7 +127,7 @@ export default function Scan() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
   const [photoTaken, setPhotoTaken] = useState(false);
-
+  const [boxdata, setBoxData] = useState<FishScanData[]>([]);
   useEffect(() => {
     const video = videoRef.current;
     const photo = photoRef.current;
@@ -220,6 +227,7 @@ export default function Scan() {
       })
       .then((res: AxiosResponse) => {
         console.log(res.data[0]);
+        setBoxData(res.data[0]);
       })
       .catch((error) => {
         throw new Error(error.message);
@@ -232,6 +240,22 @@ export default function Scan() {
     getVideo();
   }, []);
 
+  const [fishdata, setFishData] = useState({
+    name: "",
+    otherPrice: 0,
+    ourPrice: 0,
+    imgUri: "",
+    fishId: 0,
+  });
+
+  const OpenSheet = (fishId: number) => {
+    axiosInstance.get(`/api/fishes/${fishId}`).then((res: AxiosResponse) => {
+      setFishData(res.data.data);
+
+      setOpen(true);
+    });
+  };
+
   const [isOpen, setOpen] = useState(false);
   // const ref = useRef<SheetRef>();
   const navigate = useNavigate();
@@ -239,7 +263,7 @@ export default function Scan() {
   const handleSnap = (snapIndex: number) => {
     if (snapIndex === 0) {
       // 페이지 이동
-      navigate("/info/1");
+      navigate(`/info/${fishdata.fishId}`);
     }
   };
 
@@ -275,10 +299,10 @@ export default function Scan() {
                 key={index}
                 x={data.bbox[0] - data.bbox[2] / 2}
                 y={data.bbox[1] - data.bbox[3] / 2}
-                width={data.bbox[2]}
-                height={data.bbox[3]}
+                width={data.bbox[2] * 1}
+                height={data.bbox[3] * 1}
                 onClickScanBox={() => {
-                  setOpen(true);
+                  OpenSheet(data.class);
                 }}
               ></ScanBox>
             ))}
@@ -297,7 +321,7 @@ export default function Scan() {
           isOpen={isOpen}
           onClose={() => setOpen(false)}
           detent="content-height"
-          snapPoints={[1200, 750]}
+          snapPoints={[1200, 800]}
           onSnap={handleSnap}
           initialSnap={1}
         >
@@ -305,8 +329,8 @@ export default function Scan() {
             <Sheet.Header />
             <Sheet.Content>
               <FishInfo>
-                <Image src={data.imgUri} />
-                <p>{data.name}</p>
+                <Image src={fishdata.imgUri} />
+                <p>{fishdata.name}</p>
                 <Table>
                   <thead>
                     <tr>
@@ -324,8 +348,8 @@ export default function Scan() {
                   <tbody>
                     <tr>
                       <Td>1kg 당</Td>
-                      <Td> {data.otherPrice}원~</Td>
-                      <Td> {data.ourPrice}원~</Td>
+                      <Td> {fishdata.otherPrice}원~</Td>
+                      <Td> {fishdata.ourPrice}원~</Td>
                     </tr>
                   </tbody>
                 </Table>
