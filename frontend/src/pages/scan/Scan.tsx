@@ -3,11 +3,13 @@ import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 
+import ScanBox from "../../components/scan/ScanFishBox";
+
 import CameraButton from "../../assets/icons/scanCamera.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
 import data from "../../services/dummy/Fish.json";
-// import boxdata from "../../services/dummy/fishScan.json";
+import boxdata from "../../services/dummy/fishScan.json";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
@@ -45,6 +47,7 @@ const Contents = styled.div`
 const VideoBox = styled.div`
   width: 100%;
   height: 75vh;
+  position: relative;
 
   /* & > video {
     width: 100%;
@@ -139,7 +142,6 @@ export default function Scan() {
 
   const getVideo = () => {
     // 미디어 설정에서 후면 카메라를 지정
-
     const constraints = {
       video: { facingMode: "environment" },
     };
@@ -150,9 +152,12 @@ export default function Scan() {
         // video 태그의 소스로 스트림을 지정
         const video = videoRef.current;
         if (video) {
-          video.pause();
           video.srcObject = stream;
-          video.play();
+          video.oncanplay = () => {
+            video.play().catch((error) => {
+              console.error("Failed to play video:", error);
+            });
+          };
         } else {
           console.error("Video element not found.");
         }
@@ -201,11 +206,12 @@ export default function Scan() {
       photo.height
     );
 
+    video.pause();
     // canvas에서 이미지 데이터 가져오기 (예: PNG 형식)
     const imageData = photo.toDataURL("image/png");
     const base64Data = imageData.split(",")[1];
+    console.log(imageData);
     console.log(base64Data); // 이 데이터를 사용하거나 저장
-    video.pause();
 
     //data 백으로 보내기
     axiosInstance
@@ -213,7 +219,7 @@ export default function Scan() {
         photoStr: base64Data,
       })
       .then((res: AxiosResponse) => {
-        console.log(res.data.data);
+        console.log(res.data[0]);
       })
       .catch((error) => {
         throw new Error(error.message);
@@ -222,7 +228,9 @@ export default function Scan() {
     setPhotoTaken(true);
   };
 
-  getVideo();
+  useEffect(() => {
+    getVideo();
+  }, []);
 
   const [isOpen, setOpen] = useState(false);
   // const ref = useRef<SheetRef>();
@@ -261,6 +269,19 @@ export default function Scan() {
               objectFit: "contain",
             }}
           ></canvas>
+          {boxdata &&
+            boxdata.map((data, index) => (
+              <ScanBox
+                key={index}
+                x={data.bbox[0] - data.bbox[2] / 2}
+                y={data.bbox[1] - data.bbox[3] / 2}
+                width={data.bbox[2]}
+                height={data.bbox[3]}
+                onClickScanBox={() => {
+                  setOpen(true);
+                }}
+              ></ScanBox>
+            ))}
         </VideoBox>
         <ScanButton
           style={{ display: photoTaken ? "none" : "block" }}
@@ -271,13 +292,6 @@ export default function Scan() {
         <Info>
           <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
         </Info>
-
-        {/* {boxdata &&
-          boxdata.map((data, index) => (
-            <button onClick={() => setOpen(true)} key={index}>
-              Open sheet
-            </button>
-          ))} */}
 
         <Sheet
           isOpen={isOpen}
