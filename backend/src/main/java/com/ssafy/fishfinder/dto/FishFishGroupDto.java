@@ -18,7 +18,7 @@ public class FishFishGroupDto {
     @Getter @Setter
     @Builder
     public static class ReadResponse{
-        Long fishFishGroupId;
+        Long fishId;
         String text;
         String fishName;
         String imgUri;
