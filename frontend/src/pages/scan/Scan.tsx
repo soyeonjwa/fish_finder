@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import Sheet from "react-modal-sheet";
-// import { SheetRef } from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 
 import CameraButton from "../../assets/icons/scanCamera.png";
@@ -9,6 +8,9 @@ import { gray3, gray5 } from "../../assets/styles/palettes";
 
 import data from "../../services/dummy/Fish.json";
 import boxdata from "../../services/dummy/fishScan.json";
+
+import { axiosInstance } from "../../services/axios";
+import { AxiosResponse } from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -114,7 +116,6 @@ const Td = styled.td`
 export default function Scan() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
-  const [page, setPage] = useState("cam");
   const [photoTaken, setPhotoTaken] = useState(false);
 
   useEffect(() => {
@@ -202,18 +203,26 @@ export default function Scan() {
 
     // canvas에서 이미지 데이터 가져오기 (예: PNG 형식)
     const imageData = photo.toDataURL("image/png");
-    console.log(imageData); // 이 데이터를 사용하거나 저장
+    const base64Data = imageData.split(",")[1];
+    console.log(base64Data); // 이 데이터를 사용하거나 저장
     video.pause();
 
     //data 백으로 보내기
+    axiosInstance
+      .post("/ai/fishes", {
+        photoStr: base64Data,
+      })
+      .then((res: AxiosResponse) => {
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
 
-    // setPage("Image");
     setPhotoTaken(true);
   };
 
-  if (page === "cam") {
-    getVideo();
-  }
+  getVideo();
 
   const [isOpen, setOpen] = useState(false);
   // const ref = useRef<SheetRef>();
@@ -253,18 +262,22 @@ export default function Scan() {
             }}
           ></canvas>
         </VideoBox>
-        <ScanButton src={CameraButton} onClick={takePhoto}></ScanButton>
+        <ScanButton
+          style={{ display: photoTaken ? "none" : "block" }}
+          src={CameraButton}
+          onClick={takePhoto}
+        ></ScanButton>
 
         <Info>
           <span>물고기를 촬영하여</span> <span>정보와 시세를 확인하세요</span>
         </Info>
 
-        {boxdata &&
+        {/* {boxdata &&
           boxdata.map((data, index) => (
             <button onClick={() => setOpen(true)} key={index}>
               Open sheet
             </button>
-          ))}
+          ))} */}
 
         <Sheet
           isOpen={isOpen}
