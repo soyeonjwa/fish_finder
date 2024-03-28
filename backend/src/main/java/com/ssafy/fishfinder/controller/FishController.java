@@ -1,6 +1,7 @@
 package com.ssafy.fishfinder.controller;
 
 import com.ssafy.fishfinder.controller.constants.Message;
+import com.ssafy.fishfinder.dto.FishFishGroupDto;
 import com.ssafy.fishfinder.service.FishService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -36,4 +36,16 @@ public class FishFishGroup extends BaseTime {
     private String seasonText;
 
     private String seasonImg;
+
+    public void updateIsBanner(boolean isBanner){
+        this.isBanner = isBanner;
+    }
+
+    public void updateSeasonText(String seasonText){
+        this.seasonText = seasonText;
+    }
+
+    public void updateSeasonImg(String seasonImg){
+        this.seasonImg = seasonImg;
+    }
 }
