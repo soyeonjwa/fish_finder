@@ -12,13 +12,13 @@ public interface BoardService {
 
     BoardDto.GetDetailResponse getBoardDetail(Long id, Long memberId);
 
-    BoardDto.CreateResponse updateBoard(Long id, BoardDto.UpdateRequest request, List<MultipartFile> images);
+    BoardDto.CreateResponse updateBoard(Long boardId, Long memberId, BoardDto.UpdateRequest request, List<MultipartFile> images);
 
-    void deleteBoard(Long id);
+    void deleteBoard(Long boardId, Long memberId);
 
     List<BoardDto.CommentResponse> createComment(Long id, BoardDto.CommentRequest request);
 
-    void deleteComment(Long commentId);
+    void deleteComment(Long commentId, Long memberId);
 
     String likeBoard(Long id, Long memberId);
 

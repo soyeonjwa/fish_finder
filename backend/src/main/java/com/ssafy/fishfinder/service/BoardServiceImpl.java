@@ -205,22 +205,27 @@ public class BoardServiceImpl implements BoardService{
 
     /**
      * 게시글 수정
-     * @param id
+     * @param boardId
      * @param request
      * @param images
      * @return BoardDto.CreateResponse
      */
     @Override
-    public BoardDto.CreateResponse updateBoard(Long id, BoardDto.UpdateRequest request, List<MultipartFile> images) {
+    public BoardDto.CreateResponse updateBoard(Long boardId, Long memberId, BoardDto.UpdateRequest request, List<MultipartFile> images) {
+        // 게시글 작성자 확인
+        Post postWriter = boardRepository.findById(boardId).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+        if(!postWriter.getWriterId().equals(memberId)){
+            throw new CustomException(ErrorCode.NO_WRITER);
+        }
 
         // 게시글 가져오기
-        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+        Post post = boardRepository.findById(boardId).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
 
         // review 가져오기
-        List<FishReview> fishReviews = fishReviewRepository.findAllByPostId(id);
+        List<FishReview> fishReviews = fishReviewRepository.findAllByPostId(boardId);
 
         // 이미지 가져오기
-        List<PostImages> postImages = postImagesRepository.findAllByPostId(id);
+        List<PostImages> postImages = postImagesRepository.findAllByPostId(boardId);
 
         // 삭제된 리뷰 삭제
         fishReviews.forEach(review ->{
@@ -274,11 +279,15 @@ public class BoardServiceImpl implements BoardService{
 
     /**
      * 게시글 삭제
-     * @param id
+     * @param boardId
      */
     @Override
-    public void deleteBoard(Long id) {
-        Post post = boardRepository.findById(id).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+    public void deleteBoard(Long boardId, Long memberId) {
+        // 게시글 작성자 확인
+        Post post = boardRepository.findById(boardId).orElseThrow(()->new CustomException(ErrorCode.NO_BOARD));
+        if(!post.getWriterId().equals(memberId)){
+            throw new CustomException(ErrorCode.NO_WRITER);
+        }
 
         // 연관된 리뷰 삭제
         if(post.getFishReviews() != null) {
@@ -355,7 +364,14 @@ public class BoardServiceImpl implements BoardService{
      * @param commentId
      */
     @Override
-    public void deleteComment(Long commentId) {
+    public void deleteComment(Long commentId, Long memberId) {
+        // 댓글 작성자 확인
+        Comment comment = commentRepository.findById(commentId).
+                orElseThrow(()->new CustomException(ErrorCode.NO_COMMENT));
+        if(!comment.getWriterId().equals(memberId)){
+            throw new CustomException(ErrorCode.NO_WRITER);
+        }
+
         commentRepository.deleteById(commentId);
     }
 
