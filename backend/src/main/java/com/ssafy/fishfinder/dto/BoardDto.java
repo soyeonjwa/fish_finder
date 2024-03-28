@@ -49,6 +49,7 @@ public class BoardDto {
         private int likeCount;
         private LocalDateTime createdAt;
         private PostType postType;
+        private String keyword;
     }
 
     @Getter

@@ -14,7 +14,6 @@ public class ProductionWebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("https://fishfinder.site")
                 .allowedOrigins("http://fishfinder.site")
-                .allowedMethods("GET", "POST", "PUT", "DELETE")
-                .allowCredentials(true);
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }

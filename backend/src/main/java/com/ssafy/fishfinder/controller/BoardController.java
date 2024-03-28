@@ -37,7 +37,8 @@ public class BoardController {
             @RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
             @RequestParam(value = "likeCount", required = false, defaultValue = "2147483647") int likeCount,
             @RequestParam(value = "createdAt", required = false, defaultValue = "#{T(java.time.LocalDateTime).now()}") LocalDateTime createdAt,
-            @RequestParam(value = "postType", required = false, defaultValue = "all") PostType postType
+            @RequestParam(value = "postType", required = false, defaultValue = "all") PostType postType,
+            @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword
     ) {
         BoardDto.GetListRequest request = BoardDto.GetListRequest.builder()
                 .sortBy(sortBy)
@@ -45,10 +46,13 @@ public class BoardController {
                 .likeCount(likeCount)
                 .createdAt(createdAt)
                 .postType(postType)
+                .keyword(keyword)
                 .build();
 
         return ResponseEntity.ok(new Message("게시글 목록 조회 완료", boardService.getBoardList(request)));
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Message> getBoardDetail(
