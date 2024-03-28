@@ -5,15 +5,25 @@ import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css'
 import "slick-carousel/slick/slick-theme.css";
+import ReviewTable from './ReviewTable';
 
 interface MidContentProps{
     content : string;
     thumbnail : image[];
+    reviews : review[];
 }
 
 interface image{
   imageId : number,
   imageUri : string
+}
+
+interface review{
+  reviewId : number
+  fishId : number
+  weight : number
+  pricePerKg : number
+  totalPrice : number
 }
 
 const Wrapper = styled.div`
@@ -47,10 +57,11 @@ const settings = {
   
   }
 
-export default function MidContent({content, thumbnail} : MidContentProps) {
+export default function MidContent({content, thumbnail, reviews} : MidContentProps) {
   return (
     <Wrapper>
-        <div style={{fontSize:'16px', marginBottom : '2%'}}>{content}</div>
+          <div style={{fontSize:'16px', marginBottom : '2%'}}>{content}</div>
+          <ReviewTable reviews = {reviews}></ReviewTable>
           <Slider {...settings}>
             {thumbnail && thumbnail.map((image)=>(
               <div key = {image.imageId}>

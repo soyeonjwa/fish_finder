@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import BoardContainer from "../../components/common/board/BoardContainer";
@@ -6,6 +6,11 @@ import EditIcon from "../../assets/icons/edit.svg";
 import marketImage1 from "../../assets/images/market/노량진1.jpg";
 import { gray3, primary } from "../../assets/styles/palettes";
 import { NavBarWrapper } from "../../components/common/Wrapper";
+import { BoardType } from "../../components/common/board/BoardContainer";
+
+import { axiosInstance } from "../../services/axios";
+import { AxiosResponse } from "axios";
+
 interface TagBoxProps {
   active: boolean;
 }
@@ -93,6 +98,14 @@ const Contents = styled.div`
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
+  const [boards, setBoards] = useState<BoardType[]>([]);
+
+  useEffect(()=>{
+    axiosInstance.get('/api/board')
+      .then((res:AxiosResponse) => {
+        setBoards(res.data.data)
+      })
+  },[])
   return (
     <Wrapper width = '100%' height="auto" margin="0">
       <Header>
@@ -128,7 +141,7 @@ export default function MyPage() {
           </TagBox>
         </Tag>
 
-        <BoardContainer></BoardContainer>
+        <BoardContainer boards={boards}></BoardContainer>
       </Contents>
     </Wrapper>
   );

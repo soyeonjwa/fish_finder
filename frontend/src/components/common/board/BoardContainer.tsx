@@ -1,16 +1,31 @@
 import React from 'react'
 
-import data from '../../../services/dummy/boardList.json';
-
 import BoardCard from './BoardCard';
 
-export default function BoardContainer() {
+interface BoardContainerProps{
+  boards : BoardType[]
+}
+
+export type BoardType = {
+  boardId: number,
+  title: string,
+  content: string,
+  writer: string,
+  postType: string,
+  thumbnail: string,
+  likeCount: number,
+  scrapCount: number,
+  commentCount: number,
+  createdAt: string
+}
+
+export default function BoardContainer({boards} : BoardContainerProps) {
   return (
     <div>
-        {data && 
-            data.map(data => (
+        {boards && 
+            boards.map(data => (
                       <BoardCard
-                        id = {data.id}
+                        id = {data.boardId}
                         title = {data.title}
                         content = {data.content}
                         createdAt = {data.createdAt}
@@ -20,7 +35,7 @@ export default function BoardContainer() {
                         likeCount={data.likeCount}
                         scrapCount={data.scrapCount}
                         commentCount={data.commentCount}
-                        key = {data.id}
+                        key = {data.boardId}
                       ></BoardCard>
             ))
         }</div>
