@@ -14,6 +14,7 @@ import Info from "./pages/info/Info";
 import Scan from "./pages/scan/Scan";
 import MarketCondition from "./pages/marketCondition/MarketCondition";
 import Login from "./pages/login/Login";
+import OAuth from "./pages/login/OAuth";
 // import Nickname from "./pages/signup/Nickname";
 
 const Wrapper = styled.div`
@@ -23,6 +24,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+
   useEffect(()=>{
     if(!localStorage.getItem('RecentSearch')){
       localStorage.setItem('RecentSearch', JSON.stringify([]));
@@ -51,6 +53,11 @@ function App() {
               <Route path = ":fishId" element  = {<MarketCondition/>}/>
           </Route>
           <Route path="scan" element={<Scan />} />
+          <Route path="oauth">
+            <Route path = "callback">
+              <Route path = "kakao" element = {<OAuth/>}/>
+            </Route>
+          </Route>
         </Routes>
       </BrowserRouter>
     </Wrapper>

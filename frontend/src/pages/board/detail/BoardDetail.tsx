@@ -12,6 +12,7 @@ import { Wrapper } from '../../../components/common/Wrapper';
 
 import { axiosInstance } from "../../../services/axios";
 import { AxiosResponse } from "axios";
+// import { userStore } from "../../../stores/userStore";
 
 
 
@@ -29,6 +30,8 @@ interface BoardType{
   scrapCount : number
   commentCount : number
   comments : comment[]
+  liked : boolean
+  scraped : boolean
 }
 
 interface review{
@@ -70,12 +73,27 @@ const Contents = styled.div`
 export default function BoardDetail() {
   const [board, setBoard] = useState<BoardType>();
   const {boardId} = useParams();
+  // const {userId} = userStore();
 
   useEffect(()=>{
-    axiosInstance.get(`/api/board/${boardId}`)
+    // if(userId==-1){
+    //   axiosInstance.get(`/api/board/${boardId}`)
+    //   .then((res:AxiosResponse)=>{
+    //     setBoard(res.data.data)
+    //   })
+    // }
+    // else{
+      axiosInstance.get(`/api/board/${boardId}`,
+      {
+        headers : {
+          memberId : 1
+        }
+      }
+    )
       .then((res:AxiosResponse)=>{
         setBoard(res.data.data)
       })
+    // }
   },[])
 
   return (
@@ -92,8 +110,11 @@ export default function BoardDetail() {
             />
             <MidContent reviews = {board.reviews} content={board.content} thumbnail={board.images} />
             <BottomContent
+              boardId={board.boardId}
               likeCount={board.likeCount}
               commentCount={board.comments.length}
+              liked = {board.liked}
+              scraped = {board.scraped}
             />
             <hr style={{width : '100%'}}></hr>
             <CommentContainer
