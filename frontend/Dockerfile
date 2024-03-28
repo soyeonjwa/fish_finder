@@ -10,4 +10,4 @@ COPY . .
 RUN yarn build
 
 # 실행 명령
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "build" ]
