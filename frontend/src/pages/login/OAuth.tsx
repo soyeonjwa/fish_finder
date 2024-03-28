@@ -10,19 +10,21 @@ export default function OAuth() {
     const {userId, nickname, setUserId , setNickName} = userStore();
 
     useEffect(() => {
-        async ()=>{
+        async function fetchUser(){
             await axiosInstance.get(`/api/users/login?code=${queryParam.get("code")}`)
                 .then((res : AxiosResponse) => {
-                    console.log(res.data)
                     setUserId(res.data.id)
                     setNickName(res.data.nickname)
                     localStorage.setItem("userId", JSON.stringify(userId))
                     localStorage.setItem("nickname", JSON.stringify(nickname))
                 })
-                .catch(error => {throw new Error(error.message)})
-
+                .catch(error => {
+                    console.log(queryParam.get("code"))
+                    throw new Error(error)})
             navigate("/")
-    }},[])
+        }
+        fetchUser();
+    },[])
 
     return (
         <div>로그인/회원가입하는 중</div>
