@@ -13,6 +13,7 @@ public class ProductionWebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("https://fishfinder.site")
+                .allowedOrigins("http://fishfinder.site")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true);
     }

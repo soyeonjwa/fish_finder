@@ -12,6 +12,7 @@ public class TestWebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("https://test.fishfinder.site")
+                .allowedOrigins("http://test.fishfinder.site")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }
