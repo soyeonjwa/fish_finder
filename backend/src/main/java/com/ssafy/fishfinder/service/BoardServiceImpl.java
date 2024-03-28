@@ -26,6 +26,7 @@ public class BoardServiceImpl implements BoardService{
     private final S3UploadService s3UploadService;
 
     private final BoardRepository boardRepository;
+    private final FishRepository fishRepository;
     private final FishReviewRepository fishReviewRepository;
     private final MemberRepository memberRepository;
     private final PostImagesRepository postImagesRepository;
@@ -146,14 +147,15 @@ public class BoardServiceImpl implements BoardService{
         List<FishReview> reviews = fishReviewRepository.findAllByPostId(id);
         List<FishReviewDto.Response> reviewList = new ArrayList<>();
         reviews.forEach(review -> {
-            reviewList.add(FishReviewDto.Response.builder()
+            fishRepository.findById(review.getFishId()).ifPresent(fish -> reviewList.add(FishReviewDto.Response.builder()
                     .reviewId(review.getId())
+                    .fishName(fish.getName())
                     .fishId(review.getFishId())
                     .weight(review.getWeight())
                     .pricePerKg(review.getPricePerKg())
                     .totalPrice(review.getTotalPrice())
                     .build()
-            );
+            ));
         });
 
         // 이미지 가져오기

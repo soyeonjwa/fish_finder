@@ -33,6 +33,7 @@ public class FishReviewDto {
     public static class Response {
         private Long reviewId;
         private Long fishId;
+        private String fishName;
         private float weight;
         private int pricePerKg;
         private int totalPrice;
