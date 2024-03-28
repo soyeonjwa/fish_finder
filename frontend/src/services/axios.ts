@@ -1,9 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL : 'http://j10a203.p.ssafy.io:8010',
-    headers : {
-        'Content-Type' : 'application/json',
-    }
-})
-
+  baseURL: process.env.REACT_APP_SERVER_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
