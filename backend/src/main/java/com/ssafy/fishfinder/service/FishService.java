@@ -2,7 +2,6 @@ package com.ssafy.fishfinder.service;
 
 import com.ssafy.fishfinder.dto.FishDiffDto;
 import com.ssafy.fishfinder.dto.FishDto;
-
 import java.util.List;
 
 public interface FishService {
@@ -18,5 +17,4 @@ public interface FishService {
     FishDto.FishSeasonResponseDto getFishSeason(String ss);
 
     FishDto.FishPriceResponseDto getFishPrice(Long fishId);
-
 }

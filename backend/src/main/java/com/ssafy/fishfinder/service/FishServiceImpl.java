@@ -2,21 +2,20 @@ package com.ssafy.fishfinder.service;
 
 import com.ssafy.fishfinder.dto.FishDiffDto;
 import com.ssafy.fishfinder.dto.FishDto;
+import com.ssafy.fishfinder.dto.FishFishGroupDto;
 import com.ssafy.fishfinder.dto.FishReviewDto;
 import com.ssafy.fishfinder.entity.mongo.FishDiff;
 import com.ssafy.fishfinder.entity.mysql.*;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
 import com.ssafy.fishfinder.repository.mongo.FishDiffRepository;
-import com.ssafy.fishfinder.repository.mysql.FishGroupRepository;
-import com.ssafy.fishfinder.repository.mysql.FishRepository;
-import com.ssafy.fishfinder.repository.mysql.FishReviewRepository;
-import com.ssafy.fishfinder.repository.mysql.MarketPriceRepository;
+import com.ssafy.fishfinder.repository.mysql.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -29,12 +28,14 @@ import java.util.Map;
 @Service
 public class FishServiceImpl implements FishService{
 
+    private final S3UploadService s3UploadService;
     private final FishRepository fishRepository;
     private final FishDiffRepository fishDiffRepository;
     private final FishGroupRepository fishGroupRepository;
     private final MarketPriceRepository marketPriceRepository;
     private final FishReviewRepository fishReviewRepository;
     private final WebClientService webClientService;
+    private final FishFishGroupRepository fishFishGroupRepository;
 
     /**
      * 어류 목록 조회
