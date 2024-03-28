@@ -62,7 +62,7 @@ public class BannerServiceImpl implements BannerService{
 
         FishFishGroupDto.ReadResponse response = FishFishGroupDto.ReadResponse.builder()
                 .fishName(fish.getName())
-                .fishFishGroupId(fishFishGroup.getId())
+                .fishId(fish.getId())
                 .text(data.getText())
                 .imgUri(imgUri)
                 .build();
@@ -87,7 +87,7 @@ public class BannerServiceImpl implements BannerService{
         for(FishFishGroup fishFishGroup : fishFishGroups){
             response.add(FishFishGroupDto.ReadResponse.builder()
                     .fishName(fishFishGroup.getFish().getName())
-                    .fishFishGroupId(fishFishGroup.getId())
+                    .fishId(fishFishGroup.getFish().getId())
                     .text(fishFishGroup.getSeasonText())
                     .imgUri(fishFishGroup.getSeasonImg())
                     .build());
