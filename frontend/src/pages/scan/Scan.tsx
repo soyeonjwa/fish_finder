@@ -7,7 +7,7 @@ import CameraButton from "../../assets/icons/scanCamera.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
 import data from "../../services/dummy/Fish.json";
-import boxdata from "../../services/dummy/fishScan.json";
+// import boxdata from "../../services/dummy/fishScan.json";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
