@@ -3,6 +3,7 @@ package com.ssafy.fishfinder.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ssafy.fishfinder.controller.constants.Message;
 import com.ssafy.fishfinder.dto.OauthDto;
 import com.ssafy.fishfinder.exception.CustomException;
 import com.ssafy.fishfinder.exception.ErrorCode;
@@ -62,11 +63,6 @@ public class OauthServiceImpl implements OauthService{
             /**
              * 응답
              */
-            int responseCode = conn.getResponseCode();
-            if (responseCode != 200) {
-                throw new CustomException(ErrorCode.WRONG_CODE);
-            }
-//            System.out.println("responseCode : " + responseCode);
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line = "";
             String result = "";
@@ -74,7 +70,14 @@ public class OauthServiceImpl implements OauthService{
             while ((line = br.readLine()) != null){
                 result += line;
             }
-//            System.out.println("response body : " + result);
+            System.out.println("response body : " + result);
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode != 200) {
+                Message message = new Message(result);
+                throw new CustomException(ErrorCode.WRONG_CODE);
+            }
+//            System.out.println("responseCode : " + responseCode);
             JsonParser parser = new JsonParser(); // Gson 라이브러리
             JsonElement element = parser.parse(result);
 

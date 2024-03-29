@@ -37,7 +37,7 @@ public class UserController {
             Message message = new Message("회원가입 완료");
             return new ResponseEntity(message, HttpStatus.CREATED);
         }
-        Message message = new Message("로그인 완료");
+        Message message = new Message("로그인 완료", userDto.getNickname());
         return ResponseEntity.ok(message);
     }
 
