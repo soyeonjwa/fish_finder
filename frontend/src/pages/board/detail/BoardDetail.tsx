@@ -74,6 +74,7 @@ export default function BoardDetail() {
   const [board, setBoard] = useState<BoardType>();
   const {boardId} = useParams();
   const {userId} = userStore();
+  const [change, setChange] = useState<boolean>(false);
 
   useEffect(()=>{
     if(userId && userId != -1){
@@ -82,7 +83,7 @@ export default function BoardDetail() {
           setBoard(res.data.data)
         })
     }
-  },[])
+  },[change])
 
   return (
     <StyledWrapper>
@@ -103,6 +104,8 @@ export default function BoardDetail() {
               commentCount={board.comments.length}
               liked = {board.liked}
               scraped = {board.scraped}
+              change = {change}
+              setChange={setChange}
             />
             <hr style={{width : '100%'}}></hr>
             <CommentContainer
@@ -111,7 +114,7 @@ export default function BoardDetail() {
           </Contents>
         )
       }
-      <CommentInput/>
+      <CommentInput boardId={boardId}/>
     </StyledWrapper>
   )
 }
