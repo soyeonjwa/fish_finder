@@ -44,7 +44,6 @@ const Content = styled.div`
 export default function Login() {
   return (
     <Wrapper>
-
       <Contents>
         <LogoImg src={MainLogo}></LogoImg>
         <Content>

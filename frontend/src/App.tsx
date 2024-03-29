@@ -15,7 +15,7 @@ import Scan from "./pages/scan/Scan";
 import MarketCondition from "./pages/marketCondition/MarketCondition";
 import Login from "./pages/login/Login";
 import OAuth from "./pages/login/OAuth";
-// import Nickname from "./pages/signup/Nickname";
+import NickName from "./components/common/Nickname";
 
 const Wrapper = styled.div`
   font-family: Pretendard;
@@ -58,6 +58,7 @@ function App() {
               <Route path = "kakao" element = {<OAuth/>}/>
             </Route>
           </Route>
+          <Route path = "nickname" element = {<NickName/>}/>
         </Routes>
       </BrowserRouter>
     </Wrapper>
