@@ -13,8 +13,8 @@ export default function OAuth() {
         async function fetchUser(){
             await axiosInstance.get(`/api/users/login?code=${queryParam.get("code")}`)
                 .then((res : AxiosResponse) => {
-                    setUserId(res.data.id)
-                    setNickName(res.data.nickname)
+                    setUserId(res.data.data.id)
+                    setNickName(res.data.data.nickname)
                     localStorage.setItem("userId", JSON.stringify(userId))
                     localStorage.setItem("nickname", JSON.stringify(nickname))
                 })
