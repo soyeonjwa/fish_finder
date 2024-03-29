@@ -11,7 +11,7 @@ type SearchBoxProps = {
     margin : string,
     value : string,
     setValue(value : string) : void,
-    handleSubmit() : void,
+    handleSubmit(e : React.FormEvent<HTMLFormElement>) : void,
 }
 
 

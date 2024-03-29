@@ -101,8 +101,12 @@ export default function Board() {
     setIsOpen(!isOpen);
   }
 
-  const handleSubmit = () =>{
-    console.log({value})
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axiosInstance.get(`/api/board?keyword=${value}`)
+      .then((res:AxiosResponse) => {
+        setBoards(res.data.data)
+      })
   }
 
   const onClickRegisterBtn = () => {
@@ -131,7 +135,6 @@ export default function Board() {
       url += "?sortBy=likeCount&postType=review"
     }
 
-    console.log(url)
     axiosInstance.get(url)
       .then((res:AxiosResponse) => {
         setBoards(res.data.data)
@@ -149,7 +152,7 @@ export default function Board() {
           margin = '5% 1% 5% 0'
           value = {value}
           setValue={setValue}
-          handleSubmit={handleSubmit}
+          handleSubmit={(e : React.FormEvent<HTMLFormElement>)=>handleSubmit(e)}
         ></SearchBox>
         <Button
           width = '20%'

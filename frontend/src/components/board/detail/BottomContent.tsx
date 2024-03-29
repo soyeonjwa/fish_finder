@@ -34,6 +34,7 @@ const LikeComment = styled.div`
   flex-direction: row;
 
   & > div{
+    text-align: center;
     font-size : 20px;
     margin-left : 1%;
     margin-right : 5%;
@@ -41,7 +42,7 @@ const LikeComment = styled.div`
 `
 
 const Scrap = styled.div`
-  width : 10%;
+  width : 7%;
 `
 
 export default function BottomContent({boardId, likeCount, commentCount, liked, scraped,change, setChange} : BottomContentProps) {
@@ -82,7 +83,7 @@ export default function BottomContent({boardId, likeCount, commentCount, liked, 
             userLike
             ?(
               <IconButton
-                width = '12%'
+                width = '10%'
                 margin = '0'
                 icon = {FillHeartIcon}   
                 onClick = {pushLikeBtn} 
