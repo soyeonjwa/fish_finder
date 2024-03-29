@@ -27,4 +27,6 @@ public interface BoardService {
     List<BoardDto.GetListResponse> getScrapList(Long memberId);
 
     List<BoardDto.GetListResponse> getPopularBoardList();
+
+    BoardDto.RecordResponse getRecord(Long memberId);
 }

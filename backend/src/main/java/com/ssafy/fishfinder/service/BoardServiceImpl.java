@@ -530,6 +530,32 @@ public class BoardServiceImpl implements BoardService{
         return response;
     }
 
+
+    /**
+     * 내 기록 조회
+     * @param memberId
+     * @return BoardDto.RecordResponse
+     */
+    @Override
+    public BoardDto.RecordResponse getRecord(Long memberId) {
+        // 멤버 조회
+        Member member = memberRepository.findById(memberId).orElseThrow(()->new CustomException(ErrorCode.NO_MEMBER));
+        // 게시글 수 조회
+        int postCount = boardRepository.findAllByWriterId(memberId).size();
+        // 댓글 수 조회
+        int commentCount = commentRepository.findAllByWriterId(memberId).size();
+        // 스크랩 수 조회
+        int scrapCount = clippingRepository.findAllByMemberId(memberId).size();
+
+        return BoardDto.RecordResponse.builder()
+                .memberId(memberId)
+                .nickname(member.getNickname())
+                .postCount(postCount)
+                .commentCount(commentCount)
+                .scrapCount(scrapCount)
+                .build();
+    }
+
     /**
      * 이미지 업로드
      * @param images

@@ -118,4 +118,14 @@ public class BoardDto {
         private String content;
     }
 
+    @Setter @Getter
+    @Builder
+    public static class RecordResponse{
+        private Long memberId;
+        private String nickname;
+        private int postCount;
+        private int commentCount;
+        private int scrapCount;
+    }
+
 }
