@@ -267,6 +267,10 @@ export default function Scan() {
     }
   };
 
+  const Percentage = (num: number) => {
+    return (num * 100).toFixed(2);
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -297,10 +301,12 @@ export default function Scan() {
             boxdata.map((data, index) => (
               <ScanBox
                 key={index}
+                class_name={data.class_name}
                 x={data.bbox[0] - data.bbox[2] / 2}
                 y={data.bbox[1] - data.bbox[3] / 2}
                 width={data.bbox[2] * 1}
                 height={data.bbox[3] * 1}
+                confidence={Percentage(data.confidence)}
                 onClickScanBox={() => {
                   OpenSheet(data.class);
                 }}
