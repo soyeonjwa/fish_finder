@@ -32,7 +32,7 @@ export default function CommentContainer({comments} : Comments) {
     <Wrapper>
       {
         comments && (
-          comments.map((comment)=>(
+          comments.map((comment, index)=>(
             <>
               <CommentCard
                 commentId={comment.commentId}
@@ -40,7 +40,7 @@ export default function CommentContainer({comments} : Comments) {
                 commentCreatedAt = {comment.commentCreatedAt}
                 commentWriterNickname= {comment.commentWriterNickname}
                 commentContent={comment.commentContent}
-                key = {comment.commentId}
+                key = {index}
               />
               <CommentHr/>
             </>
