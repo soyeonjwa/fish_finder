@@ -42,6 +42,14 @@ export default function Header() {
     navigate("/board");
   };
 
+  const onClickSubmitBtn = () => {
+    const response = handleSubmit();
+    if (response === -1) {
+      alert("게시글 등록에 실패하였습니다");
+      navigate("/board");
+    } else navigate(`/board/${response}`);
+  };
+
   return (
     <Wrapper>
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
@@ -53,7 +61,7 @@ export default function Header() {
         margin="4% 0 4% 0"
         border="0px"
         fontWeight="500"
-        onClick={handleSubmit}
+        onClick={onClickSubmitBtn}
       >
         등록
       </Button>

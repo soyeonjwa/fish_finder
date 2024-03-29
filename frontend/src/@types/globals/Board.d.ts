@@ -29,5 +29,5 @@ type PostAction = {
   setContent: (content: string) => void;
   setReviews: (reviews: Review[]) => void;
   setImages: (images: ImageFile[]) => void;
-  handleSubmit: () => void;
+  handleSubmit: () => number;
 };
