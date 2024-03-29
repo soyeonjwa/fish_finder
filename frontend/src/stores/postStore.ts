@@ -33,6 +33,12 @@ const usePostStore = create<PostState & PostAction>()(
           get().reviews,
           get().images
         );
+
+        const imageList: File[] = [];
+        get().images.forEach((image) => {
+          imageList.push(image.file);
+        });
+
         const body = {
           data: {
             title: get().title,
@@ -40,10 +46,13 @@ const usePostStore = create<PostState & PostAction>()(
             postType: get().postType,
             reviews: get().reviews,
           },
-          images: get().images,
+          images: imageList,
         };
-        // postAddPost(body);
+        // const postId = postAddPost(body);
         console.log(body);
+        set(initialState);
+        // axios 연결 시 postId를 return;
+        return -1;
       },
     }),
     { name: "post-storage" }
