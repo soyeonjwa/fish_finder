@@ -60,19 +60,18 @@ export default function CommentInput({boardId}:CommentInputProps) {
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        axiosInstance.post(`/api/board/comment/${boardId}`,
-                {
-                    content
-                }
-            )
-            .then((res : AxiosResponse)=>{console.log(res.data)})
+        console.log(content)
+        const formData = new FormData();
+        formData.append('content', content);
+        axiosInstance.post(`/api/board/comment/${boardId}`, formData)
+            .then((res : AxiosResponse)=>{console.log(res)})
             .catch(error => {throw new Error(error.message)})
     }
     
     return (
         <Wrapper>
             <Form onSubmit={onSubmit}>
-                <Input placeholder='댓글을 입력해주세요.' type ='text' name = "userComment" value = {content} onChange={e=> setContent(e.target.value)}></Input>
+                <Input placeholder='댓글을 입력해주세요.' type ='text' name = "content" value = {content} onChange={e=> setContent(e.target.value)}></Input>
                 <Button type="submit">
                     <Image
                         src = {CommentAdd}
