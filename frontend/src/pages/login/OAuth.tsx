@@ -7,16 +7,14 @@ import { userStore } from '../../stores/userStore';
 export default function OAuth() {
     const navigate = useNavigate();
     const queryParam = new URLSearchParams(location.search);
-    const {userId, nickname, setUserId , setNickName} = userStore();
+    const {setUserId , setNickName} = userStore();
 
     useEffect(() => {
         async function fetchUser(){
             await axiosInstance.get(`/api/users/login?code=${queryParam.get("code")}`)
                 .then((res : AxiosResponse) => {
-                    setUserId(res.data.id)
-                    setNickName(res.data.nickname)
-                    localStorage.setItem("userId", JSON.stringify(userId))
-                    localStorage.setItem("nickname", JSON.stringify(nickname))
+                    setUserId(res.data.data.id)
+                    setNickName(res.data.data.nickname)
 
                     if(res.status == 201){
                         navigate("/nickname")

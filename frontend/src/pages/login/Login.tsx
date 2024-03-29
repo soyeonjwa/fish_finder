@@ -50,7 +50,8 @@ export default function Login() {
           <p>간편하게 로그인하고</p>
           <p>다양한 서비스를 이용해보세요</p>
         </Content>
-        <img src={KakaoLogin} alt="kakaoLogin" onClick={()=>window.open(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`)}/>
+        <img src={KakaoLogin} alt="kakaoLogin" onClick={()=>window.open(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7d5f2d8e91d5566b9e9cf07c36b7a2d2&redirect_uri=https://test.fishfinder.site/oauth/callback/kakao`)}/>
+        {/* <img src={KakaoLogin} alt="kakaoLogin" onClick={()=>window.open(`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`)}/> */}
       </Contents>
     </Wrapper>
   );
