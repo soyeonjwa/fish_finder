@@ -58,13 +58,14 @@ const Button = styled.button`
 export default function CommentInput({boardId}:CommentInputProps) {
     const [value, setValue] = useState<string>("")
 
-    const onSubmit = () => {
+    const onSubmit = (e : React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         axiosInstance.post(`/api/board/comment/${boardId}`,
                 {
-                    'content' : value
+                    content : value
                 }
             )
-            .then((res : AxiosResponse)=>{console.log(res)})
+            .then((res : AxiosResponse)=>{console.log(res.data)})
             .catch(error => {throw new Error(error.message)})
     }
     
