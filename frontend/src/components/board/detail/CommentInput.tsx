@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import {  gray3, gray1 } from '../../../assets/styles/palettes'
 import CommentAdd from '../../../assets/icons/commentAdd.svg';
+import { axiosInstance } from '../../../services/axios';
+
+interface CommentInputProps{
+    boardId : string | undefined
+}
 
 const Wrapper = styled.div`
     border-top : 1px solid ${gray3};
@@ -49,17 +54,27 @@ const Button = styled.button`
     background-color: transparent;
 `
 
-export default function CommentInput() {
-  return (
-    <Wrapper>
-        <Form>
-            <Input placeholder='댓글을 입력해주세요.'></Input>
-            <Button>
-                <Image
-                    src = {CommentAdd}
-                ></Image>
-            </Button>
-        </Form>
-    </Wrapper>
-  )
+export default function CommentInput({boardId}:CommentInputProps) {
+    const [value, setValue] = useState<string>("")
+
+    const onSubmit = () => {
+        axiosInstance.post(`/api/board/comment/${boardId}`,
+                {
+                    'content' : value
+                }
+            )
+    }
+    
+    return (
+        <Wrapper>
+            <Form onSubmit={onSubmit}>
+                <Input placeholder='댓글을 입력해주세요.' value = {value} onChange={e=> setValue(e.target.value)}></Input>
+                <Button>
+                    <Image
+                        src = {CommentAdd}
+                    ></Image>
+                </Button>
+            </Form>
+        </Wrapper>
+    )
 }

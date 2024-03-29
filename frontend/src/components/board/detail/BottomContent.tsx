@@ -5,8 +5,8 @@ import IconButton from '../../common/IconButton'
 import HeartIcon from '../../../assets/icons/heart.svg';
 import CommentIcon from '../../../assets/icons/comments.svg';
 import ScrapIcon from '../../../assets/icons/scrap.svg';
-import FillScrapIcon from '../../../assets/icons/scrap_fill.svg'
-import FillHeartIcon from '../../../assets/icons/Favorite_fill.svg';
+import FillScrapIcon from '../../../assets/icons/scrapFill.svg'
+import FillHeartIcon from '../../../assets/icons/heartFill.svg';
 import { userStore } from '../../../stores/userStore';
 
 import { axiosInstance } from '../../../services/axios';
@@ -16,6 +16,8 @@ interface BottomContentProps{
     commentCount : number
     liked : boolean
     scraped : boolean
+    change : boolean
+    setChange : (e : boolean) => void;
 }
 
 const Wrapper = styled.div`
@@ -42,7 +44,7 @@ const Scrap = styled.div`
   width : 10%;
 `
 
-export default function BottomContent({boardId, likeCount, commentCount, liked, scraped} : BottomContentProps) {
+export default function BottomContent({boardId, likeCount, commentCount, liked, scraped,change, setChange} : BottomContentProps) {
   const {userId} = userStore();
   const [userLike, setUserLike] = useState<boolean>(liked);
   const [userScraped, setUserScraped] = useState<boolean>(scraped);
@@ -56,6 +58,7 @@ export default function BottomContent({boardId, likeCount, commentCount, liked, 
     axiosInstance.post(`/api/board/like/${boardId}`)
       .then(() => {
         setUserLike(!userLike)
+        setChange(!change)
       })
       .catch(error => {throw new Error(error.message)})
   }
@@ -66,6 +69,7 @@ export default function BottomContent({boardId, likeCount, commentCount, liked, 
     axiosInstance.post(`/api/board/scrap/${boardId}`)
       .then(()=> {
         setUserScraped(!userScraped)
+        setChange(!change)
       })
       .catch(error => {throw new Error(error.message)})
   }
