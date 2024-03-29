@@ -14,8 +14,8 @@ import { AxiosResponse } from "axios";
 interface FishData {
   fishId: number;
   imgUri: string;
-  name: string;
-  description: string;
+  fishName: string;
+  text: string;
 }
 
 const settings = {
@@ -101,8 +101,9 @@ export default function SeasonList() {
   const [dataSet, setDataSet] = React.useState<FishData[]>([]);
 
   useEffect(() => {
-    axiosInstance.get("/api/banner").then((res: AxiosResponse) => {
-      setDataSet(res.data.data.fishList);
+    axiosInstance.get("/api/banner/season").then((res: AxiosResponse) => {
+      setDataSet(res.data.data);
+      console.log(dataSet);
     });
   }, []);
 
@@ -132,8 +133,8 @@ export default function SeasonList() {
               >
                 {calcOrder()} / {dataSet.length}
               </OrderButton>
-              <FishComment>{data.name}</FishComment>
-              <FishSubComment>{data.description}</FishSubComment>
+              <FishComment>{data.fishName}</FishComment>
+              <FishSubComment>{data.text}</FishSubComment>
             </SlideContent>
           ))}
       </Slider>
