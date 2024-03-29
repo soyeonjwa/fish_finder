@@ -5,6 +5,7 @@ import {  gray3, gray1 } from '../../../assets/styles/palettes'
 import CommentAdd from '../../../assets/icons/commentAdd.svg';
 import { axiosInstance } from '../../../services/axios';
 import { AxiosResponse } from 'axios';
+import { userStore } from '../../../stores/userStore';
 
 interface CommentInputProps{
     boardId : string | undefined
@@ -57,12 +58,14 @@ const Button = styled.button`
 
 export default function CommentInput({boardId}:CommentInputProps) {
     const [content, setContent] = useState<string>("")
+    const {userId} = userStore();
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(content)
         const formData = new FormData();
         formData.append('content', content);
+        formData.append('writerId', userId.toString());
         axiosInstance.post(`/api/board/comment/${boardId}`, formData)
             .then((res : AxiosResponse)=>{console.log(res)})
             .catch(error => {throw new Error(error.message)})
