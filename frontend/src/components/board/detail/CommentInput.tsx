@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {  gray3, gray1 } from '../../../assets/styles/palettes'
 import CommentAdd from '../../../assets/icons/commentAdd.svg';
 import { axiosInstance } from '../../../services/axios';
+import { AxiosResponse } from 'axios';
 
 interface CommentInputProps{
     boardId : string | undefined
@@ -63,12 +64,14 @@ export default function CommentInput({boardId}:CommentInputProps) {
                     'content' : value
                 }
             )
+            .then((res : AxiosResponse)=>{console.log(res)})
+            .catch(error => {throw new Error(error.message)})
     }
     
     return (
         <Wrapper>
             <Form onSubmit={onSubmit}>
-                <Input placeholder='댓글을 입력해주세요.' value = {value} onChange={e=> setValue(e.target.value)}></Input>
+                <Input placeholder='댓글을 입력해주세요.' name = "userComment"value = {value} onChange={e=> setValue(e.target.value)}></Input>
                 <Button>
                     <Image
                         src = {CommentAdd}
