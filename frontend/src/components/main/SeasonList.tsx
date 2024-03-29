@@ -103,7 +103,6 @@ export default function SeasonList() {
   useEffect(() => {
     axiosInstance.get("/api/banner/season").then((res: AxiosResponse) => {
       setDataSet(res.data.data);
-      console.log(dataSet);
     });
   }, []);
 
