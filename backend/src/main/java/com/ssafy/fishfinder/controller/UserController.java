@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -37,7 +39,7 @@ public class UserController {
             Message message = new Message("회원가입 완료");
             return new ResponseEntity(message, HttpStatus.CREATED);
         }
-        Message message = new Message("로그인 완료", userDto.getNickname());
+        Message message = new Message("로그인 완료", userDto);
         return ResponseEntity.ok(message);
     }
 
@@ -49,11 +51,11 @@ public class UserController {
         }
         Long id = (Long) session.getAttribute("id");
         userDto.setId(id);
-        userService.updateMember(userDto);
+        UserDto newUserDto = userService.updateMember(userDto);
 
-        session.setAttribute("nickname", userDto.getNickname());
+        session.setAttribute("nickname", newUserDto.getNickname());
 
-        Message message = new Message("닉네임 수정 완료");
+        Message message = new Message("닉네임 수정 완료", newUserDto);
         return ResponseEntity.ok(message);
     }
 
