@@ -56,13 +56,13 @@ const Button = styled.button`
 `
 
 export default function CommentInput({boardId}:CommentInputProps) {
-    const [value, setValue] = useState<string>("")
+    const [content, setContent] = useState<string>("")
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         axiosInstance.post(`/api/board/comment/${boardId}`,
                 {
-                    content : value
+                    content
                 }
             )
             .then((res : AxiosResponse)=>{console.log(res.data)})
@@ -72,7 +72,7 @@ export default function CommentInput({boardId}:CommentInputProps) {
     return (
         <Wrapper>
             <Form onSubmit={onSubmit}>
-                <Input placeholder='댓글을 입력해주세요.' type ='text' name = "userComment" value = {value} onChange={e=> setValue(e.target.value)}></Input>
+                <Input placeholder='댓글을 입력해주세요.' type ='text' name = "userComment" value = {content} onChange={e=> setContent(e.target.value)}></Input>
                 <Button type="submit">
                     <Image
                         src = {CommentAdd}
