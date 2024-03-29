@@ -1,41 +1,33 @@
-import React, { useRef, useState } from 'react'
-import styled from 'styled-components'
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
 
-import ImageIcon from '../../../assets/icons/image.svg';
-import Title from './Title';
-import { gray1 } from '../../../assets/styles/palettes';
-import CameraIcon from '../../../assets/icons/camera.svg';
-import XIcon from '../../../assets/icons/x.svg'
+import usePostStore from "../../../stores/postStore";
 
-type imageFile= {
-  file : File;
-  id : number;
-}
-
-type imagePath={
-  path : string;
-  id : number;
-}
+import ImageIcon from "../../../assets/icons/image.svg";
+import Title from "./Title";
+import { gray1 } from "../../../assets/styles/palettes";
+import CameraIcon from "../../../assets/icons/camera.svg";
+import XIcon from "../../../assets/icons/x.svg";
 
 const Wrapper = styled.div`
-    width: 100%;
-    height: 135px;
-`
+  width: 100%;
+  height: 135px;
+`;
 
 const ImageWrapper = styled.div`
-  width : 100%;
+  width: 100%;
   height: auto;
-  margin-top : 3%;
+  margin-top: 3%;
 
-  display : flex;
+  display: flex;
   flex-direction: row;
 
   overflow-x: scroll;
   white-space: nowrap;
-  
+
   scrollbar-width: none;
   -webkit-overflow-scrolling: none;
-`
+`;
 
 const ButtonDiv = styled.div`
   background-color: ${gray1};
@@ -46,16 +38,16 @@ const ButtonDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const Input = styled.input`
   display: none;
-`
+`;
 
 const ImageDiv = styled.div`
-  position : relative;
-  margin-left : 3%;
-`
+  position: relative;
+  margin-left: 3%;
+`;
 
 const StyledImage = styled.img`
   border-radius: 10px;
@@ -63,52 +55,51 @@ const StyledImage = styled.img`
   width: 100px;
   height: 100px;
   object-fit: cover;
-`
+`;
 
 const XImage = styled.img`
   width: 15%;
-  position : absolute;
-  top : 3%;
+  position: absolute;
+  top: 3%;
   right: 3%;
-`
+`;
 
 export default function ImageContainer() {
-  const [size , setSize] = useState(0);
-  const [imgFile, setImgFile] = useState<imageFile[]>([]);
-  const [imgPath, setImgPath] = useState<imagePath[]>([]);
+  const [size, setSize] = useState(0);
+  const { images, setImages } = usePostStore();
+  const [imgPath, setImgPath] = useState<ImagePath[]>([]);
   const imgRef = useRef<HTMLInputElement>(null);
 
   const onUploadImage = () => {
-    if(imgRef.current && imgRef.current.files){
+    if (imgRef.current && imgRef.current.files) {
       const img = imgRef.current.files[0];
 
-      if(!img) return;
-      
-      setImgFile([{file : img, id : size} , ...imgFile]);
+      if (!img) return;
+
+      setImages([{ file: img, id: size }, ...images]);
 
       const reader = new FileReader();
       reader.readAsDataURL(img);
       reader.onload = () => {
-        setImgPath([{path : reader.result as string, id : size}, ...imgPath])
-      }
+        setImgPath([{ path: reader.result as string, id: size }, ...imgPath]);
+      };
 
-      setSize(size+1);
+      setSize(size + 1);
     }
-  }
+  };
 
-  const onDeleteImage = (key : number) => {
-    setImgFile(imgFile.filter(x => x.id !== key));
-    setImgPath(imgPath.filter(x => x.id!==key));
-  }
+  const onDeleteImage = (key: number) => {
+    setImages(images.filter((x) => x.id !== key));
+    setImgPath(imgPath.filter((x) => x.id !== key));
+  };
 
-  
   return (
     <Wrapper>
-      <Title icon = {ImageIcon} name = "사진"/>
+      <Title icon={ImageIcon} name="사진" />
       <ImageWrapper>
-        <label htmlFor='file_upload'>
+        <label htmlFor="file_upload">
           <ButtonDiv>
-            <img src = {CameraIcon}/>
+            <img src={CameraIcon} />
           </ButtonDiv>
         </label>
         <Input
@@ -116,19 +107,16 @@ export default function ImageContainer() {
           id="file_upload"
           accept="image/jpg, image/png, image/jpeg"
           onChange={onUploadImage}
-          ref = {imgRef}
+          ref={imgRef}
         />
-        {
-          imgPath && imgPath.map((image)=>(
-            <ImageDiv  key = {image.id}>
-              <StyledImage 
-                src = {image.path}
-              />
-              <XImage src = {XIcon} onClick={() => onDeleteImage(image.id)}/>
+        {imgPath &&
+          imgPath.map((image) => (
+            <ImageDiv key={image.id}>
+              <StyledImage src={image.path} />
+              <XImage src={XIcon} onClick={() => onDeleteImage(image.id)} />
             </ImageDiv>
-          ))
-        }
+          ))}
       </ImageWrapper>
     </Wrapper>
-  )
+  );
 }
