@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
         }
         UserDto userDto = UserDto.toUserDto(member);
         userDto.setCreatedNow(false);
+
         return userDto;
     }
 
