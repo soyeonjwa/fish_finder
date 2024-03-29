@@ -12,7 +12,7 @@ import { Wrapper } from '../../../components/common/Wrapper';
 
 import { axiosInstance } from "../../../services/axios";
 import { AxiosResponse } from "axios";
-// import { userStore } from "../../../stores/userStore";
+import { userStore } from "../../../stores/userStore";
 
 
 
@@ -73,27 +73,15 @@ const Contents = styled.div`
 export default function BoardDetail() {
   const [board, setBoard] = useState<BoardType>();
   const {boardId} = useParams();
-  // const {userId} = userStore();
+  const {userId} = userStore();
 
   useEffect(()=>{
-    // if(userId==-1){
-    //   axiosInstance.get(`/api/board/${boardId}`)
-    //   .then((res:AxiosResponse)=>{
-    //     setBoard(res.data.data)
-    //   })
-    // }
-    // else{
-      axiosInstance.get(`/api/board/${boardId}`,
-      {
-        headers : {
-          memberId : 1
-        }
-      }
-    )
-      .then((res:AxiosResponse)=>{
-        setBoard(res.data.data)
-      })
-    // }
+    if(userId && userId != -1){
+      axiosInstance.get(`/api/board/${boardId}`)
+        .then((res:AxiosResponse)=>{
+          setBoard(res.data.data)
+        })
+    }
   },[])
 
   return (

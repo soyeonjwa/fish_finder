@@ -9,6 +9,7 @@ import HeartIcon from '../../../assets/icons/heart.svg';
 import ImageContainer from '../ImageContainer';
 import { Button } from '../Button';
 import { formatCreatedAt } from '../FormatCreatedAt';
+import { userStore } from '../../../stores/userStore';
 
 type BoardInfo = {
     id : number,
@@ -83,9 +84,11 @@ const Image = styled(ImageContainer)`
 
 export default function BoardCard({id, title,  createdAt, postType, writer, thumbnail, likeCount, scrapCount, commentCount} : BoardInfo) {
     const navigate = useNavigate();
+    const {userId} = userStore();
 
     const onClickCard = () => {
-        navigate(`/board/${id}`)
+        if(userId===-1) navigate('/login')
+        else navigate(`/board/${id}`)
     }   
 
 
