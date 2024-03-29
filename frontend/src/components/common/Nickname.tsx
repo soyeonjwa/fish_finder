@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import BackButton from "../../components/common/BackButton";
-import { Button } from "../../components/common/Button";
+import { Button } from "./Button";
 import { primary, black, gray3 } from "../../assets/styles/palettes";
+import { userStore } from "../../stores/userStore";
+
+import { axiosInstance } from "../../services/axios";
+import { AxiosResponse } from "axios";
 
 const Wrapper = styled.div`
   margin: 0% 5% 0% 5%;
@@ -59,22 +62,37 @@ const Input = styled.input`
   border-bottom-width: 1px;
 `;
 
-export default function Login() {
+export default function NickName() {
+  const {nickname, setNickName} = userStore();
   const navigate = useNavigate();
-  const onClickBackBtn = () => {
-    navigate(-1);
-  };
+
+  const onSubmit = () => {
+    axiosInstance.post('/api/members/update',
+      {
+        nickname : {nickname}
+      }
+    )
+      .then((res : AxiosResponse) => {
+        console.log(res.data.message)
+        navigate('/')
+      })
+      .catch(error => {throw new Error(error.message)})
+  }
+
+
+  const onChange = (e : React.FormEvent<HTMLInputElement>) => {
+    setNickName(e.currentTarget.value)
+  }
 
   return (
     <Wrapper>
       <Header>
-        <BackButton onClickBtn={onClickBackBtn}></BackButton>
       </Header>
       <Contents>
         <Content>
           <p>닉네임을 입력해주세요</p>
         </Content>
-        <Input placeholder="닉네임 입력"></Input>
+        <Input placeholder="닉네임 입력" value = {nickname} onChange={onChange}></Input>
         <Button
           width="100%"
           height="50px"
@@ -84,8 +102,9 @@ export default function Login() {
           fontSize="18px"
           padding="2% 4% 2% 4%"
           margin="0% 4% 2% 0%"
+          onSubmit={onSubmit}
         >
-          다음
+          회원가입 완료하기
         </Button>
       </Contents>
     </Wrapper>

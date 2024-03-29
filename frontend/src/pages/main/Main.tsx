@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
-import Header from "../../components/main/Header";
-import SeasonList from "../../components/main/SeasonList";
-import MarketList from "../../components/main/MarketList";
-import PopularPosts from "../../components/main/PopularPosts";
-import { NavBarWrapper } from "../../components/common/Wrapper";
+import Header from '../../components/main/Header';
+import SeasonList from '../../components/main/SeasonList';
+import MarketList from '../../components/main/MarketList';
+import PopularPosts from '../../components/main/PopularPosts';
+import { NavBarWrapper } from '../../components/common/Wrapper';
 
 const StyledWrapper = styled(NavBarWrapper)`
   width: 100%;
@@ -13,12 +13,14 @@ const StyledWrapper = styled(NavBarWrapper)`
 `;
 
 export default function Main() {
-  return (
-    <StyledWrapper>
-      <Header />
-      <MarketList />
-      <SeasonList />
-      <PopularPosts />
-    </StyledWrapper>
-  );
+    
+    return (
+        <StyledWrapper>
+            <Header/>
+            <MarketList/>
+            <SeasonList/>
+            <PopularPosts/>
+        </StyledWrapper>
+        
+    )
 }

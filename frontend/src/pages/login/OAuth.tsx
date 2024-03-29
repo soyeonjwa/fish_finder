@@ -17,6 +17,10 @@ export default function OAuth() {
                     setNickName(res.data.data.nickname)
                     localStorage.setItem("userId", JSON.stringify(userId))
                     localStorage.setItem("nickname", JSON.stringify(nickname))
+
+                    if(res.status == 201){
+                        navigate("/nickname")
+                    }
                 })
                 .catch(error => {
                     console.log(queryParam.get("code"))
