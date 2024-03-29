@@ -186,4 +186,17 @@ public class BoardController {
         return ResponseEntity.ok(new Message("인기 게시글 목록 조회 완료", boardService.getPopularBoardList()));
     }
 
+    @GetMapping("/record")
+    public ResponseEntity<Message> getRecordBoardList(
+            HttpServletRequest request
+    ) {
+        HttpSession session = request.getSession(false);
+        if(session.getAttribute("id") == null) {
+            throw new CustomException(ErrorCode.NO_LOGIN);
+        }
+        Long memberId = (Long) session.getAttribute("id");
+
+        return ResponseEntity.ok(new Message("작성글, 댓글, 스크랩한 글 수 조회 완료", boardService.getRecord(memberId)));
+    }
+
 }

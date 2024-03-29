@@ -24,4 +24,6 @@ public interface BoardRepository extends JpaRepository<Post, Long> {
     // jpql로 limit하는 방법 몰라서 native로 작성
     @Query(nativeQuery = true, value = "SELECT * FROM post where thumbnail is not null and created_at between DATE_SUB(NOW(), INTERVAL 7 DAY) and NOW() and deleted_at is null ORDER BY (select count(*) from likes where post_id = post.post_id and likes.deleted_at is null) DESC, created_at DESC limit 4")
     List<Post> findTop4PopularBoardList();
+
+    List<Post> findAllByWriterId(Long writerId);
 }
