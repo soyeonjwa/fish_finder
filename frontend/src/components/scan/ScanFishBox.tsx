@@ -14,6 +14,7 @@ interface ScanFishBoxProps {
 
 const Wrapper = styled.div`
   position: absolute;
+  background-color: rgba(255, 255, 255, 0.2);
   border: 3px solid white;
   border-radius: 10px;
   z-index: 100;

@@ -3,8 +3,11 @@ import styled from "styled-components";
 import Sheet from "react-modal-sheet";
 import { useNavigate } from "react-router-dom";
 
+import BackButton from "../../components/common/BackButton";
 import ScanBox from "../../components/scan/ScanFishBox";
+import Loading from "../../components/common/Loading";
 import CameraButton from "../../assets/icons/scanCamera.png";
+import RetryButton from "../../assets/icons/scanRetry.png";
 import { gray3, gray5 } from "../../assets/styles/palettes";
 
 // import data from "../../services/dummy/Fish.json";
@@ -29,10 +32,11 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
+  padding: 0 5% 0 5%;
   height: 60px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   & > span {
@@ -128,10 +132,10 @@ export default function Scan() {
   const photoRef = useRef<HTMLCanvasElement>(null);
   const [photoTaken, setPhotoTaken] = useState(false);
   const [boxdata, setBoxData] = useState<FishScanData[]>([]);
+  const [loading, setLoading] = useState(false);
+  const video = videoRef.current;
+  const photo = photoRef.current;
   useEffect(() => {
-    const video = videoRef.current;
-    const photo = photoRef.current;
-
     if (video && photo) {
       const resizeCanvas = () => {
         photo.width = video.videoWidth;
@@ -178,7 +182,7 @@ export default function Scan() {
   const takePhoto = () => {
     const video = videoRef.current;
     const photo = photoRef.current;
-
+    setLoading(true);
     if (!video) {
       console.error("Video element not found.");
       return;
@@ -227,6 +231,7 @@ export default function Scan() {
       })
       .then((res: AxiosResponse) => {
         console.log(res.data[0]);
+        setLoading(false);
         setBoxData(res.data[0]);
       })
       .catch((error) => {
@@ -248,6 +253,12 @@ export default function Scan() {
     fishId: 0,
   });
 
+  const reTakePhoto = () => {
+    setPhotoTaken(false);
+    getVideo();
+    setBoxData([]);
+  };
+
   const OpenSheet = (fishId: number) => {
     axiosInstance.get(`/api/fishes/${fishId}`).then((res: AxiosResponse) => {
       setFishData(res.data.data);
@@ -267,6 +278,11 @@ export default function Scan() {
     }
   };
 
+  const navigateBack = () => {
+    video?.pause();
+    navigate(-1);
+  };
+
   const Percentage = (num: number) => {
     return (num * 100).toFixed(2);
   };
@@ -274,7 +290,13 @@ export default function Scan() {
   return (
     <Wrapper>
       <Header>
-        <span>어종 스캔</span>
+        <BackButton
+          onClickBtn={() => {
+            navigateBack();
+          }}
+        ></BackButton>
+        <span>어종검색</span>
+        <div style={{ width: "7%" }}></div>
       </Header>
 
       <Contents>
@@ -297,6 +319,7 @@ export default function Scan() {
               objectFit: "contain",
             }}
           ></canvas>
+          {loading ? <Loading /> : null}
           {boxdata &&
             boxdata.map((data, index) => (
               <ScanBox
@@ -317,6 +340,11 @@ export default function Scan() {
           style={{ display: photoTaken ? "none" : "block" }}
           src={CameraButton}
           onClick={takePhoto}
+        ></ScanButton>
+        <ScanButton
+          style={{ display: photoTaken ? "block" : "none" }}
+          src={RetryButton}
+          onClick={reTakePhoto}
         ></ScanButton>
 
         <Info>
