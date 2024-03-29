@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import IconButton from '../../common/IconButton'
 import HeartIcon from '../../../assets/icons/heart.svg';
 import CommentIcon from '../../../assets/icons/comments.svg';
 import ScrapIcon from '../../../assets/icons/scrap.svg';
+import FillScrapIcon from '../../../assets/icons/scrap_fill.svg'
 import FillHeartIcon from '../../../assets/icons/Favorite_fill.svg';
-import { axiosInstance } from '../../../services/axios';
-import { AxiosResponse } from 'axios';
 import { userStore } from '../../../stores/userStore';
 
+import { axiosInstance } from '../../../services/axios';
 interface BottomContentProps{
     boardId : number
     likeCount : number
@@ -42,9 +42,10 @@ const Scrap = styled.div`
   width : 10%;
 `
 
-
-export default function BottomContent({boardId, likeCount, commentCount, liked} : BottomContentProps) {
+export default function BottomContent({boardId, likeCount, commentCount, liked, scraped} : BottomContentProps) {
   const {userId} = userStore();
+  const [userLike, setUserLike] = useState<boolean>(liked);
+  const [userScraped, setUserScraped] = useState<boolean>(scraped);
   
   const pushLikeBtn = () => {
     if(userId==-1){
@@ -52,24 +53,29 @@ export default function BottomContent({boardId, likeCount, commentCount, liked} 
       return;
     }
 
-    axiosInstance.post(`/api/board/like/${boardId}`,
-      {
-        headers : {
-          memberId : userId
-        },
-      }
-    )
-      .then((res : AxiosResponse) => {
-        console.log(res.data.message)
+    axiosInstance.post(`/api/board/like/${boardId}`)
+      .then(() => {
+        setUserLike(!userLike)
       })
       .catch(error => {throw new Error(error.message)})
   }
+
+  const pushScrapedBtn = () => {
+    if(userId==-1) return;
+
+    axiosInstance.post(`/api/board/scrap/${boardId}`)
+      .then(()=> {
+        setUserScraped(!userScraped)
+      })
+      .catch(error => {throw new Error(error.message)})
+  }
+
   
   return (
     <Wrapper>
         <LikeComment>
           {
-            liked
+            userLike
             ?(
               <IconButton
                 width = '12%'
@@ -95,13 +101,30 @@ export default function BottomContent({boardId, likeCount, commentCount, liked} 
               />
               <div>{commentCount}</div>
             </LikeComment>
-            <Scrap>
-              <IconButton
-                  width = '100%'
-                  margin = '0'
-                  icon = {ScrapIcon}
-              />
-            </Scrap>        
+            {
+              userScraped?
+              (
+                <Scrap>
+                  <IconButton
+                      width = '100%'
+                      margin = '0'
+                      icon = {FillScrapIcon}
+                      onClick={pushScrapedBtn}
+                  />
+                </Scrap> 
+              )
+              :
+              (
+                <Scrap>
+                  <IconButton
+                      width = '100%'
+                      margin = '0'
+                      icon = {ScrapIcon}
+                      onClick={pushScrapedBtn}
+                  />
+                </Scrap> 
+              )
+            }       
 
     </Wrapper>
   )
