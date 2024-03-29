@@ -5,6 +5,7 @@ import {  gray3, gray1 } from '../../../assets/styles/palettes'
 import CommentAdd from '../../../assets/icons/commentAdd.svg';
 import { axiosInstance } from '../../../services/axios';
 import { AxiosResponse } from 'axios';
+import { userStore } from '../../../stores/userStore';
 
 interface CommentInputProps{
     boardId : string | undefined
