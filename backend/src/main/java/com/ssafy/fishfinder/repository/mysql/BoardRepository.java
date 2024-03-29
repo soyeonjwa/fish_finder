@@ -26,4 +26,12 @@ public interface BoardRepository extends JpaRepository<Post, Long> {
     List<Post> findTop4PopularBoardList();
 
     List<Post> findAllByWriterId(Long writerId);
+
+    List<Post> findTop10ByWriterIdAndCreatedAtIsLessThanOrderByCreatedAtDesc(Long writerId, LocalDateTime createdAt);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM clipping WHERE member_id = :memberId AND deleted_at IS NULL) AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
+    List<Post> findTop10Clipping(Long memberId, LocalDateTime createdAt);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM comment WHERE member_id = :memberId AND deleted_at IS NULL) AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
+    List<Post> findTop10Comment(Long memberId, LocalDateTime createdAt);
 }
