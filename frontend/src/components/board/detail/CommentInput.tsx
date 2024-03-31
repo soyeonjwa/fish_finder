@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import {  gray3, gray1 } from '../../../assets/styles/palettes'
 import CommentAdd from '../../../assets/icons/commentAdd.svg';
 import { axiosInstance } from '../../../services/axios';
-import { AxiosResponse } from 'axios';
 import { userStore } from '../../../stores/userStore';
 
 interface CommentInputProps{
     boardId : string | undefined
+    change : boolean
+    setChange : (e : boolean) => void
 }
 
 const Wrapper = styled.div`
@@ -56,19 +57,24 @@ const Button = styled.button`
     background-color: transparent;
 `
 
-export default function CommentInput({boardId}:CommentInputProps) {
+export default function CommentInput({boardId, change, setChange}:CommentInputProps) {
     const [content, setContent] = useState<string>("")
     const {userId} = userStore();
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(content)
+
         const formData = new FormData();
         formData.append('content', content);
         formData.append('writerId', userId.toString());
+
         axiosInstance.post(`/api/board/comment/${boardId}`, formData)
-            .then((res : AxiosResponse)=>{console.log(res)})
+            .then(()=>{
+                setContent('');
+            })
             .catch(error => {throw new Error(error.message)})
+        
+        setChange(!change)
     }
     
     return (

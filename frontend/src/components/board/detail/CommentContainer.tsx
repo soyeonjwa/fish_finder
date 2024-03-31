@@ -10,10 +10,10 @@ interface Comments{
 
 interface Comment{
   commentId : number;
-  commentWriterId : number;
-  commentCreatedAt : string;
-  commentWriterNickname : string;
-  commentContent : string;
+  writerId : number;
+  createdAt : string;
+  writerNickname : string;
+  content : string;
 }
 
 const Wrapper = styled.div`
@@ -36,10 +36,10 @@ export default function CommentContainer({comments} : Comments) {
             <>
               <CommentCard
                 commentId={comment.commentId}
-                commentWriterId = {comment.commentWriterId}
-                commentCreatedAt = {comment.commentCreatedAt}
-                commentWriterNickname= {comment.commentWriterNickname}
-                commentContent={comment.commentContent}
+                commentWriterId = {comment.writerId}
+                commentCreatedAt = {comment.createdAt}
+                commentWriterNickname= {comment.writerNickname}
+                commentContent={comment.content}
                 key = {index}
               />
               <CommentHr/>
