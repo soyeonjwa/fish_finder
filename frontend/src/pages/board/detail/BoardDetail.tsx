@@ -48,11 +48,11 @@ interface image{
 }
 
 interface comment{
-  commentId : number, 
-  commentWriterId : number, 
-  commentCreatedAt : string,
-  commentWriterNickname : string, 
-  commentContent : string 
+  commentId : number;
+  writerId : number;
+  createdAt : string;
+  writerNickname : string;
+  content : string;
 }
 
 const StyledWrapper = styled(Wrapper)`
@@ -114,7 +114,10 @@ export default function BoardDetail() {
           </Contents>
         )
       }
-      <CommentInput boardId={boardId}/>
+      <CommentInput               
+        change = {change}
+        setChange={setChange} 
+        boardId={boardId}/>
     </StyledWrapper>
   )
 }
