@@ -10,13 +10,13 @@ import { NavBarWrapper } from "../../components/common/Wrapper";
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
 
-interface fishData{
-  fishId : number
-  name : string
+interface fishData {
+  fishId: number;
+  name: string;
 }
 
-interface fishResultData extends fishData{
-  imgUri : string
+interface fishResultData extends fishData {
+  imgUri: string;
 }
 
 const Wrapper = styled(NavBarWrapper)`
@@ -25,7 +25,7 @@ const Wrapper = styled(NavBarWrapper)`
 `;
 
 const Header = styled.div`
-  height : 60px;
+  height: 60px;
 
   display: flex;
   flex-direction: row;
@@ -33,7 +33,7 @@ const Header = styled.div`
   align-items: center;
 
   & > span {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
   }
 `;
@@ -42,15 +42,12 @@ const Content = styled.div`
   height: auto;
 `;
 
-
 const CardContent = styled.div`
-  display : grid;
-  grid-template-columns: repeat(2,1fr);
-  row-gap :5%; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 5%;
   column-gap: 3%;
-`
-
-
+`;
 
 export default function Search() {
   const location = useLocation();
@@ -61,49 +58,51 @@ export default function Search() {
   const [seasonFishList, setSeasonFishList] = useState<fishData[]>([]);
   const [resultFishList, setResultFishList] = useState<fishResultData[]>([]);
 
-  const [value, setValue] = useState<string|null>("");
+  const [value, setValue] = useState<string | null>("");
   const handleSubmit = () => {
     console.log({ value });
   };
 
-  const onClickCard = (fish : fishData) => {
-    const recentSearch : fishData[]  = JSON.parse(localStorage.getItem("RecentSearch")||'[]').filter((e:fishData) => e.fishId != fish.fishId)
-    
-    if(recentSearch.length>=6) recentSearch.splice(0,1);
+  const onClickCard = (fish: fishData) => {
+    const recentSearch: fishData[] = JSON.parse(
+      localStorage.getItem("RecentSearch") || "[]"
+    ).filter((e: fishData) => e.fishId != fish.fishId);
 
-    recentSearch.push({fishId : fish.fishId, name : fish.name})
-    localStorage.setItem("RecentSearch", JSON.stringify(recentSearch))
+    if (recentSearch.length >= 6) recentSearch.splice(0, 1);
+
+    recentSearch.push({ fishId: fish.fishId, name: fish.name });
+    localStorage.setItem("RecentSearch", JSON.stringify(recentSearch));
 
     navigate(`/info/${fish.fishId}`);
-  }
+  };
 
+  useEffect(() => {
+    const recentSearch: fishData[] = JSON.parse(
+      localStorage.getItem("RecentSearch") || "[]"
+    );
+    setRecentFishList(recentSearch);
+  }, []);
 
-  useEffect(()=>{
-    const recentSearch : fishData[] = JSON.parse(localStorage.getItem("RecentSearch")||'[]');
-    setRecentFishList(recentSearch)
-  },[])
- 
-
-  useEffect(()=>{
-    if(!queryParam.get("query")){
+  useEffect(() => {
+    if (!queryParam.get("query")) {
       const todayMonth = new Date().getMonth();
 
-      axiosInstance.get(`/api/fishes/season?ss=${todayMonth}월`)
-        .then((res : AxiosResponse)=>{
-          setSeasonFishList(res.data.data.fishList)
-        })
-    }
-    else{
-      setValue(queryParam.get("query"))
+      axiosInstance
+        .get(`/api/fishes/season?ss=${todayMonth}월`)
+        .then((res: AxiosResponse) => {
+          setSeasonFishList(res.data.data.fishList);
+        });
+    } else {
+      setValue(queryParam.get("query"));
 
-      axiosInstance.get(`/api/fishes/search?keyword=${queryParam.get("query")}`)
-        .then((res : AxiosResponse) => {
-          setResultFishList(res.data.data)
-        })
+      axiosInstance
+        .get(`/api/fishes/search?keyword=${queryParam.get("query")}`)
+        .then((res: AxiosResponse) => {
+          setResultFishList(res.data.data);
+        });
     }
-  }, [queryParam.get("query")])
+  }, [queryParam.get("query")]);
 
-  
   return (
     <Wrapper>
       <Header>
@@ -113,42 +112,39 @@ export default function Search() {
         width="100%"
         name="query"
         margin="0 0 5% 0"
-        value={value?value:""}
+        value={value ? value : ""}
         setValue={setValue}
         handleSubmit={handleSubmit}
       ></SearchBox>
-      
-        {
-          !queryParam.get("query")? (
-            <Content>
-              <WordContents
-                title="최근 검색어종"
-                fishlist={[...recentFishList].reverse()}
-              ></WordContents>
-              <WordContents
-                title="추천 검색어종"
-                fishlist={seasonFishList}
-              ></WordContents>
-            </Content>
-          ):
-          (
-            
-            (resultFishList && resultFishList.length > 0) ? (
-              <CardContent>
-                {
-                  resultFishList.map((fish : fishResultData)=>(
-                    <FishCompareCard key = {fish.fishId} fishId = {fish.fishId} name = {fish.name} imgUri= {fish.imgUri} onClickCard={()=> onClickCard({fishId : fish.fishId, name : fish.name})}/>
-                  ))
-                }
-              </CardContent>
-            )
-            :
-            (
-              <div>검색 결과 없습니다.</div>
-            )
-          )
-        }
-        
+
+      {!queryParam.get("query") ? (
+        <Content>
+          <WordContents
+            title="최근 검색어종"
+            fishlist={[...recentFishList].reverse()}
+          ></WordContents>
+          <WordContents
+            title="추천 검색어종"
+            fishlist={seasonFishList}
+          ></WordContents>
+        </Content>
+      ) : resultFishList && resultFishList.length > 0 ? (
+        <CardContent>
+          {resultFishList.map((fish: fishResultData) => (
+            <FishCompareCard
+              key={fish.fishId}
+              fishId={fish.fishId}
+              name={fish.name}
+              imgUri={fish.imgUri}
+              onClickCard={() =>
+                onClickCard({ fishId: fish.fishId, name: fish.name })
+              }
+            />
+          ))}
+        </CardContent>
+      ) : (
+        <div>검색 결과 없습니다.</div>
+      )}
     </Wrapper>
   );
 }
