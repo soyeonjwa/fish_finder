@@ -17,6 +17,14 @@ interface TagBoxProps {
   active: boolean;
 }
 
+interface Record{
+  "memberId" : number, // 사용자 id
+  "nickname" : string, // 사용자 닉네임
+  "postCount" : number, // 글 작성 횟수
+  "commentCount" : number, // 댓글 단 횟수
+  "scrapCount" : number 
+}
+
 const Wrapper = styled(NavBarWrapper)`
   padding-top : 200px;
 `
@@ -110,15 +118,37 @@ const LogoutBtn = styled.div`
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
   const [boards, setBoards] = useState<BoardType[]>([]);
-  const {setUserId, setNickName} = userStore();
+  const {setUserId, nickname, setNickName} = userStore();
+  const [record, setRecord] = useState<Record>();
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    axiosInstance.get('/api/board')
+  const getBoard = (url : string) => {
+    axiosInstance.get(`/api/board/${url}`)
       .then((res:AxiosResponse) => {
         setBoards(res.data.data)
       })
+  }
+
+  useEffect(()=>{
+    getBoard('my-post')
+
+    axiosInstance.get('/api/board/my-record')
+      .then((res : AxiosResponse) => {
+        setRecord(res.data.data)
+      })
   },[])
+
+  useEffect(()=>{
+    if(activeTab ==="작성글"){
+      getBoard('my-post')
+    }
+    else if(activeTab === "댓글단 글"){
+      getBoard('my-comment')
+    }
+    else{
+      getBoard('my-scrap')
+    }
+  }, [activeTab])
 
   const onClickLogoutBtn = () => {
     axiosInstance.get('/api/users/logout')
@@ -138,10 +168,10 @@ export default function MyPage() {
         <Profile>
           <LogoutBtn onClick={onClickLogoutBtn}>로그아웃</LogoutBtn>
           <NicknameBox>
-            <Nickname>좌랑둥이님</Nickname>
+            <Nickname>{nickname}님</Nickname>
             <img src={EditIcon} alt="" />
           </NicknameBox>
-          <span>작성글 8 | 작성댓글 12 | 스크랩한 글 11</span>
+          <span>작성글 {record?.postCount} | 작성댓글 {record?.commentCount} | 스크랩한 글 {record?.scrapCount}</span>
         </Profile>
       </Header>
       <Contents>
