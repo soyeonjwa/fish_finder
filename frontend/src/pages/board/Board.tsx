@@ -13,6 +13,7 @@ import { BoardType } from '../../components/common/board/BoardContainer'
 
 import { axiosInstance } from '../../services/axios'
 import { AxiosResponse } from 'axios'
+import { userStore } from '../../stores/userStore'
 
 
 
@@ -90,6 +91,7 @@ export default function Board() {
   const [isOpen, setIsOpen] = useState(false);
   const [sort, setSort] = useState("최신순");
   const [boards, setBoards] = useState<BoardType[]>([]);
+  const {userId} = userStore();
   const navigate = useNavigate();
 
   const onClickRadio = (name : string) => {
@@ -110,7 +112,8 @@ export default function Board() {
   }
 
   const onClickRegisterBtn = () => {
-    navigate("/board/register")
+    if(userId == -1) navigate("/login")
+    else navigate("/board/register")
   }
 
   useEffect(()=>{

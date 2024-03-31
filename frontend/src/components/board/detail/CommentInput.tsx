@@ -70,11 +70,11 @@ export default function CommentInput({boardId, change, setChange}:CommentInputPr
 
         axiosInstance.post(`/api/board/comment/${boardId}`, formData)
             .then(()=>{
+                setChange(!change)
                 setContent('');
             })
             .catch(error => {throw new Error(error.message)})
         
-        setChange(!change)
     }
     
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import Slider from 'react-slick';
 
@@ -9,6 +9,7 @@ import marketImage1 from '../../assets/images/market/노량진1.jpg';
 import marketImage2 from '../../assets/images/market/노량진2.jpg';
 import marketImage3 from '../../assets/images/market/노량진3.jpg';
 import { useNavigate } from 'react-router-dom';
+import { userStore } from '../../stores/userStore';
 
 
 const settings = {
@@ -69,13 +70,13 @@ const ImageContainer = styled.img`
 
 
 export default function MarketList() {
-    const [nickname] = useState("좌랑둥이"); //나중에 zustand를 이용해서 처리해야 됨
+    const {nickname} = userStore();
     const navigate = useNavigate();
 
     return (
         <Wrapper>
             <UpContents>
-                {nickname && <span onClick={()=>{navigate('/mypage')}}>{nickname}님</span>}
+                {nickname !== "" ? <span onClick={()=>{navigate('/mypage')}}>{nickname}님</span> :<span>안녕하세요</span>}
                 주변 수산물 시장
             </UpContents>
             <Slider {...settings}>

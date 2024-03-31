@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-// import usePostStore from "../../../stores/postStore";
+import usePostStore from "../../../stores/postStore";
 
 import { Button } from "../../common/Button";
 import { gray1, gray2, gray3 } from "../../../assets/styles/palettes";
@@ -80,57 +80,88 @@ const DeleteDiv = styled.div`
   align-items: center;
 `;
 
+interface ReviewForm{
+  id : number
+  fishId : number
+  weight : number
+  pricePerKg : number
+  totalPrice : number
+}
+
+
 export default function ReviewContainer() {
-  const [size, setSize] = useState(1);
-  const [forms, setForms] = useState<number[]>([0]);
-  //   const { reviews, setReviews } = usePostStore();
+  const initialFormData : ReviewForm = {
+    id : 1,
+    fishId: 0,
+    weight: 0,
+    pricePerKg: 0,
+    totalPrice : 0
+  }
 
-  const onClickAddBtn = () => {
-    setForms((forms) => [...forms, size]);
-    setSize(size + 1);
-  };
+  const [forms, setForms] = useState<ReviewForm[]>([initialFormData]);
+  const { setReviews } = usePostStore();
 
-  const onClickDeleteBtn = (key: number) => {
-    setForms(forms.filter((formIndex) => formIndex !== key));
-  };
+  const handleAddForm = () => {
+    const newId = forms[forms.length-1].id +1;
+    setForms([...forms, {...initialFormData, id : newId}])
+  }
+
+  const handleRemoveForm = (id : number) => {
+    setForms(forms.filter(form => form.id !== id))
+  }
+
+  const handleFormFieldChange = (id : number, fieldName : string, value : string) => {
+    if(fieldName === 'pricePerKg'){
+      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.weight} : form))
+    }
+    else if(fieldName === 'weight'){
+      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.pricePerKg} : form))
+    }
+    else{
+      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : value} : form))
+    }
+  }
+
+  useEffect(()=>{
+    setReviews(forms)
+  }, [forms])
 
   return (
     <Wrapper>
       <InputWrapper>
-        {forms.map((formIndex) => (
-          <StyledForm key={formIndex}>
+        {forms.map((form) => (
+          <StyledForm key={form.id}>
             <FishLabel htmlFor="fishId">
               {" "}
-              {formIndex === 0 ? "어종" : null}
-              <Input type="text" list="list" id="fishId" />
+              {form.id === 1 ? "어종" : null}
+              <Input type="number" list="list" id="fishId" value={form.fishId} onChange = {(e) => handleFormFieldChange(form.id, 'fishId', e.target.value)}/>
               <datalist id="list">
-                <option value="뱅어돔"></option>
-                <option value="강담돔"></option>
-                <option value="옥돔"></option>
-                <option value="방어"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
               </datalist>
             </FishLabel>
             <WeightLabel htmlFor="weight">
-              {formIndex === 0 ? "무게" : null}
+              {form.id === 1 ? "무게" : null}
               <div>
-                <Input type="number" id="weight" />
+                <Input type="number" id="weight" value={form.weight} onChange = {(e)=> handleFormFieldChange(form.id, 'weight', e.target.value)}/>
                 <Unit>kg</Unit>
               </div>
             </WeightLabel>
             <PriceLabel htmlFor="pricePerKg">
-              {formIndex === 0 ? "kg당 가격" : null}
+              {form.id === 1 ? "kg당 가격" : null}
               <div>
-                <Input type="number" id="pricePerKg" />
+                <Input type="number" id="pricePerKg" value={form.pricePerKg} onChange = {(e) => handleFormFieldChange(form.id, 'pricePerKg', e.target.value)}/>
                 <Unit>원</Unit>
               </div>
             </PriceLabel>
-            <DeleteDiv onClick={() => onClickDeleteBtn(formIndex)}>
-              {formIndex !== 0 ? (
+            {form.id !==1 ?
+              <DeleteDiv onClick={() => handleRemoveForm(form.id)}>
                 <IconButton width="70%" margin="0" icon={DeleteIcon} />
-              ) : (
-                <></>
-              )}
-            </DeleteDiv>
+              </DeleteDiv> : <DeleteDiv></DeleteDiv>
+            }
+            
           </StyledForm>
         ))}
       </InputWrapper>
@@ -141,7 +172,7 @@ export default function ReviewContainer() {
         height="33px"
         margin="0 2% 0 0"
         border="0px"
-        onClick={onClickAddBtn}
+        onClick={handleAddForm}
       >
         품목추가
       </Button>
