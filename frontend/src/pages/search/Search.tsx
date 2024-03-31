@@ -115,6 +115,11 @@ export default function Search() {
         value={value ? value : ""}
         setValue={setValue}
         handleSubmit={handleSubmit}
+        handleSearchClick={() => {
+          if (value) {
+            navigate(`/search?query=${value}`);
+          }
+        }}
       ></SearchBox>
 
       {!queryParam.get("query") ? (

@@ -10,6 +10,7 @@ interface ScanFishBoxProps {
   height?: number;
   confidence?: number | string;
   onClickScanBox(): void;
+  position?: number;
 }
 
 const Wrapper = styled.div`
@@ -20,26 +21,37 @@ const Wrapper = styled.div`
   z-index: 100;
 `;
 
-const ScanFishNameBox = styled.div`
+const ScanFishNameBox1 = styled.div`
   position: absolute;
   background-color: white;
-  border-radius: 5px;
   padding: 5px;
   font-size: 15px;
   z-index: 100;
   top: 0;
   left: 0;
-  transform: translate(0, -50%);
+  transform: translate(0, -100%);
+`;
+
+const ScanFishNameBox2 = styled.div`
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  font-size: 15px;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
 `;
 
 export default function ScanFishBox({
   class_name,
   x,
-  y,
+  y = 0,
   width,
-  height,
+  height = 0,
   confidence,
   onClickScanBox,
+  position,
 }: ScanFishBoxProps) {
   return (
     <Wrapper
@@ -51,10 +63,21 @@ export default function ScanFishBox({
       }}
       onClick={onClickScanBox}
     >
-      <ScanFishNameBox>
-        <span>{class_name} </span>
-        <span>{confidence}%</span>
-      </ScanFishNameBox>
+      {position === -1 ? (
+        <ScanFishNameBox1>
+          <span>{class_name} </span>
+          <span>{confidence}%</span>
+        </ScanFishNameBox1>
+      ) : (
+        <ScanFishNameBox2
+          style={{
+            top: height,
+          }}
+        >
+          <span>{class_name} </span>
+          <span>{confidence}%</span>
+        </ScanFishNameBox2>
+      )}
     </Wrapper>
   );
 }

@@ -131,6 +131,7 @@ export default function Scan() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const photoRef = useRef<HTMLCanvasElement>(null);
   const [photoTaken, setPhotoTaken] = useState(false);
+  const [photoHeight, setPhotoHeight] = useState(0);
   const [boxdata, setBoxData] = useState<FishScanData[]>([]);
   const [loading, setLoading] = useState(false);
   const video = videoRef.current;
@@ -223,7 +224,7 @@ export default function Scan() {
     const base64Data = imageData.split(",")[1];
     console.log(imageData);
     console.log(base64Data); // 이 데이터를 사용하거나 저장
-
+    setPhotoHeight(photo.height);
     //data 백으로 보내기
     axiosInstance
       .post("/ai/fishes", {
@@ -262,12 +263,11 @@ export default function Scan() {
   const OpenSheet = (fishId: number) => {
     axiosInstance.get(`/api/fishes/${fishId}`).then((res: AxiosResponse) => {
       setFishData(res.data.data);
-
-      setOpen(true);
+      setIsOpen(true);
     });
   };
 
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   // const ref = useRef<SheetRef>();
   const navigate = useNavigate();
 
@@ -285,6 +285,14 @@ export default function Scan() {
 
   const Percentage = (num: number) => {
     return (num * 100).toFixed(2);
+  };
+
+  const Position = (photoHeight: number, positionY: number) => {
+    if (photoHeight / 2 - positionY > 0) {
+      return 1;
+    } else {
+      return -1;
+    }
   };
 
   return (
@@ -330,6 +338,7 @@ export default function Scan() {
                 width={data.bbox[2] * 1}
                 height={data.bbox[3] * 1}
                 confidence={Percentage(data.confidence)}
+                position={Position(photoHeight, data.bbox[1])}
                 onClickScanBox={() => {
                   OpenSheet(data.class);
                 }}
@@ -353,7 +362,7 @@ export default function Scan() {
 
         <Sheet
           isOpen={isOpen}
-          onClose={() => setOpen(false)}
+          onClose={() => setIsOpen(false)}
           detent="content-height"
           snapPoints={[1200, 800]}
           onSnap={handleSnap}
