@@ -42,6 +42,11 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const Contents = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
 const SlideContent = styled.div`
   position: relative;
 `;
@@ -91,14 +96,12 @@ const GradientOverlay = styled.div`
 
 export default function SeasonList() {
   const navigate = useNavigate();
-  let order = 0;
-
-  const calcOrder = () => {
-    order = order + 1;
-    return order;
-  };
-
+  const [currentSlide, setCurrentSlide] = React.useState<number>(0);
   const [dataSet, setDataSet] = React.useState<FishData[]>([]);
+
+  const handleAfterChange = (current: number) => {
+    setCurrentSlide(current);
+  };
 
   useEffect(() => {
     axiosInstance.get("/api/banner/season").then((res: AxiosResponse) => {
@@ -109,34 +112,37 @@ export default function SeasonList() {
   return (
     <Wrapper>
       <div>제철 횟감</div>
-      <Slider {...settings}>
-        {dataSet &&
-          dataSet.map((data) => (
-            <SlideContent key={data.fishId}>
-              <SeasonFish src={data.imgUri}></SeasonFish>
-              <GradientOverlay
-                onClick={() => {
-                  navigate(`info/${data.fishId}`);
-                }}
-              ></GradientOverlay>
-              <OrderButton
-                color="#FFFFFF"
-                width="auto"
-                height="auto"
-                fontSize="12px"
-                backcolor="rgb(0,0,0,0.5)"
-                margin="0"
-                border="0px"
-                padding="2% 4% 2% 4%"
-                cursor="none"
-              >
-                {calcOrder()} / {dataSet.length}
-              </OrderButton>
-              <FishComment>{data.fishName}</FishComment>
-              <FishSubComment>{data.text}</FishSubComment>
-            </SlideContent>
-          ))}
-      </Slider>
+      <Contents>
+        <Slider {...settings} afterChange={handleAfterChange}>
+          {dataSet &&
+            dataSet.map((data, index) => (
+              <SlideContent key={index}>
+                <SeasonFish src={data.imgUri}></SeasonFish>
+                <GradientOverlay
+                  onClick={() => {
+                    navigate(`info/${data.fishId}`);
+                  }}
+                ></GradientOverlay>
+
+                <FishComment>{data.fishName}</FishComment>
+                <FishSubComment>{data.text}</FishSubComment>
+              </SlideContent>
+            ))}
+        </Slider>
+        <OrderButton
+          color="#FFFFFF"
+          width="60px"
+          height="30px"
+          fontSize="12px"
+          backcolor="rgb(0,0,0,0.5)"
+          margin="0"
+          border="0px"
+          padding="2% 4% 2% 4%"
+          cursor="none"
+        >
+          {currentSlide + 1} / {dataSet.length}
+        </OrderButton>
+      </Contents>
     </Wrapper>
   );
 }

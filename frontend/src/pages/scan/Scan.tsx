@@ -295,7 +295,7 @@ export default function Scan() {
             navigateBack();
           }}
         ></BackButton>
-        <span>어종검색</span>
+        <span>어종스캔</span>
         <div style={{ width: "7%" }}></div>
       </Header>
 
