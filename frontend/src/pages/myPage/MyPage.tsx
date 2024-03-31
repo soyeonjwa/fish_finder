@@ -10,6 +10,7 @@ import { BoardType } from "../../components/common/board/BoardContainer";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
+import { userStore } from "../../stores/userStore";
 
 interface TagBoxProps {
   active: boolean;
@@ -96,9 +97,19 @@ const Contents = styled.div`
   margin: 0% 5% 0% 5%;
 `;
 
+const LogoutBtn = styled.div`
+  font-size: 15px;
+  color : white;
+  text-decoration: underline;
+  position : fixed;
+  top : 30px;
+  right : 10px;
+`
+
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
   const [boards, setBoards] = useState<BoardType[]>([]);
+  const {setUserId, setNickName} = userStore();
 
   useEffect(()=>{
     axiosInstance.get('/api/board')
@@ -106,12 +117,23 @@ export default function MyPage() {
         setBoards(res.data.data)
       })
   },[])
+
+  const onClickLogoutBtn = () => {
+    axiosInstance.get('/api/users/logout')
+      .then((res : AxiosResponse) => {
+        console.log(res.data.message);
+        setUserId(-1);
+        setNickName("")
+      })
+      .catch(error => {throw new Error(error.message)})
+  }
   return (
     <Wrapper width = '100%' height="auto" margin="0">
       <Header>
         <ImageContainer src={marketImage1} alt="노량진" />
         <GradientOverlay></GradientOverlay>
         <Profile>
+          <LogoutBtn onClick={onClickLogoutBtn}>로그아웃</LogoutBtn>
           <NicknameBox>
             <Nickname>좌랑둥이님</Nickname>
             <img src={EditIcon} alt="" />
