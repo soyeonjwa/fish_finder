@@ -11,6 +11,7 @@ import { BoardType } from "../../components/common/board/BoardContainer";
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
 import { userStore } from "../../stores/userStore";
+import { useNavigate } from "react-router-dom";
 
 interface TagBoxProps {
   active: boolean;
@@ -110,6 +111,7 @@ export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
   const [boards, setBoards] = useState<BoardType[]>([]);
   const {setUserId, setNickName} = userStore();
+  const navigate = useNavigate()
 
   useEffect(()=>{
     axiosInstance.get('/api/board')
@@ -124,6 +126,7 @@ export default function MyPage() {
         console.log(res.data.message);
         setUserId(-1);
         setNickName("")
+        navigate("/")
       })
       .catch(error => {throw new Error(error.message)})
   }
