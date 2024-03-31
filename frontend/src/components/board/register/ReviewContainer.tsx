@@ -82,20 +82,19 @@ const DeleteDiv = styled.div`
 
 interface ReviewForm{
   id : number
-  fishId : number
-  weight : number
-  pricePerKg : number
-  totalPrice : number
+  review : Review
 }
 
 
 export default function ReviewContainer() {
   const initialFormData : ReviewForm = {
     id : 1,
-    fishId: 0,
-    weight: 0,
-    pricePerKg: 0,
-    totalPrice : 0
+    review : {
+      fishId : 0,
+      pricePerKg : 0,
+      totalPrice : 0,
+      weight : 0
+    }
   }
 
   const [forms, setForms] = useState<ReviewForm[]>([initialFormData]);
@@ -112,18 +111,18 @@ export default function ReviewContainer() {
 
   const handleFormFieldChange = (id : number, fieldName : string, value : string) => {
     if(fieldName === 'pricePerKg'){
-      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.weight} : form))
+      setForms(forms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.review.weight}} : form))
     }
     else if(fieldName === 'weight'){
-      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.pricePerKg} : form))
+      setForms(forms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.review.pricePerKg}} : form))
     }
     else{
-      setForms(forms.map(form=> form.id ===id ? {...form, [fieldName] : value} : form))
+      setForms(forms.map(form=> form.id ===id ? {...form,review : {...form.review,  [fieldName] : parseInt(value)}} : form))
     }
   }
 
   useEffect(()=>{
-    setReviews(forms)
+    setReviews(forms.map(form => form.review))
   }, [forms])
 
   return (
@@ -134,25 +133,25 @@ export default function ReviewContainer() {
             <FishLabel htmlFor="fishId">
               {" "}
               {form.id === 1 ? "어종" : null}
-              <Input type="number" list="list" id="fishId" value={form.fishId} onChange = {(e) => handleFormFieldChange(form.id, 'fishId', e.target.value)}/>
+              <Input type="number" list="list" id="fishId" value={form.review.fishId} onChange = {(e) => handleFormFieldChange(form.id, 'fishId', e.target.value)}/>
               <datalist id="list">
-                <option value="1"></option>
-                <option value="2"></option>
-                <option value="3"></option>
-                <option value="4"></option>
+                <option value={1}></option>
+                <option value={2}></option>
+                <option value={3}></option>
+                <option value={4}></option>
               </datalist>
             </FishLabel>
             <WeightLabel htmlFor="weight">
               {form.id === 1 ? "무게" : null}
               <div>
-                <Input type="number" id="weight" value={form.weight} onChange = {(e)=> handleFormFieldChange(form.id, 'weight', e.target.value)}/>
+                <Input type="number" id="weight" value={form.review.weight} onChange = {(e)=> handleFormFieldChange(form.id, 'weight', e.target.value)}/>
                 <Unit>kg</Unit>
               </div>
             </WeightLabel>
             <PriceLabel htmlFor="pricePerKg">
               {form.id === 1 ? "kg당 가격" : null}
               <div>
-                <Input type="number" id="pricePerKg" value={form.pricePerKg} onChange = {(e) => handleFormFieldChange(form.id, 'pricePerKg', e.target.value)}/>
+                <Input type="number" id="pricePerKg" value={form.review.pricePerKg} onChange = {(e) => handleFormFieldChange(form.id, 'pricePerKg', e.target.value)}/>
                 <Unit>원</Unit>
               </div>
             </PriceLabel>
