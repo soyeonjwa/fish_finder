@@ -45,7 +45,7 @@ public class UserController {
     public ResponseEntity<Message> UserUpdate(@RequestBody UserDto userDto, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
-            throw new CustomException(ErrorCode.NO_AUTHORITY);
+            throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long id = (Long) session.getAttribute("id");
         userDto.setId(id);
@@ -61,7 +61,7 @@ public class UserController {
     public ResponseEntity<Message> UserLogout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
-            throw new CustomException(ErrorCode.NO_AUTHORITY);
+            throw new CustomException(ErrorCode.NO_LOGIN);
         }
         session.invalidate();
 
@@ -73,7 +73,7 @@ public class UserController {
     public ResponseEntity<Message> UserSignOut(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
-            throw new CustomException(ErrorCode.NO_AUTHORITY);
+            throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long id = (Long) session.getAttribute("id");
         userService.deleteMember(id);

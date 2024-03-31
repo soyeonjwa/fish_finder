@@ -34,7 +34,7 @@ public class BoardController {
 
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
 
@@ -73,7 +73,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -88,7 +88,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -102,7 +102,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -118,7 +118,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
 
@@ -131,7 +131,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -146,7 +146,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -160,7 +160,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -174,7 +174,7 @@ public class BoardController {
             @RequestParam(value = "lastCreatedAt", required = false, defaultValue = "#{T(java.time.LocalDateTime).now()}") LocalDateTime lastCreatedAt
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -193,7 +193,7 @@ public class BoardController {
             @RequestParam(value = "lastCreatedAt", required = false, defaultValue = "#{T(java.time.LocalDateTime).now()}") LocalDateTime lastCreatedAt
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -207,7 +207,7 @@ public class BoardController {
             @RequestParam(value = "lastCreatedAt", required = false, defaultValue = "#{T(java.time.LocalDateTime).now()}") LocalDateTime lastCreatedAt
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
@@ -220,7 +220,7 @@ public class BoardController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("id") == null) {
+        if(session == null) {
             throw new CustomException(ErrorCode.NO_LOGIN);
         }
         Long memberId = (Long) session.getAttribute("id");
