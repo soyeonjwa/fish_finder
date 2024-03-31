@@ -1,4 +1,4 @@
-import { axiosInstance } from "../axios";
+import { axiosMultipartInstance } from "../axios";
 
 async function postAddPost(post: {
   data: {
@@ -11,7 +11,7 @@ async function postAddPost(post: {
 }): Promise<number> {
   console.log(post);
   try {
-    const response = await axiosInstance.post("/api/board", post);
+    const response = await axiosMultipartInstance.post("/api/board", post);
     if (response.status !== 200) {
       throw new Error("게시글 작성에 실패했습니다");
     }
