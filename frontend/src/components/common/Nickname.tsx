@@ -98,7 +98,7 @@ export default function NickName({title, url} : NickNameProps) {
 
   const onSubmit = () => {
     axiosInstance
-      .post("/api/members/update", {
+      .post("/api/users/update", {
         nickname: { nickname },
       })
       .then((res: AxiosResponse) => {
