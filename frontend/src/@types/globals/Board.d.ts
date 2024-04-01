@@ -31,3 +31,18 @@ type PostAction = {
   setImages: (images: ImageFile[]) => void;
   async handleSubmit: () => number;
 };
+
+type ReviewFormType = {
+  id : number
+  review : {
+      name : string
+      pricePerKg : string
+      totalPrice : string
+      weight : string
+  }
+}
+
+type FishData = {
+  fishId : number,
+  name : string
+}

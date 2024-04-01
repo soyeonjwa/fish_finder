@@ -7,6 +7,7 @@ import usePostStore from "../../../stores/postStore";
 import BackButton from "../../common/BackButton";
 import { Button } from "../../common/Button";
 import { primary } from "../../../assets/styles/palettes";
+import { reviewFormStore } from "../../../stores/reviewFormStore";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -34,15 +35,40 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function Header() {
+interface HeaderProps{
+  fishDatas : Map<string, number>;
+}
+
+export default function Header({fishDatas} : HeaderProps) {
   const navigate = useNavigate();
   const { handleSubmit } = usePostStore();
+  const {reviewForms} = reviewFormStore();
+  const {reviews, setReviews} = usePostStore();
 
   const onClickBackBtn = () => {
     navigate("/board");
   };
 
   const onClickSubmitBtn = () => {
+    const formatReviews : Review[] = [];
+
+    for(let i=0;i<reviewForms.length;i++){
+      if(!fishDatas.has(reviewForms[i].review.name)) return;
+      else{
+        const formatFishId : number | undefined = fishDatas.get(reviewForms[i].review.name);
+
+        formatReviews.push({
+          fishId : (formatFishId === undefined)? 0 : formatFishId,
+          weight : parseFloat(reviewForms[i].review.weight),
+          totalPrice : parseFloat(reviewForms[i].review.totalPrice),
+          pricePerKg : parseFloat(reviewForms[i].review.pricePerKg)
+        })
+      }
+    }
+    
+    setReviews(formatReviews);
+
+    console.log(reviews);
     const response = handleSubmit();
     if (response === -1) {
       alert("게시글 등록에 실패하였습니다");

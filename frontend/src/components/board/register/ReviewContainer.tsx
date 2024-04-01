@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import usePostStore from "../../../stores/postStore";
 
 import { Button } from "../../common/Button";
 import { gray1, gray2, gray3 } from "../../../assets/styles/palettes";
 import IconButton from "../../common/IconButton";
 import DeleteIcon from "../../../assets/icons/delete.svg";
+
+import { reviewFormStore } from "../../../stores/reviewFormStore";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -80,78 +81,83 @@ const DeleteDiv = styled.div`
   align-items: center;
 `;
 
-interface ReviewForm{
-  id : number
-  review : Review
+
+interface ReviewContainerProps {
+  fishDatas : Map<string, number>
 }
 
 
-export default function ReviewContainer() {
-  const initialFormData : ReviewForm = {
+export default function ReviewContainer({fishDatas} : ReviewContainerProps) {
+
+  const initialFormData : ReviewFormType = {
     id : 1,
     review : {
-      fishId : 0,
-      pricePerKg : 0,
-      totalPrice : 0,
-      weight : 0
+      name : "",
+      pricePerKg : "",
+      totalPrice : "",
+      weight : ""
     }
   }
 
-  const [forms, setForms] = useState<ReviewForm[]>([initialFormData]);
-  const { setReviews } = usePostStore();
+  const {reviewForms, setReviewForms} = reviewFormStore();
 
   const handleAddForm = () => {
-    const newId = forms[forms.length-1].id +1;
-    setForms([...forms, {...initialFormData, id : newId}])
+    const newId = reviewForms[reviewForms.length-1].id +1;
+    setReviewForms([...reviewForms, {...initialFormData, id : newId}])
   }
 
   const handleRemoveForm = (id : number) => {
-    setForms(forms.filter(form => form.id !== id))
+    setReviewForms(reviewForms.filter(form => form.id !== id))
   }
 
   const handleFormFieldChange = (id : number, fieldName : string, value : string) => {
     if(fieldName === 'pricePerKg'){
-      setForms(forms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.review.weight}} : form))
+      setReviewForms(reviewForms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : value, 'totalPrice' : (parseFloat(value) * parseFloat(form.review.weight)).toString()}} : form))
     }
     else if(fieldName === 'weight'){
-      setForms(forms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : parseInt(value), 'totalPrice' : parseInt(value) * form.review.pricePerKg}} : form))
+      setReviewForms(reviewForms.map(form=> form.id ===id ? {...form, review : {...form.review, [fieldName] : value, 'totalPrice' : (parseFloat(value) * parseFloat(form.review.pricePerKg)).toString()}} : form))
     }
-    else{
-      setForms(forms.map(form=> form.id ===id ? {...form,review : {...form.review,  [fieldName] : parseInt(value)}} : form))
+    else if(fieldName === 'name'){
+      setReviewForms(reviewForms.map(form=> form.id ===id ? {...form,review : {...form.review,  [fieldName] : value}} : form))
     }
   }
 
   useEffect(()=>{
-    setReviews(forms.map(form => form.review))
-  }, [forms])
+    setReviewForms([initialFormData])
+  },[])
+
 
   return (
     <Wrapper>
       <InputWrapper>
-        {forms.map((form) => (
+        {reviewForms.map((form) => (
           <StyledForm key={form.id}>
             <FishLabel htmlFor="fishId">
               {" "}
               {form.id === 1 ? "어종" : null}
-              <Input type="number" list="list" id="fishId" value={form.review.fishId} onChange = {(e) => handleFormFieldChange(form.id, 'fishId', e.target.value)}/>
+              <Input type="text" list="list" id="name" value={form.review.name} onChange = {(e) => handleFormFieldChange(form.id, 'name', e.target.value)} />
               <datalist id="list">
-                <option value={1}></option>
-                <option value={2}></option>
-                <option value={3}></option>
-                <option value={4}></option>
+                {
+                  (fishDatas.size >=0) && (
+                    Array.from(fishDatas.keys()).map((name) => (
+                      <option key={name} value={name} />
+                    ))
+                  )
+                    
+                }
               </datalist>
             </FishLabel>
             <WeightLabel htmlFor="weight">
               {form.id === 1 ? "무게" : null}
               <div>
-                <Input type="number" id="weight" value={form.review.weight} onChange = {(e)=> handleFormFieldChange(form.id, 'weight', e.target.value)}/>
+                <Input type="number" id="weight" step="0.01" value={form.review.weight} onChange = {(e)=> handleFormFieldChange(form.id, 'weight', e.target.value)}/>
                 <Unit>kg</Unit>
               </div>
             </WeightLabel>
             <PriceLabel htmlFor="pricePerKg">
               {form.id === 1 ? "kg당 가격" : null}
               <div>
-                <Input type="number" id="pricePerKg" value={form.review.pricePerKg} onChange = {(e) => handleFormFieldChange(form.id, 'pricePerKg', e.target.value)}/>
+                <Input type="number" id="pricePerKg" step="0.01" value={form.review.pricePerKg} onChange = {(e) => handleFormFieldChange(form.id, 'pricePerKg', e.target.value)}/>
                 <Unit>원</Unit>
               </div>
             </PriceLabel>

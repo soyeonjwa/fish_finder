@@ -98,7 +98,10 @@ export default function BoardDetail() {
               writer={board.writerNickname}
               createdAt={board.createdAt}
             />
-            <MidContent reviews = {board.reviews} content={board.content} thumbnail={board.images} />
+            {
+              board.reviews && board.reviews.length <=0 && 
+              <MidContent reviews = {board.reviews} content={board.content} thumbnail={board.images} />
+            }
             <BottomContent
               boardId={board.boardId}
               likeCount={board.likeCount}
