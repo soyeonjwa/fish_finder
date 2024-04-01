@@ -60,10 +60,9 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<Message> UserLogout(HttpServletRequest request){
         HttpSession session = request.getSession(false);
-        if(session == null) {
-            throw new CustomException(ErrorCode.NO_LOGIN);
+        if(session != null) {
+            session.invalidate();
         }
-        session.invalidate();
 
         Message message = new Message("로그아웃 완료");
         return ResponseEntity.ok(message);
