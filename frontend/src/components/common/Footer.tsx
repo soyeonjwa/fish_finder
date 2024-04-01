@@ -107,9 +107,12 @@ export default function Footer() {
         <Block to="/">
           <ImageContainer>
             {location.pathname === "/" ? (
-              <HomeIconImage src={HomeIconPrimary}></HomeIconImage>
+              <HomeIconImage
+                src={HomeIconPrimary}
+                alt="홈아이콘색상"
+              ></HomeIconImage>
             ) : (
-              <HomeIconImage src={HomeIcon}></HomeIconImage>
+              <HomeIconImage src={HomeIcon} alt="홈아이콘기본"></HomeIconImage>
             )}
           </ImageContainer>
 
@@ -119,9 +122,9 @@ export default function Footer() {
         <Block to="/search">
           <ImageContainer>
             {location.pathname === "/search" ? (
-              <Image src={SearchIconPrimary}></Image>
+              <Image src={SearchIconPrimary} alt="검색아이콘색상"></Image>
             ) : (
-              <Image src={SearchIcon}></Image>
+              <Image src={SearchIcon} alt="검색아이콘기본"></Image>
             )}
           </ImageContainer>
 
@@ -130,16 +133,16 @@ export default function Footer() {
 
         <Block to="/scan">
           <CenterBox>
-            <Image src={ScanIcon}></Image>
+            <Image src={ScanIcon} alt="스캔아이콘"></Image>
           </CenterBox>
         </Block>
 
         <Block to="/board">
           <ImageContainer>
             {location.pathname === "/board" ? (
-              <Image src={BoardIconPrimary}></Image>
+              <Image src={BoardIconPrimary} alt="보드아이콘색상"></Image>
             ) : (
-              <Image src={BoardIcon}></Image>
+              <Image src={BoardIcon} alt="보드아이콘기본"></Image>
             )}
           </ImageContainer>
           <Title isActivePage={location.pathname === "/board"}>게시판</Title>
@@ -147,9 +150,9 @@ export default function Footer() {
         <Block to={userId == -1 ? `/login` : "/mypage"}>
           <ImageContainer>
             {location.pathname === "/mypage" ? (
-              <Image src={MyIconPrimary}></Image>
+              <Image src={MyIconPrimary} alt="마이페이지아이콘색상"></Image>
             ) : (
-              <Image src={MyIcon}></Image>
+              <Image src={MyIcon} alt="마이페이지아이콘기본"></Image>
             )}
           </ImageContainer>
           <Title isActivePage={location.pathname === "/mypage"}>MY</Title>

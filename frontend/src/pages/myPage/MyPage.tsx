@@ -133,6 +133,7 @@ export default function MyPage() {
 
     axiosInstance.get("/api/board/my-record").then((res: AxiosResponse) => {
       setRecord(res.data.data);
+      console.log(res.data.data);
     });
   }, []);
 

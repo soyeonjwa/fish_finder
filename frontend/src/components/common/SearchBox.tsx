@@ -84,9 +84,13 @@ export default function SearchBox({
   return (
     <Outline width={width} margin={margin} hasValue={hasValue}>
       {hasValue ? (
-        <img src={searchPrimaryIcon} onClick={handleSearchClick}></img>
+        <img
+          src={searchPrimaryIcon}
+          onClick={handleSearchClick}
+          alt="검색아이콘색상"
+        ></img>
       ) : (
-        <img src={searchIcon}></img>
+        <img src={searchIcon} alt="검색아이콘기본"></img>
       )}
       <form onSubmit={handleSubmit}>
         <input

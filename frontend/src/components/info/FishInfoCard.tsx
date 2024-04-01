@@ -90,7 +90,7 @@ export default function FishInfoCard({
   return (
     <Wrapper>
       <ImageWrapper>
-        <Image src={imgUri} />
+        <Image src={imgUri} alt={name} />
       </ImageWrapper>
 
       <p>{name}</p>
@@ -115,7 +115,7 @@ export default function FishInfoCard({
               {" "}
               <StyledLink to={`/marketCondition/${id}`}>
                 {ourPrice.toLocaleString()}원~
-                <img src={RightArrow}></img>
+                <img src={RightArrow} alt="오른쪽 화살표"></img>
               </StyledLink>
             </Td>
           </tr>

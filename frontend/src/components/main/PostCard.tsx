@@ -76,13 +76,13 @@ export default function PostCard({
       <Writer>{writer}</Writer>
       <Title>{title}</Title>
       <ButtomContent>
-        <img src={ScrapIcon}></img>
+        <img src={ScrapIcon} alt="스크랩 아이콘"></img>
         <div>{scrapCount}</div>
 
-        <img src={CommentsIcon}></img>
+        <img src={CommentsIcon} alt="코맨트 아이콘"></img>
         <div>{commentCount}</div>
 
-        <img src={HeartIcon}></img>
+        <img src={HeartIcon} alt="하트 아이콘"></img>
         <div>{likeCount}</div>
       </ButtomContent>
     </Wrapper>

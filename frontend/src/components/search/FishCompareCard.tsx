@@ -65,9 +65,9 @@ export default function FishCompareCard({
 }: FishCompareCardProps) {
   return (
     <Wrapper onClick={() => onClickCard(fishId)}>
-      {infoIcon ?? <InfoIcon src={Info} />}
+      {infoIcon ?? <InfoIcon src={Info} alt="정보" />}
       <ImageWrapper>
-        <Image src={imgUri} />
+        <Image src={imgUri} alt={name} />
       </ImageWrapper>
 
       <span>{name}</span>
