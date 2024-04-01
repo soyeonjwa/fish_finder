@@ -120,6 +120,7 @@ export default function BoardDetail() {
           <CommentContainer comments={board.comments} />
         </Contents>
       )}
+
       <CommentInput change={change} setChange={setChange} boardId={boardId} />
     </StyledWrapper>
   );
