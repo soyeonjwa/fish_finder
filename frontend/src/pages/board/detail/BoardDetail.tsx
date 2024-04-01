@@ -85,13 +85,11 @@ export default function BoardDetail() {
   }, [change]);
 
   useEffect(() => {
-    if (change) {
-      commentContainerRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    if (commentContainerRef.current) {
+      commentContainerRef.current.scrollTop =
+        commentContainerRef.current.scrollHeight;
     }
-  }, [change]);
+  }, [board?.comments]);
 
   return (
     <StyledWrapper>
