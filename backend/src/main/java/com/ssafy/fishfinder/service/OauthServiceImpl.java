@@ -63,7 +63,6 @@ public class OauthServiceImpl implements OauthService{
              * 응답
              */
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
             if (responseCode != 200) {
                 throw new CustomException(ErrorCode.WRONG_CODE);
             }
