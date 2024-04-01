@@ -19,11 +19,13 @@ export default function OAuth() {
                     if(res.status == 201){
                         navigate("/nickname")
                     }
+                    else{
+                        navigate("/")
+                    }
                 })
                 .catch(error => {
                     console.log(queryParam.get("code"))
                     throw new Error(error)})
-            navigate("/")
         }
         fetchUser();
     },[])
