@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import { Wrapper } from '../../../components/common/Wrapper'
@@ -8,6 +8,8 @@ import ImageContainer from '../../../components/board/register/ImageContainer'
 import { gray3 } from '../../../assets/styles/palettes'
 import TitleContainer from '../../../components/board/register/TitleContainer'
 import ContentContainer from '../../../components/board/register/ContentContainer'
+import { axiosInstance } from '../../../services/axios'
+import { AxiosResponse } from 'axios'
 
 const StyledWrapper = styled(Wrapper)`
   display : flex;
@@ -29,12 +31,29 @@ const Hr = styled.hr`
   border : 0;
 `
 
+
+
 export default function BoardRegister() {
+  const fishDatas = new Map<string, number>();
+
+  useEffect(()=>{
+    axiosInstance.get(`/api/fishes`)
+      .then((res: AxiosResponse)=>{
+        const data : FishData[]= res.data.data;
+
+        for(let i=0;i<data.length;i++){
+          fishDatas.set(data[i].name, data[i].fishId);
+        }
+      })
+      .catch(error => {throw new Error(error.message)})
+  },[])
+
+
   return (
     <StyledWrapper>
-      <Header/>
+      <Header fishDatas = {fishDatas}/>
       <Contents>
-        <TagContainer/>
+        <TagContainer fishDatas = {fishDatas}/>
         <Hr/>
         <ImageContainer/>
         <Hr/>

@@ -20,7 +20,11 @@ const ButtonWrapper = styled.div`
   margin-bottom: 4%;
 `;
 
-export default function TagContainer() {
+interface TagContainerProps{
+  fishDatas : Map<string, number>
+}
+
+export default function TagContainer({fishDatas} : TagContainerProps) {
   const { postType, setPostType } = usePostStore();
 
   const handleClickBtn = (type: string) => {
@@ -56,7 +60,7 @@ export default function TagContainer() {
         </Button>
       </ButtonWrapper>
 
-      {postType === "review" ? <ReviewContainer /> : <></>}
+      {postType === "review" ? <ReviewContainer fishDatas = {fishDatas}/>: <></>}
     </Wrapper>
   );
 }
