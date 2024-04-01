@@ -1,5 +1,5 @@
 import { create } from "zustand";
-// import postAddPost from "../services/board/postAddPost";
+import postAddPost from "../services/board/postAddPost";
 
 const initialState = {
   postType: "normal",
@@ -45,10 +45,13 @@ const usePostStore = create<PostState & PostAction>()((set, get) => ({
       },
       images: imageList,
     };
-    // const postId = postAddPost(body);
+    const postId = postAddPost(body);
     console.log(body);
     set(initialState);
     // axios 연결 시 postId를 return;
+    if(typeof postId === "number"){
+      return postId;
+    }
     return -1;
   },
 }));
