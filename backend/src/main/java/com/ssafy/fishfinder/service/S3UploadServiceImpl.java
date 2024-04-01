@@ -55,6 +55,8 @@ public class S3UploadServiceImpl implements S3UploadService{
     }
 
     public String uploadThumbnail(MultipartFile multipartFile, String dirName, Long id) throws IOException {
+        int thumbnailSize = 200;
+
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
 
@@ -62,13 +64,13 @@ public class S3UploadServiceImpl implements S3UploadService{
         int width = image.getWidth();
         int height = image.getHeight();
 
-        // 100x100 이하인 경우 그대로 업로드
-        if(width < 100 || height < 100) {
+        // thumbnail 사이즈 이하인 경우 그대로 업로드
+        if(width < thumbnailSize || height < thumbnailSize) {
             return upload(uploadFile, dirName, id);
         }
 
-        int newWidth = 100;
-        int newHeight = 100;
+        int newWidth = thumbnailSize;
+        int newHeight = thumbnailSize;
 
         // 비율에 맞춘다
         if(width > height) {
@@ -77,7 +79,7 @@ public class S3UploadServiceImpl implements S3UploadService{
             newHeight = (int) (height * (newWidth / (double) width));
         }
 
-        // 비율에 맞춰 100x100으로 크롭
+        // 비율에 맞춰 thumbnail 사이즈로 크롭할 위치 계산
         int cropWidth, cropHeight;
         if(newWidth > newHeight) {
             cropWidth = (newWidth - newHeight) / 2;
@@ -92,7 +94,7 @@ public class S3UploadServiceImpl implements S3UploadService{
         Graphics2D graphics2D = newImage.createGraphics();
         graphics2D.drawImage(image, 0, 0, newWidth, newHeight, null);
         graphics2D.dispose();
-        newImage = newImage.getSubimage(cropWidth, cropHeight, 100, 100);
+        newImage = newImage.getSubimage(cropWidth, cropHeight, thumbnailSize, thumbnailSize);
 
         File thumbnailFile = new File("thumbnail_" + uploadFile.getName());
         ImageIO.write(newImage, "jpg", thumbnailFile);
