@@ -86,7 +86,13 @@ const SubmitButton = styled(Button)<{ hasValue: boolean }>`
   border: none;
 `;
 
-export default function NickName() {
+
+interface NickNameProps{
+  title : string,
+  url : string
+}
+
+export default function NickName({title, url} : NickNameProps) {
   const { nickname, setNickName } = userStore();
   const navigate = useNavigate();
 
@@ -97,7 +103,7 @@ export default function NickName() {
       })
       .then((res: AxiosResponse) => {
         console.log(res.data.message);
-        navigate("/");
+        navigate(url);
       })
       .catch((error) => {
         throw new Error(error.message);
@@ -143,7 +149,7 @@ export default function NickName() {
           onSubmit={onSubmit}
           disabled={!hasValue}
         >
-          회원가입 완료하기
+          {title}
         </SubmitButton>
       </Contents>
     </Wrapper>

@@ -169,7 +169,7 @@ export default function MyPage() {
           <LogoutBtn onClick={onClickLogoutBtn}>로그아웃</LogoutBtn>
           <NicknameBox>
             <Nickname>{nickname}님</Nickname>
-            <img src={EditIcon} alt="" />
+            <img src={EditIcon} alt="" onClick={() => navigate("/nickname")}/>
           </NicknameBox>
           <span>작성글 {record?.postCount} | 작성댓글 {record?.commentCount} | 스크랩한 글 {record?.scrapCount}</span>
         </Profile>
