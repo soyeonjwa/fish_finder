@@ -117,7 +117,7 @@ export default function SeasonList() {
           {dataSet &&
             dataSet.map((data, index) => (
               <SlideContent key={index}>
-                <SeasonFish src={data.imgUri}></SeasonFish>
+                <SeasonFish src={data.imgUri} alt={data.fishName}></SeasonFish>
                 <GradientOverlay
                   onClick={() => {
                     navigate(`info/${data.fishId}`);

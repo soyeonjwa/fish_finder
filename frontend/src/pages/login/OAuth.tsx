@@ -34,5 +34,5 @@ export default function OAuth() {
     fetchUser();
   }, []);
 
-  return <div>{loading ? <Loading /> : null}로그인/회원가입하는 중</div>;
+  return <div>{loading ? <Loading /> : null}</div>;
 }

@@ -393,7 +393,7 @@ export default function Scan() {
             <Sheet.Header />
             <Sheet.Content>
               <FishInfo>
-                <Image src={fishdata.imgUri} />
+                <Image src={fishdata.imgUri} alt={fishdata.name} />
                 <p>{fishdata.name}</p>
                 <Table>
                   <thead>

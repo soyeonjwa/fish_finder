@@ -103,7 +103,7 @@ export default function SearchBox({
       {hasValue && (
         <DeleteButton
           src={valueDelete}
-          alt="Delete Icon"
+          alt="값 삭제 버튼"
           onClick={() => setValue("")}
         />
       )}

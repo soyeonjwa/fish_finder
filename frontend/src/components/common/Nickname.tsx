@@ -86,13 +86,12 @@ const SubmitButton = styled(Button)<{ hasValue: boolean }>`
   border: none;
 `;
 
-
-interface NickNameProps{
-  title : string,
-  url : string
+interface NickNameProps {
+  title: string;
+  url: string;
 }
 
-export default function NickName({title, url} : NickNameProps) {
+export default function NickName({ title, url }: NickNameProps) {
   const { nickname, setNickName } = userStore();
   const navigate = useNavigate();
 
@@ -131,7 +130,7 @@ export default function NickName({title, url} : NickNameProps) {
           {hasValue && (
             <DeleteButton
               src={valueDelete}
-              alt=""
+              alt="값 삭제 버튼"
               onClick={() => setNickName("")}
             />
           )}

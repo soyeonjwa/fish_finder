@@ -99,7 +99,7 @@ export default function ImageContainer() {
       <ImageWrapper>
         <label htmlFor="file_upload">
           <ButtonDiv>
-            <img src={CameraIcon} />
+            <img src={CameraIcon} alt="카메라 아이콘" />
           </ButtonDiv>
         </label>
         <Input
@@ -110,10 +110,14 @@ export default function ImageContainer() {
           ref={imgRef}
         />
         {imgPath &&
-          imgPath.map((image) => (
-            <ImageDiv key={image.id}>
+          imgPath.map((image, index) => (
+            <ImageDiv key={index}>
               <StyledImage src={image.path} />
-              <XImage src={XIcon} onClick={() => onDeleteImage(image.id)} />
+              <XImage
+                src={XIcon}
+                onClick={() => onDeleteImage(image.id)}
+                alt="지우기 아이콘"
+              />
             </ImageDiv>
           ))}
       </ImageWrapper>
