@@ -9,6 +9,8 @@ import { userStore } from "../../stores/userStore";
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
 
+import valueDelete from "../../assets/icons/valueDelete.svg";
+
 const Wrapper = styled.div`
   margin: 0% 5% 0% 5%;
   width: 90%;
@@ -48,9 +50,16 @@ const Content = styled.div`
     font-weight: 600;
   }
 `;
+const InputWrapper = styled.div`
+  position: relative;
+  height: auto;
+  width: 100%;
+  margin-bottom: 20px;
+`;
 
-const Input = styled.input`
+const Input = styled.input<{ hasValue: boolean }>`
   font-family: Pretendard;
+  width: 100%;
   font-size: 18px;
   height: 40px;
   margin-top: 50px;
@@ -58,42 +67,71 @@ const Input = styled.input`
   border-top: none;
   border-right: none;
   border-left: none;
-  border-bottom-color: ${gray3};
+  border-bottom-color: ${(props) => (props.hasValue ? primary : gray3)};
   border-bottom-width: 1px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const DeleteButton = styled.img`
+  position: absolute;
+  right: 1%;
+  top: 46%;
+`;
+
+const SubmitButton = styled(Button)<{ hasValue: boolean }>`
+  background-color: ${(props) => (props.hasValue ? primary : gray3)};
+  border: none;
 `;
 
 export default function NickName() {
-  const {nickname, setNickName} = userStore();
+  const { nickname, setNickName } = userStore();
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    axiosInstance.post('/api/members/update',
-      {
-        nickname : {nickname}
-      }
-    )
-      .then((res : AxiosResponse) => {
-        console.log(res.data.message)
-        navigate('/')
+    axiosInstance
+      .post("/api/members/update", {
+        nickname: { nickname },
       })
-      .catch(error => {throw new Error(error.message)})
-  }
+      .then((res: AxiosResponse) => {
+        console.log(res.data.message);
+        navigate("/");
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  };
 
-
-  const onChange = (e : React.FormEvent<HTMLInputElement>) => {
-    setNickName(e.currentTarget.value)
-  }
-
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setNickName(e.currentTarget.value);
+  };
+  const hasValue = nickname.trim() !== "";
   return (
     <Wrapper>
-      <Header>
-      </Header>
+      <Header></Header>
       <Contents>
         <Content>
           <p>닉네임을 입력해주세요</p>
         </Content>
-        <Input placeholder="닉네임 입력" value = {nickname} onChange={onChange}></Input>
-        <Button
+        <InputWrapper>
+          <Input
+            hasValue={hasValue}
+            placeholder="닉네임 입력"
+            value={nickname}
+            onChange={onChange}
+          ></Input>
+          {hasValue && (
+            <DeleteButton
+              src={valueDelete}
+              alt=""
+              onClick={() => setNickName("")}
+            />
+          )}
+        </InputWrapper>
+        <SubmitButton
+          hasValue={hasValue}
           width="100%"
           height="50px"
           color="white"
@@ -103,9 +141,10 @@ export default function NickName() {
           padding="2% 4% 2% 4%"
           margin="0% 4% 2% 0%"
           onSubmit={onSubmit}
+          disabled={!hasValue}
         >
           회원가입 완료하기
-        </Button>
+        </SubmitButton>
       </Contents>
     </Wrapper>
   );
