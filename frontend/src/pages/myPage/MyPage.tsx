@@ -70,11 +70,13 @@ const GradientOverlay = styled.div`
 const NicknameBox = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
 `;
 const Nickname = styled.span`
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 10px;
 `;
 
 const Tag = styled.div`
