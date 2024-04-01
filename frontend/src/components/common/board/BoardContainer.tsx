@@ -43,7 +43,7 @@ export default function BoardContainer({
             key={data.boardId}
           ></BoardCard>
         ))}
-      {boards.length === 0 && <div>{boardType}이 없습니다.</div>}
+      {boards && boards.length === 0 && <div>{boardType}이 없습니다.</div>}
     </div>
   );
 }

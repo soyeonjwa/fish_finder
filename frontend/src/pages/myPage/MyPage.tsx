@@ -125,7 +125,7 @@ export default function MyPage() {
   const getBoard = (url: string) => {
     axiosInstance.get(`/api/board/${url}`).then((res: AxiosResponse) => {
       setBoards(res.data.data);
-      console.log(res.data.data);
+      console.log(boards);
     });
   };
 
