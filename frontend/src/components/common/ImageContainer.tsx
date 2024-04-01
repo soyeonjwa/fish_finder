@@ -19,9 +19,9 @@ const Wrapper = styled.div<{ width: string; height: string }>`
 `;
 
 const Image = styled.img`
+  height: 100%;
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 10px;
 `;
 

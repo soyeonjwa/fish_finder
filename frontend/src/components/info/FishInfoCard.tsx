@@ -45,7 +45,8 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
   margin-bottom: 10px;
 `;
 const Table = styled.table`

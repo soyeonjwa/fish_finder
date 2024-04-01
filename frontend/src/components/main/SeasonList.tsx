@@ -133,8 +133,8 @@ export default function SeasonList() {
           color="#FFFFFF"
           width="60px"
           height="30px"
-          fontSize="12px"
-          backcolor="rgb(0,0,0,0.5)"
+          fontSize="14px"
+          backcolor={"rgb(0,0,0,1)"}
           margin="0"
           border="0px"
           padding="2% 4% 2% 4%"
