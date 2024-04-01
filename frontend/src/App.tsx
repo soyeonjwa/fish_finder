@@ -16,6 +16,7 @@ import MarketCondition from "./pages/marketCondition/MarketCondition";
 import Login from "./pages/login/Login";
 import OAuth from "./pages/login/OAuth";
 import NickName from "./components/common/Nickname";
+import Tutorial from "./pages/tutorial/Tutorial";
 
 const Wrapper = styled.div`
   font-family: Pretendard;
@@ -57,9 +58,16 @@ function App() {
               <Route path="kakao" element={<OAuth />} />
             </Route>
           </Route>
-          <Route path = "nickname">
-            <Route path = "" element = {<NickName title = "닉네임을 변경해주세요" url = "/mypage"/>}/>
-            <Route path = "signup" element = {<NickName title = "회원가입을 완료해주세요." url = "/"/>}/>
+          <Route path="tutorial" element={<Tutorial />} />
+          <Route path="nickname">
+            <Route
+              path=""
+              element={<NickName title="닉네임을 변경해주세요" url="/mypage" />}
+            />
+            <Route
+              path="signup"
+              element={<NickName title="회원가입을 완료해주세요." url="/" />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
