@@ -25,7 +25,7 @@ async function postAddPost(post: {
     if (response.status !== 200) {
       throw new Error("게시글 작성에 실패했습니다");
     }
-    return response.data.boardId;
+    return response.data.data.boardId;
   } catch (error) {
     console.log(error);
     return -1;

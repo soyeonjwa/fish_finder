@@ -21,6 +21,7 @@ interface image{
 interface review{
   reviewId : number
   fishId : number
+  fishName : string
   weight : number
   pricePerKg : number
   totalPrice : number
@@ -61,7 +62,10 @@ export default function MidContent({content, thumbnail, reviews} : MidContentPro
   return (
     <Wrapper>
           <div style={{fontSize:'16px', marginBottom : '2%'}}>{content}</div>
-          <ReviewTable reviews = {reviews}></ReviewTable>
+          { 
+            reviews && reviews.length>=0 && 
+            <ReviewTable reviews = {reviews}></ReviewTable>
+          }
           <Slider {...settings}>
             {thumbnail && thumbnail.map((image)=>(
               <div key = {image.imageId}>
