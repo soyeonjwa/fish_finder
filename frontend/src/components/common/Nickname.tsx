@@ -146,7 +146,7 @@ export default function NickName({title, url} : NickNameProps) {
           fontSize="18px"
           padding="2% 4% 2% 4%"
           margin="0% 4% 2% 0%"
-          onSubmit={onSubmit}
+          onClick={onSubmit}
           disabled={!hasValue}
         >
           {title}
