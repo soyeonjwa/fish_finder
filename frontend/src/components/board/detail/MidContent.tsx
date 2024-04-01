@@ -74,8 +74,8 @@ export default function MidContent({
       )}
       <Slider {...settings}>
         {thumbnail &&
-          thumbnail.map((image) => (
-            <div key={image.imageId}>
+          thumbnail.map((image, index) => (
+            <div key={index}>
               <BoardImage
                 src={image.imageUri}
                 alt="썸네일"
