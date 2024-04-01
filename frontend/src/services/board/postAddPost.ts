@@ -8,7 +8,7 @@ async function postAddPost(post: {
     reviews: Review[];
   };
   images: File[];
-}): Promise<number> {
+}) {
   console.log(post);
   try {
     const response = await axiosMultipartInstance.post("/api/board", post);
