@@ -80,6 +80,7 @@ export default function BoardDetail() {
     if(userId && userId != -1){
       axiosInstance.get(`/api/board/${boardId}`)
         .then((res:AxiosResponse)=>{
+          console.log(res.data.data)
           setBoard(res.data.data)
         })
     }
