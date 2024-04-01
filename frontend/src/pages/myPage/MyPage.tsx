@@ -125,6 +125,7 @@ export default function MyPage() {
   const getBoard = (url: string) => {
     axiosInstance.get(`/api/board/${url}`).then((res: AxiosResponse) => {
       setBoards(res.data.data);
+      console.log(res.data.data);
     });
   };
 
@@ -133,7 +134,6 @@ export default function MyPage() {
 
     axiosInstance.get("/api/board/my-record").then((res: AxiosResponse) => {
       setRecord(res.data.data);
-      console.log(res.data.data);
     });
   }, []);
 
