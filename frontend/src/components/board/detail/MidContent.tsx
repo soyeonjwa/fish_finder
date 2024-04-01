@@ -63,7 +63,7 @@ export default function MidContent({content, thumbnail, reviews} : MidContentPro
     <Wrapper>
           <div style={{fontSize:'16px', marginBottom : '2%'}}>{content}</div>
           { 
-            reviews && reviews.length>=0 && 
+            reviews && reviews.length>0 && 
             <ReviewTable reviews = {reviews}></ReviewTable>
           }
           <Slider {...settings}>

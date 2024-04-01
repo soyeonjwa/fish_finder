@@ -17,7 +17,7 @@ export default function OAuth() {
                     setNickName(res.data.data.nickname)
 
                     if(res.status == 201){
-                        navigate("/nickname")
+                        navigate("/nickname/signup")
                     }
                     else{
                         navigate("/")
