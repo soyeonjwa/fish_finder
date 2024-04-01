@@ -7,13 +7,14 @@ import searchPrimaryIcon from "../../assets/icons/searchPrimary.svg";
 import valueDelete from "../../assets/icons/valueDelete.svg";
 
 type SearchBoxProps = {
-    width : string,
-    name : string,
-    margin : string,
-    value : string,
-    setValue(value : string) : void,
-    handleSubmit(e : React.FormEvent<HTMLFormElement>) : void,
-}
+  width: string;
+  name: string;
+  margin: string;
+  value: string;
+  setValue(value: string): void;
+  handleSubmit(e: React.FormEvent<HTMLFormElement>): void;
+  handleSearchClick(): void;
+};
 
 const Outline = styled.div<{
   width: string;
@@ -32,6 +33,7 @@ const Outline = styled.div<{
 
   & > img {
     padding: 1%;
+    cursor: pointer;
   }
 
   & > form {
@@ -74,12 +76,13 @@ export default function SearchBox({
   value,
   setValue,
   handleSubmit,
+  handleSearchClick,
 }: SearchBoxProps) {
   const hasValue = value.trim() !== "";
   return (
     <Outline width={width} margin={margin} hasValue={hasValue}>
       {hasValue ? (
-        <img src={searchPrimaryIcon}></img>
+        <img src={searchPrimaryIcon} onClick={handleSearchClick}></img>
       ) : (
         <img src={searchIcon}></img>
       )}
