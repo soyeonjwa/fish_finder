@@ -27,7 +27,7 @@ const Thead = styled.thead`
     height : 40px;
 `
 
-const Tr = styled.tr`
+const Td = styled.td`
     height : 40px;
     text-align: center;
 `
