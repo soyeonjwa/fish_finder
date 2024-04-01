@@ -46,6 +46,7 @@ const Wrapper = styled.div`
 
 const Block = styled(Link)`
   width: 20%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +59,10 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const HomeIconImage = styled.img`
+  width: 40%;
 `;
 
 const Image = styled.img`
@@ -80,14 +85,14 @@ const CenterBox = styled.div`
   height: 90%;
   background-color: ${primary};
   border-radius: 50%;
-  margin: 1%;
+  margin: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 
   & > img {
     padding: 20% 20% 20% 20%;
-    width: 45%;
+    width: 60%;
   }
 `;
 
@@ -102,9 +107,9 @@ export default function Footer() {
         <Block to="/">
           <ImageContainer>
             {location.pathname === "/" ? (
-              <Image src={HomeIconPrimary}></Image>
+              <HomeIconImage src={HomeIconPrimary}></HomeIconImage>
             ) : (
-              <Image src={HomeIcon}></Image>
+              <HomeIconImage src={HomeIcon}></HomeIconImage>
             )}
           </ImageContainer>
 

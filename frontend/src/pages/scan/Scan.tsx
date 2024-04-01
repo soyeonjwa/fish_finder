@@ -40,7 +40,7 @@ const Header = styled.div`
   align-items: center;
 
   & > span {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
   }
 `;
@@ -364,7 +364,7 @@ export default function Scan() {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           detent="content-height"
-          snapPoints={[1200, 800]}
+          snapPoints={[0.6, 0.4]}
           onSnap={handleSnap}
           initialSnap={1}
         >

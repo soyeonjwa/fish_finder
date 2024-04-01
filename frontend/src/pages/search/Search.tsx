@@ -33,7 +33,7 @@ const Header = styled.div`
   align-items: center;
 
   & > span {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
   }
 `;
@@ -45,7 +45,7 @@ const Content = styled.div`
 const CardContent = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  row-gap: 5%;
+  row-gap: 15px;
   column-gap: 3%;
 `;
 
@@ -134,19 +134,22 @@ export default function Search() {
           ></WordContents>
         </Content>
       ) : resultFishList && resultFishList.length > 0 ? (
-        <CardContent>
-          {resultFishList.map((fish: fishResultData) => (
-            <FishCompareCard
-              key={fish.fishId}
-              fishId={fish.fishId}
-              name={fish.name}
-              imgUri={fish.imgUri}
-              onClickCard={() =>
-                onClickCard({ fishId: fish.fishId, name: fish.name })
-              }
-            />
-          ))}
-        </CardContent>
+        <Content>
+          <CardContent>
+            {resultFishList.map((fish: fishResultData) => (
+              <FishCompareCard
+                key={fish.fishId}
+                fishId={fish.fishId}
+                name={fish.name}
+                imgUri={fish.imgUri}
+                onClickCard={() =>
+                  onClickCard({ fishId: fish.fishId, name: fish.name })
+                }
+                infoIcon={false}
+              />
+            ))}
+          </CardContent>
+        </Content>
       ) : (
         <div>검색 결과 없습니다.</div>
       )}
