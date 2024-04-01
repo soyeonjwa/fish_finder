@@ -19,7 +19,7 @@ const Background = styled.div`
 export default function Loading() {
   return (
     <Background>
-      <img src={Spinner} alt="로딩중" width="60%" />
+      <img src={Spinner} alt="로딩중" width="30%" />
     </Background>
   );
 }

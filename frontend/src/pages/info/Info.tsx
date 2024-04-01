@@ -6,10 +6,10 @@ import Modal from "react-modal";
 import { Wrapper } from "../../components/common/Wrapper";
 import FishInfoCard from "../../components/info/FishInfoCard";
 import BackButton from "../../components/common/BackButton";
-import Warning from "../../assets/icons/warning.svg";
 import FishCompareCard from "../../components/search/FishCompareCard";
 import ModalHeader from "../../components/info/modal/Header";
 import ModalFishCompare from "../../components/info/modal/FishCompare";
+import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
@@ -51,7 +51,7 @@ const Warn = styled.div`
   margin-top: 5%;
 `;
 
-const WarnImg = styled.img`
+const WarnImg = styled(Warning)`
   margin-right: 5px;
 `;
 
@@ -113,7 +113,7 @@ export default function Info() {
       {sourceFish && sourceFish.similarFish.length !== 0 && (
         <div>
           <Warn>
-            <WarnImg src={Warning} alt="" />
+            <WarnImg />
             <p>유사어종에 주의하세요</p>
           </Warn>
           <SimliarFishContainer>
@@ -152,6 +152,7 @@ export default function Info() {
             <ModalFishCompare
               sourceFishId={sourceFish.fishId}
               targetFishId={targetFishId}
+              setIsOpen={setIsOpen}
             />
           </Modal>
         </div>

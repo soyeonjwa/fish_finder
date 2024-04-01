@@ -17,24 +17,24 @@ interface TagBoxProps {
   active: boolean;
 }
 
-interface Record{
-  "memberId" : number, // 사용자 id
-  "nickname" : string, // 사용자 닉네임
-  "postCount" : number, // 글 작성 횟수
-  "commentCount" : number, // 댓글 단 횟수
-  "scrapCount" : number 
+interface Record {
+  memberId: number; // 사용자 id
+  nickname: string; // 사용자 닉네임
+  postCount: number; // 글 작성 횟수
+  commentCount: number; // 댓글 단 횟수
+  scrapCount: number;
 }
 
 const Wrapper = styled(NavBarWrapper)`
-  padding-top : 200px;
-`
+  padding-top: 200px;
+`;
 
 const Header = styled.div`
   position: fixed;
-  top : 0;
+  top: 0;
   width: 100%;
   height: 150px;
-  z-index:1000;
+  z-index: 1000;
 `;
 
 const ImageContainer = styled.img`
@@ -80,8 +80,8 @@ const Nickname = styled.span`
 const Tag = styled.div`
   background-color: white;
   width: 90%;
-  position : fixed;
-  top : 144px;
+  position: fixed;
+  top: 144px;
   display: flex;
   flex-direction: row;
   margin-top: 2%;
@@ -108,60 +108,59 @@ const Contents = styled.div`
 
 const LogoutBtn = styled.div`
   font-size: 15px;
-  color : white;
+  color: white;
   text-decoration: underline;
-  position : fixed;
-  top : 30px;
-  right : 10px;
-`
+  position: fixed;
+  top: 30px;
+  right: 10px;
+`;
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("작성글");
   const [boards, setBoards] = useState<BoardType[]>([]);
-  const {setUserId, nickname, setNickName} = userStore();
+  const { setUserId, nickname, setNickName } = userStore();
   const [record, setRecord] = useState<Record>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const getBoard = (url : string) => {
-    axiosInstance.get(`/api/board/${url}`)
-      .then((res:AxiosResponse) => {
-        setBoards(res.data.data)
-      })
-  }
+  const getBoard = (url: string) => {
+    axiosInstance.get(`/api/board/${url}`).then((res: AxiosResponse) => {
+      setBoards(res.data.data);
+    });
+  };
 
-  useEffect(()=>{
-    getBoard('my-post')
+  useEffect(() => {
+    getBoard("my-post");
 
-    axiosInstance.get('/api/board/my-record')
-      .then((res : AxiosResponse) => {
-        setRecord(res.data.data)
-      })
-  },[])
+    axiosInstance.get("/api/board/my-record").then((res: AxiosResponse) => {
+      setRecord(res.data.data);
+    });
+  }, []);
 
-  useEffect(()=>{
-    if(activeTab ==="작성글"){
-      getBoard('my-post')
+  useEffect(() => {
+    if (activeTab === "작성글") {
+      getBoard("my-post");
+    } else if (activeTab === "댓글단 글") {
+      getBoard("my-comment");
+    } else {
+      getBoard("my-scrap");
     }
-    else if(activeTab === "댓글단 글"){
-      getBoard('my-comment')
-    }
-    else{
-      getBoard('my-scrap')
-    }
-  }, [activeTab])
+  }, [activeTab]);
 
   const onClickLogoutBtn = () => {
-    axiosInstance.get('/api/users/logout')
-      .then((res : AxiosResponse) => {
+    axiosInstance
+      .get("/api/users/logout")
+      .then((res: AxiosResponse) => {
         console.log(res.data.message);
         setUserId(-1);
-        setNickName("")
-        navigate("/")
+        setNickName("");
+        navigate("/");
       })
-      .catch(error => {throw new Error(error.message)})
-  }
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  };
   return (
-    <Wrapper width = '100%' height="auto" margin="0">
+    <Wrapper width="100%" height="auto" margin="0">
       <Header>
         <ImageContainer src={marketImage1} alt="노량진" />
         <GradientOverlay></GradientOverlay>
@@ -169,9 +168,12 @@ export default function MyPage() {
           <LogoutBtn onClick={onClickLogoutBtn}>로그아웃</LogoutBtn>
           <NicknameBox>
             <Nickname>{nickname}님</Nickname>
-            <img src={EditIcon} alt="" onClick={() => navigate("/nickname")}/>
+            <img src={EditIcon} alt="" onClick={() => navigate("/nickname")} />
           </NicknameBox>
-          <span>작성글 {record?.postCount} | 작성댓글 {record?.commentCount} | 스크랩한 글 {record?.scrapCount}</span>
+          <span>
+            작성글 {record?.postCount} | 작성댓글 {record?.commentCount} |
+            스크랩한 글 {record?.scrapCount}
+          </span>
         </Profile>
       </Header>
       <Contents>
@@ -196,7 +198,7 @@ export default function MyPage() {
           </TagBox>
         </Tag>
 
-        <BoardContainer boards={boards}></BoardContainer>
+        <BoardContainer boards={boards} boardType={activeTab}></BoardContainer>
       </Contents>
     </Wrapper>
   );

@@ -29,6 +29,7 @@ const Outline = styled.div<{
   width: ${(props) => props.width};
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin: ${(props) => props.margin};
 
   & > img {
@@ -67,6 +68,7 @@ const DeleteButton = styled.img`
   padding: 1%;
   margin-right: 1%;
   cursor: pointer;
+  height: 50%;
 `;
 
 export default function SearchBox({

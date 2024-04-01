@@ -11,6 +11,7 @@ import ImageContainer from "../../common/ImageContainer";
 interface FishCompareProps {
   sourceFishId: number;
   targetFishId: number;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 interface Compare {
@@ -72,6 +73,7 @@ const Line = styled.div`
 export default function FishCompare({
   sourceFishId,
   targetFishId,
+  setIsOpen,
 }: FishCompareProps) {
   const [data, setData] = useState<Compare>();
   const navigate = useNavigate();
@@ -100,6 +102,7 @@ export default function FishCompare({
               width="100%"
               height="70px"
               onClick={() => {
+                setIsOpen(false);
                 navigate(`/info/${data.targetFish.fishId}`);
               }}
             />
@@ -117,6 +120,7 @@ export default function FishCompare({
               width="100%"
               height="70px"
               onClick={() => {
+                setIsOpen(false);
                 navigate(`/info/${data.sourceFish.fishId}`);
               }}
             />
