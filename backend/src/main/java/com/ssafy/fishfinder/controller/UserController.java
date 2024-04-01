@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.ok(message);
     }
 
-    @PatchMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Message> UserUpdate(@RequestBody UserDto userDto, HttpServletRequest request){
         HttpSession session = request.getSession(false);
         if(session == null) {
