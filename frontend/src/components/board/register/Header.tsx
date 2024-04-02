@@ -65,7 +65,7 @@ export default function Header({fishDatas} : HeaderProps) {
     navigate("/board");
   };
 
-  const onClickSubmitBtn = () => {
+  const onClickSubmitBtn = async () => {
 
     for(let i=0;i<reviewForms.length;i++){
       if(!fishDatas.has(reviewForms[i].review.name)){
@@ -88,7 +88,7 @@ export default function Header({fishDatas} : HeaderProps) {
 
 
     console.log(post)
-    submitData();
+    await submitData();
   };
 
   const submitData = () => {
