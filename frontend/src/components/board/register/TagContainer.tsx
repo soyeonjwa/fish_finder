@@ -8,6 +8,7 @@ import { Button } from "../../common/Button";
 import TagIcon from "../../../assets/icons/tag.svg";
 import { gray1, gray3, primary } from "../../../assets/styles/palettes";
 import ReviewContainer from "./ReviewContainer";
+import { reviewFormStore } from "../../../stores/reviewFormStore";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -26,8 +27,11 @@ interface TagContainerProps{
 
 export default function TagContainer({fishDatas} : TagContainerProps) {
   const { postType, setPostType } = usePostStore();
+  const { setReviewForms } = reviewFormStore();
 
   const handleClickBtn = (type: string) => {
+    setReviewForms([])
+
     if (type === postType) return;
     else setPostType(type);
   };
