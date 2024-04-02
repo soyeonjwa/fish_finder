@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
 
@@ -57,23 +57,20 @@ interface comment {
 const StyledWrapper = styled(Wrapper)`
   display: flex;
   flex-direction: column;
-
   padding-bottom: 40px;
 `;
 
 const Contents = styled.div`
   width: 100%;
   height: auto;
-
   padding-top: 65px;
 `;
 
-export default function BoardDetail() {
+export default function BoardDetail2() {
   const [board, setBoard] = useState<BoardType>();
   const { boardId } = useParams();
   const { userId } = userStore();
   const [change, setChange] = useState<boolean>(false);
-  const commentContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (userId && userId != -1) {
@@ -85,10 +82,10 @@ export default function BoardDetail() {
   }, [change]);
 
   useEffect(() => {
-    if (commentContainerRef.current) {
-      commentContainerRef.current.scrollTop =
-        commentContainerRef.current.scrollHeight;
-    }
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   }, [board?.comments]);
 
   return (

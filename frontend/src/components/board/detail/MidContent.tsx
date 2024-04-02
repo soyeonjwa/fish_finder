@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ImageContainer from "../../common/ImageContainer";
 import Slider from "react-slick";
+import Modal from "react-modal";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -62,6 +63,8 @@ export default function MidContent({
   thumbnail,
   reviews,
 }: MidContentProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalImage, setModalImage] = useState("");
   return (
     <Wrapper>
       <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content}</div>
@@ -78,10 +81,45 @@ export default function MidContent({
                 width="100%"
                 height="300px"
                 objectFit="cover"
+                onClick={() => {
+                  setIsOpen(true);
+                  setModalImage(image.imageUri);
+                }}
               ></ImageContainer>
             </div>
           ))}
       </Slider>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: "rgb(26,26,26,0.5)",
+          },
+          content: {
+            width: "80%",
+            display: "flex",
+            flexDirection: "column",
+            alignSelf: "center",
+            justifySelf: "center",
+            overflow: "auto",
+            fontFamily: "Pretendard",
+            padding: "2%",
+          },
+        }}
+      >
+        <ImageContainer
+          src={modalImage}
+          alt="모달이미지"
+          width="100%"
+          height="100%"
+          objectFit="contain"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        ></ImageContainer>
+      </Modal>
     </Wrapper>
   );
 }
