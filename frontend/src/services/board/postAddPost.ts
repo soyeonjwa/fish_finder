@@ -1,7 +1,12 @@
 import { AxiosResponse } from "axios";
 import { axiosMultipartInstance } from "../axios";
 
-async function postAddPost(post: {
+interface responseType{
+  boardId : number
+  uri : string
+}
+
+function postAddPost(post: {
   data: {
     title: string;
     content: string;
@@ -9,7 +14,7 @@ async function postAddPost(post: {
     reviews: Review[];
   };
   images: File[];
-}) {
+}) : number {
   console.log(post);
   const formData = new FormData();
   const json = JSON.stringify(post.data);
@@ -21,11 +26,16 @@ async function postAddPost(post: {
     formData.append("images", post.images[i]);
   }
 
+  
+
   axiosMultipartInstance.post("/api/board", formData)
     .then((res : AxiosResponse) => {
-      return res.data.data.boardId;
+      const board : responseType = res.data.data;
+      return board.boardId;
     })
-    .catch(() => {throw new Error("게시글 작성에 실패했습니다")})
+    .catch(() => {return -1})
+
+  return -1;
 }
 
 export default postAddPost;

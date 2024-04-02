@@ -77,6 +77,7 @@ export default function Header({fishDatas} : HeaderProps) {
 
     console.log(reviews);
     const response = handleSubmit();
+    console.log("response "+response);
     if (response === -1) {
       alert("게시글 등록에 실패하였습니다");
       navigate("/board");
