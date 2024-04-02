@@ -151,22 +151,37 @@ export default function Scan() {
   const [photoHeight, setPhotoHeight] = useState(0);
   const [boxdata, setBoxData] = useState<FishScanData[]>([]);
   const [loading, setLoading] = useState(false);
-  const video = videoRef.current;
-  const photo = photoRef.current;
+  const [isOpen, setIsOpen] = useState(false);
+  // const ref = useRef<SheetRef>();
+  const navigate = useNavigate();
+  const localStream = useRef<MediaStream>();
+
   useEffect(() => {
-    if (video && photo) {
-      const resizeCanvas = () => {
-        photo.width = video.videoWidth;
-        photo.height = video.videoHeight;
-      };
+    getVideo();
 
-      window.addEventListener("resize", resizeCanvas);
-      resizeCanvas();
-
-      return () => {
-        window.removeEventListener("resize", resizeCanvas);
-      };
-    }
+    return () => {
+      function removeVideo() {
+        console.log("unmount");
+        const video = videoRef.current;
+        console.log(video);
+        if (video) {
+          console.log("video");
+          video.pause();
+          video.srcObject = null;
+        }
+        if (localStream.current) {
+          const vidTrack = localStream.current.getVideoTracks();
+          vidTrack?.forEach((track) => {
+            console.log(track);
+            track.stop();
+            localStream.current?.removeTrack(track);
+          });
+          localStream.current = undefined;
+          console.log(localStream);
+        }
+      }
+      removeVideo();
+    };
   }, []);
 
   const getVideo = () => {
@@ -187,6 +202,8 @@ export default function Scan() {
               console.error("Failed to play video:", error);
             });
           };
+          console.log(stream);
+          localStream.current = stream;
         } else {
           console.error("Video element not found.");
         }
@@ -259,10 +276,6 @@ export default function Scan() {
     setPhotoTaken(true);
   };
 
-  useEffect(() => {
-    getVideo();
-  }, []);
-
   const [fishdata, setFishData] = useState({
     name: "",
     otherPrice: 0,
@@ -273,7 +286,7 @@ export default function Scan() {
 
   const reTakePhoto = () => {
     setPhotoTaken(false);
-    getVideo();
+    videoRef.current?.play();
     setBoxData([]);
   };
 
@@ -284,10 +297,6 @@ export default function Scan() {
     });
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  // const ref = useRef<SheetRef>();
-  const navigate = useNavigate();
-
   const handleSnap = (snapIndex: number) => {
     if (snapIndex === 0) {
       // 페이지 이동
@@ -296,7 +305,7 @@ export default function Scan() {
   };
 
   const navigateBack = () => {
-    video?.pause();
+    videoRef.current?.pause();
     navigate(-1);
   };
 

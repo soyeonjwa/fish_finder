@@ -164,6 +164,7 @@ function Tutorial() {
       <CenterWrapper height="95vh">
         <Login />
         <Link to="/">홈으로</Link>
+        <p>본 서비스는 Andriod 환경에 최적화되어 있습니다.</p>
       </CenterWrapper>
     </div>
   );
