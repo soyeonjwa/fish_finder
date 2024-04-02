@@ -67,7 +67,7 @@ const Image = styled.img`
 
 const DownloadWrapper = styled.div`
   position: fixed;
-  top: 5%;
+  bottom: 5%;
   left: 50%;
   width: 80%;
   height: 50px;
@@ -195,6 +195,7 @@ function Tutorial() {
         <Link to="/">홈으로</Link>
         <p>본 서비스는 Andriod 환경에 최적화되어 있습니다.</p>
       </CenterWrapper>
+      <CenterWrapper height="10vh"></CenterWrapper>
     </div>
   );
 }
