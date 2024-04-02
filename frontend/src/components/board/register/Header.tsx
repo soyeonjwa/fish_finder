@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -53,19 +53,20 @@ export default function Header({fishDatas} : HeaderProps) {
   const {setPostType, setTitle, setContent, setImages, setReviews} = usePostStore();
   const post = {
     data : {
-      title,
-      content,
-      postType,
-      reviews
-    },
-    images
-  }
+       title,
+       content,
+       reviews,
+       postType
+     },
+     images
+   }
 
   const onClickBackBtn = () => {
     navigate("/board");
   };
 
   const onClickSubmitBtn = async () => {
+    const formatFormRevies : Review[] = [];
 
     for(let i=0;i<reviewForms.length;i++){
       if(!fishDatas.has(reviewForms[i].review.name)){
@@ -82,16 +83,15 @@ export default function Header({fishDatas} : HeaderProps) {
           pricePerKg : parseFloat(reviewForms[i].review.pricePerKg)
         }
         
-        setReviews([...reviews, formatReview])
+        formatFormRevies.push(formatReview)
       }
     }
 
-
-    console.log(post)
-    await submitData();
+    await setReviews(formatFormRevies);
   };
 
-  const submitData = () => {
+  const submitData = async () => {
+    console.log(reviews)
     const formData = new FormData();
     const json = JSON.stringify(post.data);
     const blob = new Blob([json], {type : 'application/json'});
@@ -108,7 +108,7 @@ export default function Header({fishDatas} : HeaderProps) {
     }
 
     
-    axiosMultipartInstance.post("/api/board", formData)
+    await axiosMultipartInstance.post("/api/board", formData)
       .then((res : AxiosResponse) => {
         const board : responseType = res.data.data;
 
@@ -121,10 +121,14 @@ export default function Header({fishDatas} : HeaderProps) {
         navigate(`/board/${board.boardId}`)
       })
       .catch(()=>{
-        console.log(post);
+        console.log(post.data.reviews);
         alert("게시물 등록에 실패했습니다.")
       })
   }
+
+  useEffect(()=>{
+    if(post.data.reviews.length >0) submitData();
+  }, [post.data.reviews])
 
   return (
     <Wrapper>
