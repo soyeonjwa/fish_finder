@@ -228,7 +228,7 @@ export default function Board() {
             onClick={onClickBtn}
           >
             {sort === "리뷰인기순" ? (
-              <span style={{ fontSize: "11px" }}>{sort} ▼</span>
+              <span style={{ fontSize: "10px" }}>{sort} ▼</span>
             ) : (
               <span>{sort} ▼</span>
             )}

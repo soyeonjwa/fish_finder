@@ -77,11 +77,6 @@ export default function CommentInput({
       .then(() => {
         setChange(!change);
         setContent("");
-
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
-        });
       })
       .catch((error) => {
         throw new Error(error.message);
