@@ -81,4 +81,14 @@ public class UserController {
         Message message = new Message("회원탈퇴 완료");
         return ResponseEntity.ok(message);
     }
+
+    @GetMapping("/check")
+    public ResponseEntity<Message> UserSessionCheck(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null){
+            throw new CustomException(ErrorCode.NO_LOGIN);
+        }
+        Message message = new Message("로그인 되어있음");
+        return ResponseEntity.ok(message);
+    }
 }
