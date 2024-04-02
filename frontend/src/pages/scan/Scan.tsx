@@ -156,33 +156,13 @@ export default function Scan() {
   const navigate = useNavigate();
   const localStream = useRef<MediaStream>();
 
-  useEffect(() => {
-    getVideo();
-
-    return () => {
-      function removeVideo() {
-        console.log("unmount");
-        const video = videoRef.current;
-        console.log(video);
-        if (video) {
-          console.log("video");
-          video.pause();
-          video.srcObject = null;
-        }
-        if (localStream.current) {
-          const vidTrack = localStream.current.getVideoTracks();
-          vidTrack?.forEach((track) => {
-            console.log(track);
-            track.stop();
-            localStream.current?.removeTrack(track);
-          });
-          localStream.current = undefined;
-          console.log(localStream);
-        }
-      }
-      removeVideo();
-    };
-  }, []);
+  const [fishdata, setFishData] = useState({
+    name: "",
+    otherPrice: 0,
+    ourPrice: 0,
+    imgUri: "",
+    fishId: 0,
+  });
 
   const getVideo = () => {
     // 미디어 설정에서 후면 카메라를 지정
@@ -276,14 +256,6 @@ export default function Scan() {
     setPhotoTaken(true);
   };
 
-  const [fishdata, setFishData] = useState({
-    name: "",
-    otherPrice: 0,
-    ourPrice: 0,
-    imgUri: "",
-    fishId: 0,
-  });
-
   const reTakePhoto = () => {
     setPhotoTaken(false);
     videoRef.current?.play();
@@ -306,6 +278,7 @@ export default function Scan() {
 
   const navigateBack = () => {
     videoRef.current?.pause();
+    removeVideo();
     navigate(-1);
   };
 
@@ -320,6 +293,35 @@ export default function Scan() {
       return -1;
     }
   };
+
+  function removeVideo() {
+    console.log("unmount");
+    const video = videoRef.current;
+    console.log(video);
+    if (video) {
+      console.log("video");
+      video.pause();
+      video.srcObject = null;
+    }
+    if (localStream.current) {
+      const vidTrack = localStream.current.getVideoTracks();
+      vidTrack?.forEach((track) => {
+        console.log(track);
+        track.stop();
+        localStream.current?.removeTrack(track);
+      });
+      localStream.current = undefined;
+      console.log(localStream);
+    }
+  }
+
+  useEffect(() => {
+    getVideo();
+
+    return () => {
+      removeVideo();
+    };
+  }, []);
 
   return (
     <Wrapper>
