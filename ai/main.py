@@ -66,8 +66,9 @@ model.info()
 
 @app.post("/ai/fishes")
 async def predict(photo: Photo):
+
     image = base64_to_image(photo.photoStr)
-    results = model.predict(source=image, conf=0.65, iou=0.3, augment=True)
+    results = model.predict(source=image, augment=True, conf=0.65, imgsz=1024)
 
     json_result = results_to_json(results)
     return json_result
