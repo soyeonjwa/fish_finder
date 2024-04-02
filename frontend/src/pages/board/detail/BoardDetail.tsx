@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
 
@@ -71,6 +71,7 @@ export default function BoardDetail() {
   const { boardId } = useParams();
   const { userId } = userStore();
   const [change, setChange] = useState<boolean>(false);
+  const isMounted = useRef(false);
 
   useEffect(() => {
     if (userId && userId != -1) {
@@ -81,12 +82,16 @@ export default function BoardDetail() {
     }
   }, [change]);
 
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: document.body.scrollHeight,
-  //     behavior: "smooth",
-  //   });
-  // }, [board?.comments]);
+  useEffect(() => {
+    if (board && isMounted.current) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    } else {
+      isMounted.current = true;
+    }
+  }, [board?.comments]);
 
   return (
     <StyledWrapper>
