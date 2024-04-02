@@ -22,7 +22,7 @@ const usePostStore = create<PostState & PostAction>()((set, get) => ({
 
   setImages: (images: ImageFile[]) => set({ images }),
 
-  handleSubmit: () => {
+  handleSubmit: ()=> {
     console.log(
       get().postType,
       get().title,
@@ -45,14 +45,11 @@ const usePostStore = create<PostState & PostAction>()((set, get) => ({
       },
       images: imageList,
     };
-    const postId = postAddPost(body);
-    console.log(body);
+    const boardId : number= postAddPost(body);
+    console.log("postStore"+ boardId);
     set(initialState);
-    // axios 연결 시 postId를 return;
-    if(typeof postId === "number"){
-      return postId;
-    }
-    return -1;
+
+    return boardId;
   },
 }));
 

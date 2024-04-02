@@ -1,7 +1,7 @@
 import { AxiosResponse } from "axios";
 import { axiosMultipartInstance } from "../axios";
 
-async function postAddPost(post: {
+function postAddPost(post: {
   data: {
     title: string;
     content: string;
@@ -9,7 +9,7 @@ async function postAddPost(post: {
     reviews: Review[];
   };
   images: File[];
-}) {
+}) : number {
   console.log(post);
   const formData = new FormData();
   const json = JSON.stringify(post.data);
@@ -25,7 +25,9 @@ async function postAddPost(post: {
     .then((res : AxiosResponse) => {
       return res.data.data.boardId;
     })
-    .catch(() => {throw new Error("게시글 작성에 실패했습니다")})
+    .catch(() => {return -1})
+
+  return -1;
 }
 
 export default postAddPost;
