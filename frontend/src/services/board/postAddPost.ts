@@ -1,6 +1,11 @@
 import { AxiosResponse } from "axios";
 import { axiosMultipartInstance } from "../axios";
 
+interface responseType{
+  boardId : number
+  uri : string
+}
+
 function postAddPost(post: {
   data: {
     title: string;
@@ -25,8 +30,8 @@ function postAddPost(post: {
 
   axiosMultipartInstance.post("/api/board", formData)
     .then((res : AxiosResponse) => {
-      console.log("결과값" + res.data.data.boardId);
-      boardId = res.data.data.boardId;
+      const board : responseType = res.data.data;
+      boardId = board.boardId;
     })
     .catch(() => {return -1})
 
