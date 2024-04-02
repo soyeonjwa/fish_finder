@@ -28,7 +28,7 @@ export default function BoardContainer({
     <div>
       {boards &&
         boards.length > 0 &&
-        boards.map((data) => (
+        boards.map((data,index) => (
           <BoardCard
             id={data.boardId}
             title={data.title}
@@ -40,7 +40,7 @@ export default function BoardContainer({
             likeCount={data.likeCount}
             scrapCount={data.scrapCount}
             commentCount={data.commentCount}
-            key={data.boardId}
+            key={index}
           ></BoardCard>
         ))}
       {boards && boards.length === 0 && <div>{boardType}이 없습니다.</div>}
