@@ -74,15 +74,6 @@ export default function BoardDetail() {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    if (userId && userId != -1) {
-      axiosInstance.get(`/api/board/${boardId}`).then((res: AxiosResponse) => {
-        console.log(res.data.data);
-        setBoard(res.data.data);
-      });
-    }
-  }, [change]);
-
-  useEffect(() => {
     if (isMounted.current) {
       window.scrollTo({
         top: document.body.scrollHeight,
@@ -92,6 +83,15 @@ export default function BoardDetail() {
       isMounted.current = true;
     }
   }, [board?.comments]);
+
+  useEffect(() => {
+    if (userId && userId != -1) {
+      axiosInstance.get(`/api/board/${boardId}`).then((res: AxiosResponse) => {
+        console.log(res.data.data);
+        setBoard(res.data.data);
+      });
+    }
+  }, [change]);
 
   return (
     <StyledWrapper>
