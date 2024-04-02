@@ -372,7 +372,7 @@ export default function Scan() {
                 }}
               ></ScanBox>
             ))}
-          {photoTaken && boxdata.length === 0 && (
+          {photoTaken && boxdata.length === 0 && !loading && (
             <RetakeNotice>
               <p>어종을 찾을 수 없습니다.</p> <p> 다시 촬영해주세요</p>
             </RetakeNotice>
