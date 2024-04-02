@@ -29,11 +29,25 @@ export default function TagContainer({fishDatas} : TagContainerProps) {
   const { postType, setPostType } = usePostStore();
   const { setReviewForms } = reviewFormStore();
 
-  const handleClickBtn = (type: string) => {
-    setReviewForms([])
+  const initialFormData : ReviewFormType = {
+    id : 1,
+    review : {
+      name : "",
+      pricePerKg : "",
+      totalPrice : "",
+      weight : ""
+    }
+  }
 
-    if (type === postType) return;
-    else setPostType(type);
+  const handleClickBtn = (type: string) => {
+    if(type==="normal"){
+      setReviewForms([]);
+      setPostType("normal")
+    }
+    else{
+      setReviewForms([initialFormData])
+      setPostType("review")
+    }
   };
 
   return (
