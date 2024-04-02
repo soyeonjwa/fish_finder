@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { axiosMultipartInstance } from "../axios";
 
 async function postAddPost(post: {
@@ -20,16 +21,11 @@ async function postAddPost(post: {
     formData.append("images", post.images[i]);
   }
 
-  try {
-    const response = await axiosMultipartInstance.post("/api/board", formData);
-    if (response.status !== 200) {
-      throw new Error("게시글 작성에 실패했습니다");
-    }
-    return response.data.data.boardId;
-  } catch (error) {
-    console.log(error);
-    return -1;
-  }
+  axiosMultipartInstance.post("/api/board", formData)
+    .then((res : AxiosResponse) => {
+      return res.data.data.boardId;
+    })
+    .catch(() => {throw new Error("게시글 작성에 실패했습니다")})
 }
 
 export default postAddPost;
