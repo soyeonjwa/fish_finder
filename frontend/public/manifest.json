@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "short_name": "물어바종",
-  "name": "물어바종 어종검색 사이트",
+  "name": "물어바종 : FishFinder",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,7 +19,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#00116A",
   "background_color": "#000000",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
@@ -15,6 +15,7 @@ import search from "../../assets/images/tutorial/검색.png";
 import board from "../../assets/images/tutorial/게시판.png";
 import Login from "../login/Login";
 import useMoveScroll from "./useMoveScroll";
+import download from "../../assets/icons/download.svg";
 
 interface TagBoxProps {
   active: boolean;
@@ -64,6 +65,33 @@ const Image = styled.img`
   display: block;
 `;
 
+const DownloadWrapper = styled.div`
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  width: 80%;
+  height: 50px;
+  background-color: ${primary};
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, 0);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+  z-index: 100000;
+
+  & > p {
+    font-size: 14px;
+    margin-right: 13px;
+    color: white;
+  }
+`;
+const DownloadImage = styled.img`
+  height: 70%;
+`;
+
 function Tutorial() {
   const scan = useMoveScroll();
   const keyword = useMoveScroll();
@@ -71,6 +99,7 @@ function Tutorial() {
 
   return (
     <div>
+      <FloatingAlarm />
       <CenterWrapper height="95vh">
         <div>수산시장 이용 도우미</div>
         <CenterWrapper>
@@ -167,6 +196,58 @@ function Tutorial() {
         <p>본 서비스는 Andriod 환경에 최적화되어 있습니다.</p>
       </CenterWrapper>
     </div>
+  );
+}
+
+function FloatingAlarm() {
+  const [deferredPrompt, setDeferredPrompt] = useState<Event | null>();
+
+  const handleBeforeInstallPrompt = (event: Event) => {
+    event.preventDefault();
+    setDeferredPrompt(event);
+  };
+
+  const handleInstall = () => {
+    if (deferredPrompt) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (deferredPrompt as any).prompt();
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (deferredPrompt as any).userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("사용자가 앱 설치를 동의했습니다.");
+        } else {
+          console.log("사용자가 앱 설치를 동의하지 않았습니다.");
+        }
+
+        setDeferredPrompt(null);
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt
+      );
+    };
+  }, []);
+  return (
+    <>
+      {deferredPrompt && (
+        <DownloadWrapper>
+          <p>앱을 설치하고 더 편하게 사용하세요</p>
+          <DownloadImage
+            src={download}
+            onClick={handleInstall}
+            alt="다운로드"
+          />
+        </DownloadWrapper>
+      )}
+    </>
   );
 }
 

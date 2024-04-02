@@ -62,8 +62,7 @@ const UpContents = styled.div`
 const ImageContainer = styled.img`
   margin: 3% 0 5% 0;
   width: 100%;
-  height: 175px;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export default function MarketList() {
