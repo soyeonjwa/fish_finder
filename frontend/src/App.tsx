@@ -8,7 +8,6 @@ import Main from "./pages/main/Main";
 import Board from "./pages/board/Board";
 import Search from "./pages/search/Search";
 import BoardDetail from "./pages/board/detail/BoardDetail";
-import BoardDetail2 from "./pages/board/detail/BoardDetail2";
 import BoardRegister from "./pages/board/register/BoardRegister";
 import MyPage from "./pages/myPage/MyPage";
 import Info from "./pages/info/Info";
@@ -28,22 +27,21 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const {userId, setUserId, setNickName} = userStore();
-  
+  const { userId, setUserId, setNickName } = userStore();
+
   useEffect(() => {
     if (!localStorage.getItem("RecentSearch")) {
       localStorage.setItem("RecentSearch", JSON.stringify([]));
     }
 
-    if(userId){
-      axiosInstance.get('/api/users/check')
-        .catch((error) => {
-          if(error.response.status === "401"){
-            setUserId(-1);
-            setNickName("");
-          }
-        })
-    }  
+    if (userId) {
+      axiosInstance.get("/api/users/check").catch((error) => {
+        if (error.response.status === "401") {
+          setUserId(-1);
+          setNickName("");
+        }
+      });
+    }
   }, []);
 
   return (
@@ -61,7 +59,6 @@ function App() {
             <Route path=":boardId" element={<BoardDetail />} />
             <Route path="register" element={<BoardRegister />} />
           </Route>
-          <Route path="boardDetail2" element={<BoardDetail2 />} />
           <Route path="info">
             <Route path=":fishId" element={<Info />} />
           </Route>
