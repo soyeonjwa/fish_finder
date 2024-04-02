@@ -71,7 +71,6 @@ export default function BoardDetail() {
   const { boardId } = useParams();
   const { userId } = userStore();
   const [change, setChange] = useState<boolean>(false);
-  const isMounted = useRef(false);
 
   useEffect(() => {
     if (userId && userId != -1) {
@@ -83,14 +82,10 @@ export default function BoardDetail() {
   }, [change]);
 
   useEffect(() => {
-    if (isMounted.current) {
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: "smooth",
-      });
-    } else {
-      isMounted.current = true;
-    }
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   }, [board?.comments]);
 
   return (
