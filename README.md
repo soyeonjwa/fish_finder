@@ -70,7 +70,8 @@
 
 ## 2. 프로젝트 구조
 
-### Springboot
+<details>
+<summary><h3>Springboot</h3></summary>
 
 ```
 ├─main
@@ -99,7 +100,10 @@
                 └─fishfinder
 ```
 
-### React
+</details>
+<details>
+<summary><h3>React</h3></summary>
+
 ```
 ├─@types
 │  └─globals
@@ -142,11 +146,16 @@
 └─stores
 ```
 
-### FastAPI
+</details>
+<details>
+<summary><h3>FastAPI</h3></summary>
+
 ```
 └─main
    └─model
 ```
+
+</details>
 <br>
 
 ## 3. 서비스 아키텍처
