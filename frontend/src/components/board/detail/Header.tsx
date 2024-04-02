@@ -36,7 +36,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   const onClickBackBtn = () => {
-    navigate(-1);
+    navigate('/board');
   };
 
   return (

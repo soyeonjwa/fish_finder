@@ -18,6 +18,8 @@ import Login from "./pages/login/Login";
 import OAuth from "./pages/login/OAuth";
 import NickName from "./components/common/Nickname";
 import Tutorial from "./pages/tutorial/Tutorial";
+import { userStore } from "./stores/userStore";
+import { axiosInstance } from "./services/axios";
 
 const Wrapper = styled.div`
   font-family: Pretendard;
@@ -26,10 +28,22 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  const {userId, setUserId, setNickName} = userStore();
+  
   useEffect(() => {
     if (!localStorage.getItem("RecentSearch")) {
       localStorage.setItem("RecentSearch", JSON.stringify([]));
     }
+
+    if(userId){
+      axiosInstance.get('/api/users/check')
+        .catch((error) => {
+          if(error.response.status === "401"){
+            setUserId(-1);
+            setNickName("");
+          }
+        })
+    }  
   }, []);
 
   return (
