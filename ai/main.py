@@ -59,7 +59,7 @@ fishList = {
 }
 
 
-model_path = 'model/best2.pt'
+model_path = 'model/best.pt'
 model = YOLO(model_path)
 model.info()
 
