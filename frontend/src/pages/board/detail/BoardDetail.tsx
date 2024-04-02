@@ -81,12 +81,12 @@ export default function BoardDetail() {
     }
   }, [change]);
 
-  useEffect(() => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [board?.comments]);
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: document.body.scrollHeight,
+  //     behavior: "smooth",
+  //   });
+  // }, [board?.comments]);
 
   return (
     <StyledWrapper>
