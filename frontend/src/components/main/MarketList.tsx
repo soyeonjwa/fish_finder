@@ -7,9 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import tutorial from "../../assets/images/market/튜토리얼.png";
 import marketImage1 from "../../assets/images/market/노량진수산시장.png";
-import marketImage2 from "../../assets/images/market/노량진2.jpg";
-import marketImage3 from "../../assets/images/market/노량진3.jpg";
 
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 
@@ -86,16 +85,12 @@ export default function MarketList() {
       </UpContents>
       <Slider {...settings}>
         <div>
-          <ImageContainer src={tutorial} alt="튜토리얼"></ImageContainer>
+          <Link to="/tutorial">
+            <ImageContainer src={tutorial} alt="튜토리얼"></ImageContainer>
+          </Link>
         </div>
         <div>
           <ImageContainer src={marketImage1} alt="시장1"></ImageContainer>
-        </div>
-        <div>
-          <ImageContainer src={marketImage2} alt="시장2"></ImageContainer>
-        </div>
-        <div>
-          <ImageContainer src={marketImage3} alt="시장3"></ImageContainer>
         </div>
       </Slider>
     </Wrapper>
