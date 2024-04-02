@@ -28,13 +28,14 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Writer = styled.div`
+
+const Title = styled.div`
+  font-size: 14px;
   margin-top: 3%;
   margin-bottom: 1%;
-  font-size: 14px;
 `;
-const Title = styled.div`
-  font-size: 13px;
+const Writer = styled.div`
+  font-size: 11px;
   color: ${gray4};
   margin-bottom: 3%;
 `;
@@ -72,9 +73,10 @@ export default function PostCard({
         alt="썸네일"
         width="100%"
         height="150px"
+        objectFit="cover"
       ></ImageContainer>
-      <Writer>{writer}</Writer>
       <Title>{title}</Title>
+      <Writer>{writer}</Writer>
       <ButtomContent>
         <img src={ScrapIcon} alt="스크랩 아이콘"></img>
         <div>{scrapCount}</div>

@@ -71,6 +71,7 @@ const ScanButton = styled.img`
   width: 70px;
   height: 70px;
   bottom: 15%;
+  z-index: 10000;
 `;
 
 const RetakeNotice = styled.div`

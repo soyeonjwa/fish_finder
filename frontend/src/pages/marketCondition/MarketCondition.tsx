@@ -50,6 +50,7 @@ export default function MarketCondition() {
       {data && (
         <>
           <PriceGraph
+            name={data.name}
             ourWeeklyPrice={data.ourWeeklyPrice}
             ourMonthlyPrice={data.ourMonthlyPrice}
             ourHalfYearPrice={data.ourHalfYearPrice}

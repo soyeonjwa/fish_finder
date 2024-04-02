@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import HomeIcon from "../../assets/icons/home.svg";
-import HomeIconPrimary from "../../assets/icons/footerHomePrimary.svg";
+// import HomeIcon from "../../assets/icons/footerHome.svg";
+// import HomeIconPrimary from "../../assets/icons/footerHomePrimary.svg";
+// import MyIcon from "../../assets/icons/footerMy.svg";
+// import MyIconPrimary from "../../assets/icons/footerMyPrimary.svg";
+// import BoardIcon from "../../assets/icons/footerBoard.svg";
+// import BoardIconPrimary from "../../assets/icons/footerBoardPrimary.svg";
+// import SearchIcon from "../../assets/icons/footerSearch.svg";
+// import SearchIconPrimary from "../../assets/icons/footerSearchPrimary.svg";
+import FooterSvg from "../common/FooterSvg";
 import ScanIcon from "../../assets/icons/footerScan.svg";
-import MyIcon from "../../assets/icons/footerMy.svg";
-import MyIconPrimary from "../../assets/icons/footerMyPrimary.svg";
-import BoardIcon from "../../assets/icons/footerBoard.svg";
-import BoardIconPrimary from "../../assets/icons/footerBoardPrimary.svg";
-import SearchIcon from "../../assets/icons/footerSearch.svg";
-import SearchIconPrimary from "../../assets/icons/footerSearchPrimary.svg";
 
 import { gray4, primary } from "../../assets/styles/palettes";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -61,9 +62,9 @@ const ImageContainer = styled.div`
   align-items: center;
 `;
 
-const HomeIconImage = styled.img`
-  width: 40%;
-`;
+// const HomeIconImage = styled.img`
+//   width: 40%;
+// `;
 
 const Image = styled.img`
   width: 45%;
@@ -107,12 +108,15 @@ export default function Footer() {
         <Block to="/">
           <ImageContainer>
             {location.pathname === "/" ? (
-              <HomeIconImage
-                src={HomeIconPrimary}
-                alt="홈아이콘색상"
-              ></HomeIconImage>
+              // <HomeIconImage
+              //   // src={HomeIconPrimary}
+              //   // alt="홈아이콘색상"
+              // ></HomeIconImage>
+
+              <FooterSvg id="footerhomeprimary" size={"60%"}></FooterSvg>
             ) : (
-              <HomeIconImage src={HomeIcon} alt="홈아이콘기본"></HomeIconImage>
+              // <HomeIconImage src={HomeIcon} alt="홈아이콘기본"></HomeIconImage>
+              <FooterSvg id="footerhome" size={"60%"}></FooterSvg>
             )}
           </ImageContainer>
 
@@ -122,9 +126,11 @@ export default function Footer() {
         <Block to="/search">
           <ImageContainer>
             {location.pathname === "/search" ? (
-              <Image src={SearchIconPrimary} alt="검색아이콘색상"></Image>
+              // <Image src={SearchIconPrimary} alt="검색아이콘색상"></Image>
+              <FooterSvg id="footersearchprimary" size={"70%"}></FooterSvg>
             ) : (
-              <Image src={SearchIcon} alt="검색아이콘기본"></Image>
+              // <Image src={SearchIcon} alt="검색아이콘기본"></Image>
+              <FooterSvg id="footersearch" size={"70%"}></FooterSvg>
             )}
           </ImageContainer>
 
@@ -140,9 +146,11 @@ export default function Footer() {
         <Block to="/board">
           <ImageContainer>
             {location.pathname === "/board" ? (
-              <Image src={BoardIconPrimary} alt="보드아이콘색상"></Image>
+              // <Image src={BoardIconPrimary} alt="보드아이콘색상"></Image>
+              <FooterSvg id="footerboardprimary" size={"70%"}></FooterSvg>
             ) : (
-              <Image src={BoardIcon} alt="보드아이콘기본"></Image>
+              // <Image src={BoardIcon} alt="보드아이콘기본"></Image>
+              <FooterSvg id="footerboard" size={"70%"}></FooterSvg>
             )}
           </ImageContainer>
           <Title isActivePage={location.pathname === "/board"}>게시판</Title>
@@ -150,9 +158,11 @@ export default function Footer() {
         <Block to={userId == -1 ? `/login` : "/mypage"}>
           <ImageContainer>
             {location.pathname === "/mypage" ? (
-              <Image src={MyIconPrimary} alt="마이페이지아이콘색상"></Image>
+              // <Image src={MyIconPrimary} alt="마이페이지아이콘색상"></Image>
+              <FooterSvg id="footermyprimary" size={"70%"}></FooterSvg>
             ) : (
-              <Image src={MyIcon} alt="마이페이지아이콘기본"></Image>
+              // <Image src={MyIcon} alt="마이페이지아이콘기본"></Image>
+              <FooterSvg id="footermy" size={"70%"}></FooterSvg>
             )}
           </ImageContainer>
           <Title isActivePage={location.pathname === "/mypage"}>MY</Title>

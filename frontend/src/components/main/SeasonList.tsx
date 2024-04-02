@@ -42,6 +42,12 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+const Title = styled.div`
+  margin-bottom: 3%;
+  font-size: 18px;
+  font-weight: bold;
+`;
+
 const Contents = styled.div`
   width: 100%;
   position: relative;
@@ -111,7 +117,7 @@ export default function SeasonList() {
 
   return (
     <Wrapper>
-      <div>제철 횟감</div>
+      <Title>제철 횟감</Title>
       <Contents>
         <Slider {...settings} afterChange={handleAfterChange}>
           {dataSet &&

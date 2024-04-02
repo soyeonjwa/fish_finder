@@ -33,10 +33,6 @@ const Wrapper = styled.div`
   margin-bottom: 6%;
 `;
 
-const BoardImage = styled(ImageContainer)`
-  object-fit: cover;
-`;
-
 const settings = {
   dots: true,
   infinite: false,
@@ -76,12 +72,13 @@ export default function MidContent({
         {thumbnail &&
           thumbnail.map((image, index) => (
             <div key={index}>
-              <BoardImage
+              <ImageContainer
                 src={image.imageUri}
                 alt="썸네일"
                 width="100%"
                 height="300px"
-              ></BoardImage>
+                objectFit="cover"
+              ></ImageContainer>
             </div>
           ))}
       </Slider>
