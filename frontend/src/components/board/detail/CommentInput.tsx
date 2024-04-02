@@ -10,6 +10,7 @@ interface CommentInputProps {
   boardId: string | undefined;
   change: boolean;
   setChange: (e: boolean) => void;
+  onSubmit: () => void;
 }
 
 const Wrapper = styled.div`
@@ -61,12 +62,14 @@ export default function CommentInput({
   boardId,
   change,
   setChange,
+  onSubmit,
 }: CommentInputProps) {
   const [content, setContent] = useState<string>("");
   const { userId } = userStore();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onSubmit();
 
     const formData = new FormData();
     formData.append("content", content);
@@ -85,7 +88,7 @@ export default function CommentInput({
 
   return (
     <Wrapper>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           placeholder="댓글을 입력해주세요."
           type="text"

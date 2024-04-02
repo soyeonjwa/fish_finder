@@ -5,9 +5,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import marketImage1 from "../../assets/images/market/노량진1.jpg";
+import tutorial from "../../assets/images/market/튜토리얼.png";
+import marketImage1 from "../../assets/images/market/노량진수산시장.png";
 import marketImage2 from "../../assets/images/market/노량진2.jpg";
 import marketImage3 from "../../assets/images/market/노량진3.jpg";
+
 import { useNavigate } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 
@@ -82,9 +84,11 @@ export default function MarketList() {
         ) : (
           <span>안녕하세요</span>
         )}
-        주변 수산물 시장
       </UpContents>
       <Slider {...settings}>
+        <div>
+          <ImageContainer src={tutorial} alt="튜토리얼"></ImageContainer>
+        </div>
         <div>
           <ImageContainer src={marketImage1} alt="시장1"></ImageContainer>
         </div>
