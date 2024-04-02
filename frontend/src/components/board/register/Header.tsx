@@ -8,6 +8,13 @@ import BackButton from "../../common/BackButton";
 import { Button } from "../../common/Button";
 import { primary } from "../../../assets/styles/palettes";
 import { reviewFormStore } from "../../../stores/reviewFormStore";
+import { axiosMultipartInstance } from "../../../services/axios";
+import { AxiosResponse } from "axios";
+
+interface responseType{
+  boardId : number
+  uri : string
+}
 
 const Wrapper = styled.div`
   position: fixed;
@@ -41,9 +48,9 @@ interface HeaderProps{
 
 export default function Header({fishDatas} : HeaderProps) {
   const navigate = useNavigate();
-  const { handleSubmit } = usePostStore();
   const {reviewForms, setReviewForms} = reviewFormStore();
   const {reviews, setReviews} = usePostStore();
+  const {postType, title, content, images} = usePostStore();
 
   const onClickBackBtn = () => {
     navigate("/board");
@@ -74,14 +81,40 @@ export default function Header({fishDatas} : HeaderProps) {
       setReviewForms([]);
     }
 
+    const post = {
+      data : {
+        title,
+        content,
+        postType,
+        reviews
+      },
+      images
+    }
 
-    console.log(reviews);
-    const response = handleSubmit();
-    console.log("response "+response);
-    if (response === -1) {
-      alert("게시글 등록에 실패하였습니다");
-      navigate("/board");
-    } else navigate(`/board/${response}`);
+    const formData = new FormData();
+    const json = JSON.stringify(post.data);
+    const blob = new Blob([json], {type : 'application/json'});
+
+    formData.append('data', blob)
+
+    const imageList : File[] = [];
+    images.forEach((image)=>{
+      imageList.push(image.file)
+    })
+
+    for(let i=0;i<imageList.length;i++){
+      formData.append("images", imageList[i]);
+    }
+
+    
+    axiosMultipartInstance.post("/api/board", formData)
+      .then((res : AxiosResponse) => {
+        const board : responseType = res.data.data;
+        navigate(`/board/${board.boardId}`)
+      })
+      .catch(()=>{
+        alert("게시물 등록에 실패했습니다.")
+      })
   };
 
   return (

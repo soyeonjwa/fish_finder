@@ -29,7 +29,6 @@ type PostAction = {
   setContent: (content: string) => void;
   setReviews: (reviews: Review[]) => void;
   setImages: (images: ImageFile[]) => void;
-  async handleSubmit: () => number;
 };
 
 type ReviewFormType = {
