@@ -140,9 +140,6 @@ export default function Board() {
     }
   }
 
-  useEffect(()=>{
-    console.log(boards);
-  }, [boards])
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
