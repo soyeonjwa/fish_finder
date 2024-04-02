@@ -4,9 +4,14 @@ package com.ssafy.fishfinder.service;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifIFD0Directory;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.imgscalr.Scalr;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,6 +65,21 @@ public class S3UploadServiceImpl implements S3UploadService{
         File uploadFile = convert(multipartFile)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File 전환 실패"));
 
+        int orientation = 1;
+        Metadata metadata;
+        Directory directory;
+
+        try {
+            metadata = ImageMetadataReader.readMetadata(uploadFile);
+            directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+            if(directory != null){
+                orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+            }
+
+        }catch (Exception e) {
+            orientation=1;
+        }
+
         BufferedImage image = ImageIO.read(uploadFile);
         int width = image.getWidth();
         int height = image.getHeight();
@@ -95,6 +115,23 @@ public class S3UploadServiceImpl implements S3UploadService{
         graphics2D.drawImage(image, 0, 0, newWidth, newHeight, null);
         graphics2D.dispose();
         newImage = newImage.getSubimage(cropWidth, cropHeight, thumbnailSize, thumbnailSize);
+
+        switch (orientation) {
+            case 1:
+                break;
+            case 3:
+                newImage = Scalr.rotate(newImage, Scalr.Rotation.CW_180, null);
+                break;
+            case 6:
+                newImage = Scalr.rotate(newImage, Scalr.Rotation.CW_90, null);
+                break;
+            case 8:
+                newImage = Scalr.rotate(newImage, Scalr.Rotation.CW_270, null);
+                break;
+            default:
+                orientation = 1;
+                break;
+        }
 
         File thumbnailFile = new File("thumbnail_" + uploadFile.getName());
         ImageIO.write(newImage, "jpg", thumbnailFile);
