@@ -10,6 +10,7 @@ import TitleContainer from '../../../components/board/register/TitleContainer'
 import ContentContainer from '../../../components/board/register/ContentContainer'
 import { axiosInstance } from '../../../services/axios'
 import { AxiosResponse } from 'axios'
+import { reviewFormStore } from '../../../stores/reviewFormStore'
 
 const StyledWrapper = styled(Wrapper)`
   display : flex;
@@ -35,6 +36,7 @@ const Hr = styled.hr`
 
 export default function BoardRegister() {
   const fishDatas = new Map<string, number>();
+  const { setReviewForms } = reviewFormStore();
 
   useEffect(()=>{
     axiosInstance.get(`/api/fishes`)
@@ -44,6 +46,8 @@ export default function BoardRegister() {
         for(let i=0;i<data.length;i++){
           fishDatas.set(data[i].name, data[i].fishId);
         }
+
+        setReviewForms([]);
       })
       .catch(error => {throw new Error(error.message)})
   },[])

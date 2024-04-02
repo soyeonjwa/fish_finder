@@ -42,7 +42,7 @@ interface HeaderProps{
 export default function Header({fishDatas} : HeaderProps) {
   const navigate = useNavigate();
   const { handleSubmit } = usePostStore();
-  const {reviewForms} = reviewFormStore();
+  const {reviewForms, setReviewForms} = reviewFormStore();
   const {reviews, setReviews} = usePostStore();
 
   const onClickBackBtn = () => {
@@ -53,7 +53,10 @@ export default function Header({fishDatas} : HeaderProps) {
     const formatReviews : Review[] = [];
 
     for(let i=0;i<reviewForms.length;i++){
-      if(!fishDatas.has(reviewForms[i].review.name)) return;
+      if(!fishDatas.has(reviewForms[i].review.name)){
+        alert("어종을 정확히 입력해주세요") 
+        return;
+      }
       else{
         const formatFishId : number | undefined = fishDatas.get(reviewForms[i].review.name);
 
@@ -66,7 +69,11 @@ export default function Header({fishDatas} : HeaderProps) {
       }
     }
     
-    setReviews(formatReviews);
+    if(formatReviews.length>0){
+      setReviews(formatReviews);
+      setReviewForms([]);
+    }
+
 
     console.log(reviews);
     const response = handleSubmit();
