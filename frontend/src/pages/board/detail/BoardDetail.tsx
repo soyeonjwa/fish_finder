@@ -67,7 +67,7 @@ const Contents = styled.div`
 `;
 
 export default function BoardDetail() {
-  const [board, setBoard] = useState<BoardType>();
+  const [board, setBoard] = useState<BoardType>([]);
   const { boardId } = useParams();
   const { userId } = userStore();
   const [change, setChange] = useState<boolean>(false);
@@ -83,7 +83,7 @@ export default function BoardDetail() {
   }, [change]);
 
   useEffect(() => {
-    if (isMounted.current) {
+    if (isMounted.current && board?.comments.length > 0) {
       window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth",
