@@ -27,21 +27,22 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const { userId, setUserId, setNickName } = userStore();
-
+  const {userId, setUserId, setNickName} = userStore();
+  
   useEffect(() => {
     if (!localStorage.getItem("RecentSearch")) {
       localStorage.setItem("RecentSearch", JSON.stringify([]));
     }
 
-    if (userId) {
-      axiosInstance.get("/api/users/check").catch((error) => {
-        if (error.response.status === "401") {
-          setUserId(-1);
-          setNickName("");
-        }
-      });
-    }
+    if(userId){
+      axiosInstance.get('/api/users/check')
+        .catch((error) => {
+          if(error.response.status === "401"){
+            setUserId(-1);
+            setNickName("");
+          }
+        })
+    }  
   }, []);
 
   return (

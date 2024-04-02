@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { Wrapper } from '../../../components/common/Wrapper'
@@ -35,7 +35,7 @@ const Hr = styled.hr`
 
 
 export default function BoardRegister() {
-  const fishDatas = new Map<string, number>();
+  const [fishDatas, setFishDatas] = useState(new Map<string, number>());
   const { setReviewForms } = reviewFormStore();
 
   useEffect(()=>{
@@ -43,10 +43,12 @@ export default function BoardRegister() {
       .then((res: AxiosResponse)=>{
         const data : FishData[]= res.data.data;
 
+        const newFishDatas = new Map<string, number>();
         for(let i=0;i<data.length;i++){
-          fishDatas.set(data[i].name, data[i].fishId);
+          newFishDatas.set(data[i].name, data[i].fishId);
         }
 
+        setFishDatas(newFishDatas);
         setReviewForms([]);
       })
       .catch(error => {throw new Error(error.message)})
@@ -55,16 +57,22 @@ export default function BoardRegister() {
 
   return (
     <StyledWrapper>
-      <Header fishDatas = {fishDatas}/>
-      <Contents>
-        <TagContainer fishDatas = {fishDatas}/>
-        <Hr/>
-        <ImageContainer/>
-        <Hr/>
-        <TitleContainer/>
-        <Hr/>
-        <ContentContainer/>
-      </Contents>
+      {
+        fishDatas.size > 0 && (
+          <>
+           <Header fishDatas = {fishDatas}/>
+          <Contents>
+            <TagContainer fishDatas = {fishDatas}/>
+            <Hr/>
+            <ImageContainer/>
+            <Hr/>
+            <TitleContainer/>
+            <Hr/>
+            <ContentContainer/>
+          </Contents>
+          </>
+        )
+      }
     </StyledWrapper>
   )
 }
