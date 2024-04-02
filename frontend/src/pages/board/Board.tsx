@@ -119,66 +119,66 @@ export default function Board() {
       });
   };
 
-  const getBoards  = async (url : string) => {
-    console.log(url)
+  const getBoards = async (url: string) => {
+    console.log(url);
     await axiosInstance.get(url).then((res: AxiosResponse) => {
-      const result : BoardType[] = res.data.data;
-      setBoards(prevBoards => [...prevBoards, ...result]);
+      const result: BoardType[] = res.data.data;
+      setBoards((prevBoards) => [...prevBoards, ...result]);
     });
     return [];
-  }
+  };
 
   const onClickRegisterBtn = () => {
     if (userId == -1) navigate("/login");
     else navigate("/board/register");
   };
-  
-  const handleObserver = (entries : IntersectionObserverEntry[]) => {
-    const target = entries[0];
-    if(target.isIntersecting){
-        setPage(prevPage => prevPage+1)
-    }
-  }
 
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  useEffect(() => {
+    console.log(boards);
+  }, [boards]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
-      threshold : 0
-    })
+      threshold: 0,
+    });
 
-    const observerTarget = document.getElementById("observer")
+    const observerTarget = document.getElementById("observer");
 
-    if(observerTarget){
-      observer.observe(observerTarget)
+    if (observerTarget) {
+      observer.observe(observerTarget);
     }
-  
+
     axiosInstance.get("/api/board").then((res: AxiosResponse) => {
       setBoards(res.data.data);
     });
   }, []);
 
-  useEffect(()=>{
-    if(boards.length<=0) return;
-    if(page==0) return;
-    
+  useEffect(() => {
+    if (boards.length <= 0) return;
+    if (page == 0) return;
+
     let url: string = "/api/board";
     if (sort === "최신순") {
       url += "?sortBy=createdAt";
     } else if (sort === "인기순") {
-      url += `?sortBy=likeCount&likeCount=${boards.at(boards.length-1)?.likeCount}`;
+      url += `?sortBy=likeCount&likeCount=${boards.at(boards.length - 1)?.likeCount}`;
     } else if (sort === "리뷰만") {
       url += "?sortBy=createdAt&postType=review";
     } else {
-      url += `?sortBy=likeCount&postType=review&likeCount=${boards.at(boards.length-1)?.likeCount}`;
+      url += `?sortBy=likeCount&postType=review&likeCount=${boards.at(boards.length - 1)?.likeCount}`;
     }
 
-    url += `&createdAt=${boards.at(boards.length-1)?.createdAt}`
+    url += `&createdAt=${boards.at(boards.length - 1)?.createdAt}`;
 
     getBoards(url);
-
-  },[page])
-
-  
+  }, [page]);
 
   useEffect(() => {
     let url: string = "/api/board";
@@ -197,14 +197,10 @@ export default function Board() {
     });
 
     window.scrollTo({
-      top : 0,
-      behavior : 'smooth'
-    })
+      top: 0,
+      behavior: "smooth",
+    });
   }, [sort]);
-
- 
-
-
 
   return (
     <div>
@@ -240,7 +236,7 @@ export default function Board() {
         </Header>
         <MidContent>
           <BoardContainer boards={boards}></BoardContainer>
-          <div id = "observer" style = {{height : '10px'}}></div>
+          <div id="observer" style={{ height: "10px" }}></div>
         </MidContent>
       </StyledWrapper>
       <Sheet
