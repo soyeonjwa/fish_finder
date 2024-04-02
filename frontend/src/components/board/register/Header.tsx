@@ -48,39 +48,15 @@ interface HeaderProps{
 
 export default function Header({fishDatas} : HeaderProps) {
   const navigate = useNavigate();
-  const {reviewForms, setReviewForms} = reviewFormStore();
-  const {reviews, setReviews} = usePostStore();
-  const {postType, title, content, images} = usePostStore();
+  const {reviewForms} = reviewFormStore();
+  const {postType, title, content, images, reviews} = usePostStore();
+  const {setPostType, setTitle, setContent, setImages, setReviews} = usePostStore();
 
   const onClickBackBtn = () => {
     navigate("/board");
   };
 
   const onClickSubmitBtn = () => {
-    const formatReviews : Review[] = [];
-
-    for(let i=0;i<reviewForms.length;i++){
-      if(!fishDatas.has(reviewForms[i].review.name)){
-        alert("어종을 정확히 입력해주세요") 
-        return;
-      }
-      else{
-        const formatFishId : number | undefined = fishDatas.get(reviewForms[i].review.name);
-
-        formatReviews.push({
-          fishId : (formatFishId === undefined)? 0 : formatFishId,
-          weight : parseFloat(reviewForms[i].review.weight),
-          totalPrice : parseFloat(reviewForms[i].review.totalPrice),
-          pricePerKg : parseFloat(reviewForms[i].review.pricePerKg)
-        })
-      }
-    }
-    
-    if(formatReviews.length>0){
-      setReviews(formatReviews);
-      setReviewForms([]);
-    }
-
     const post = {
       data : {
         title,
@@ -91,6 +67,27 @@ export default function Header({fishDatas} : HeaderProps) {
       images
     }
 
+    for(let i=0;i<reviewForms.length;i++){
+      if(!fishDatas.has(reviewForms[i].review.name)){
+        alert("어종을 정확히 입력해주세요") 
+        return;
+      }
+      else{
+        const formatFishId : number | undefined = fishDatas.get(reviewForms[i].review.name);
+
+        const formatReview : Review = {
+          fishId : (formatFishId === undefined)? 0 : formatFishId,
+          weight : parseFloat(reviewForms[i].review.weight),
+          totalPrice : parseFloat(reviewForms[i].review.totalPrice),
+          pricePerKg : parseFloat(reviewForms[i].review.pricePerKg)
+        }
+        
+        setReviews([...reviews, formatReview])
+      }
+    }
+
+
+    console.log(post)
     const formData = new FormData();
     const json = JSON.stringify(post.data);
     const blob = new Blob([json], {type : 'application/json'});
@@ -110,6 +107,13 @@ export default function Header({fishDatas} : HeaderProps) {
     axiosMultipartInstance.post("/api/board", formData)
       .then((res : AxiosResponse) => {
         const board : responseType = res.data.data;
+
+        setReviews([])
+        setPostType('normal')
+        setContent('')
+        setImages([])
+        setTitle('')
+
         navigate(`/board/${board.boardId}`)
       })
       .catch(()=>{
