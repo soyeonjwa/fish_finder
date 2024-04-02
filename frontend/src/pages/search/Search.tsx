@@ -85,7 +85,7 @@ export default function Search() {
 
   useEffect(() => {
     if (!queryParam.get("query")) {
-      const todayMonth = new Date().getMonth();
+      const todayMonth = new Date().getMonth() + 1;
 
       axiosInstance
         .get(`/api/fishes/season?ss=${todayMonth}월`)
