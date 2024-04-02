@@ -17,8 +17,8 @@ public interface BoardRepository extends JpaRepository<Post, Long> {
 
 
 //    @Query("select p from Post p where p.postType in :postType and (select count(l) from Likes l where l.post = p) < :likeCount order by (select count(l) from Likes l where l.post = p) desc")
-    @Query(nativeQuery = true, value = "select * from post where post_type in :#{T(com.ssafy.fishfinder.util.PostTypeUtil).getPostTypeList(#postType)} and (select count(*) from likes where post_id = post.post_id) < :likeCount and title like :keyword and deleted_at is null order by (select count(*) from likes where post_id = post.post_id) desc, created_at desc limit :limit")
-    List<Post> findTop10BoardListByLikeCount(int likeCount, List<PostType> postType, int limit, String keyword);
+    @Query(nativeQuery = true, value = "select * from post where post_type in :#{T(com.ssafy.fishfinder.util.PostTypeUtil).getPostTypeList(#postType)} and ((select count(*) from likes where post_id = post.post_id) < :likeCount or ((select count(*) from likes where post_id = post.post_id) = :likeCount and created_at < :createdAt)) and title like :keyword and deleted_at is null order by (select count(*) from likes where post_id = post.post_id) desc, created_at desc limit :limit")
+    List<Post> findTop10BoardListByLikeCount(LocalDateTime createdAt, int likeCount, List<PostType> postType, int limit, String keyword);
 
 //    @Query("SELECT p FROM Post p where p.thumbnail is not null and p.createdAt between :startDate and now() ORDER BY (select count(l) from Likes l where l.post = p) DESC, p.createdAt DESC")
     // jpql로 limit하는 방법 몰라서 native로 작성

@@ -84,7 +84,7 @@ public class BoardServiceImpl implements BoardService{
         if(request.getSortBy().equals("createdAt")) {
             result = boardRepository.findTop10BoardListByCreatedAt(request.getCreatedAt(), postTypes, request.getLimit(), '%' + request.getKeyword() + '%');
         } else if(request.getSortBy().equals("likeCount")) {
-            result = boardRepository.findTop10BoardListByLikeCount(request.getLikeCount(), postTypes, request.getLimit(), '%' + request.getKeyword() + '%');
+            result = boardRepository.findTop10BoardListByLikeCount(request.getCreatedAt() ,request.getLikeCount(), postTypes, request.getLimit(), '%' + request.getKeyword() + '%');
         }
 
         List<BoardDto.GetListResponse> response = new ArrayList<>();
