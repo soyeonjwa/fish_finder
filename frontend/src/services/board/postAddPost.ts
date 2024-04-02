@@ -26,16 +26,16 @@ function postAddPost(post: {
     formData.append("images", post.images[i]);
   }
 
-  let boardId : number = -1;
+  
 
   axiosMultipartInstance.post("/api/board", formData)
     .then((res : AxiosResponse) => {
       const board : responseType = res.data.data;
-      boardId = board.boardId;
+      return board.boardId;
     })
     .catch(() => {return -1})
 
-  return boardId;
+  return -1;
 }
 
 export default postAddPost;
