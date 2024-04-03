@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   & > div {
-    width: 16%;
+    width: 15%;
     margin: 5% 0 5% 0;
 
     display: flex;
@@ -40,6 +40,7 @@ interface HeaderProps {
   boardId : number,
   writerId : number
 }
+
 
 export default function Header({boardId, writerId} : HeaderProps) {
   const navigate = useNavigate();
@@ -67,8 +68,11 @@ export default function Header({boardId, writerId} : HeaderProps) {
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
       <div>
         {
-          (writerId === userId) && (
+          (writerId === userId) ? (
             <IconButton width="45%" icon={TrashIcon} onClick = {onClickDeleteBtn}></IconButton>
+          ):
+          (
+            <div style={{width : '45%'}}></div>
           )
         }
         <IconButton width="45%" icon={ExportIcon}></IconButton>
