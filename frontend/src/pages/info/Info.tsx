@@ -51,7 +51,7 @@ const Warn = styled.div`
   margin-top: 5%;
 `;
 
-const WarnImg = styled(Warning)`
+const WarnImg = styled.img`
   margin-right: 5px;
 `;
 
@@ -113,7 +113,7 @@ export default function Info() {
       {sourceFish && sourceFish.similarFish.length !== 0 && (
         <div>
           <Warn>
-            <WarnImg />
+            <WarnImg src={Warning} alt="" />
             <p>유사어종에 주의하세요</p>
           </Warn>
           <SimliarFishContainer>
