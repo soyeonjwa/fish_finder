@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<Post, Long> {
 
 
 //    @Query("select p from Post p where p.postType in :postType and (select count(l) from Likes l where l.post = p) < :likeCount order by (select count(l) from Likes l where l.post = p) desc")
-    @Query(nativeQuery = true, value = "select * from post where post_type in :#{T(com.ssafy.fishfinder.util.PostTypeUtil).getPostTypeList(#postType)} and ((select count(*) from likes where post_id = post.post_id) < :likeCount or ((select count(*) from likes where post_id = post.post_id) = :likeCount and created_at < :createdAt)) and title like :keyword and deleted_at is null order by (select count(*) from likes where post_id = post.post_id) desc, created_at desc limit :limit")
+    @Query(nativeQuery = true, value = "select * from post where post_type in :#{T(com.ssafy.fishfinder.util.PostTypeUtil).getPostTypeList(#postType)} and ((select count(*) from likes where post_id = post.post_id and likes.deleted_at is null) < :likeCount or ((select count(*) from likes where post_id = post.post_id and likes.deleted_at is null) = :likeCount and created_at < :createdAt)) and title like :keyword and deleted_at is null order by (select count(*) from likes where post_id = post.post_id and likes.deleted_at is null) desc, created_at desc limit :limit")
     List<Post> findTop10BoardListByLikeCount(LocalDateTime createdAt, int likeCount, List<PostType> postType, int limit, String keyword);
 
 //    @Query("SELECT p FROM Post p where p.thumbnail is not null and p.createdAt between :startDate and now() ORDER BY (select count(l) from Likes l where l.post = p) DESC, p.createdAt DESC")
@@ -29,9 +29,9 @@ public interface BoardRepository extends JpaRepository<Post, Long> {
 
     List<Post> findTop10ByWriterIdAndCreatedAtIsLessThanOrderByCreatedAtDesc(Long writerId, LocalDateTime createdAt);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM clipping WHERE member_id = :memberId AND deleted_at IS NULL) AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
+    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM clipping WHERE member_id = :memberId AND deleted_at IS NULL) and deleted_at is null AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
     List<Post> findTop10Clipping(Long memberId, LocalDateTime createdAt);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM comment WHERE writer_id = :memberId AND deleted_at IS NULL) AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
+    @Query(nativeQuery = true, value = "SELECT * FROM post WHERE post_id IN (SELECT post_id FROM comment WHERE writer_id = :memberId AND deleted_at IS NULL) and deleted_at is null AND created_at < :createdAt ORDER BY created_at DESC LIMIT 10")
     List<Post> findTop10Comment(Long memberId, LocalDateTime createdAt);
 }
