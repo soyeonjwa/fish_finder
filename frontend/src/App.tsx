@@ -8,6 +8,7 @@ import Main from "./pages/main/Main";
 import Board from "./pages/board/Board";
 import Search from "./pages/search/Search";
 import BoardDetail from "./pages/board/detail/BoardDetail";
+import BoardDetail2 from "./pages/board/detail/BoardDetail2";
 import BoardRegister from "./pages/board/register/BoardRegister";
 import MyPage from "./pages/myPage/MyPage";
 import Info from "./pages/info/Info";
@@ -27,23 +28,22 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const {userId, setUserId, setNickName} = userStore();
+  const { userId, setUserId, setNickName } = userStore();
 
   useEffect(() => {
     if (!localStorage.getItem("RecentSearch")) {
       localStorage.setItem("RecentSearch", JSON.stringify([]));
     }
 
-    if(userId!==-1){
-      axiosInstance.get('/api/users/check')
-        .catch((error) => {
-          if( error.response.status === 401){
-            setUserId(-1);
-            setNickName("");
-            window.location.reload();
-          }
-       })
-    }  
+    if (userId !== -1) {
+      axiosInstance.get("/api/users/check").catch((error) => {
+        if (error.response.status === 401) {
+          setUserId(-1);
+          setNickName("");
+          window.location.reload();
+        }
+      });
+    }
   }, []);
 
   return (
@@ -74,6 +74,7 @@ function App() {
             </Route>
           </Route>
           <Route path="tutorial" element={<Tutorial />} />
+          <Route path="boarddetail2" element={<BoardDetail2 />} />
           <Route path="nickname">
             <Route
               path=""
