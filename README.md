@@ -259,7 +259,7 @@
 
 | 물고기 스캔 |
 |----------|
-|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan-ezgif.com-video-to-gif-converter.gif)|
+|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan1-ezgif.com-crop.gif)|
 
 <br>
 
