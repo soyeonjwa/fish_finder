@@ -9,8 +9,6 @@ import tutorial from "../../assets/images/market/튜토리얼.png";
 import marketImage1 from "../../assets/images/market/노량진수산시장.png";
 
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { userStore } from "../../stores/userStore";
 
 const settings = {
   dots: true,
@@ -46,43 +44,17 @@ const Wrapper = styled.div`
   font-family: Pretendard;
 `;
 
-const UpContents = styled.div`
-  margin: 3% 5% 0% 5%;
-  width: 90%;
-  font-size: 15px;
-
-  & > span {
-    margin-right: 3%;
-    font-weight: 600;
-    font-size: 20px;
-  }
-`;
 
 const ImageContainer = styled.img`
-  margin: 3% 0 5% 0;
+  margin: 0% 0 5% 0;
   width: 100%;
   object-fit: contain;
 `;
 
 export default function MarketList() {
-  const { nickname } = userStore();
-  const navigate = useNavigate();
 
   return (
     <Wrapper>
-      <UpContents>
-        {nickname !== "" ? (
-          <span
-            onClick={() => {
-              navigate("/mypage");
-            }}
-          >
-            {nickname}님
-          </span>
-        ) : (
-          <span>안녕하세요</span>
-        )}
-      </UpContents>
       <Slider {...settings}>
         <div>
           <Link to="/tutorial">
