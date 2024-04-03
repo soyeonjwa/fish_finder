@@ -19,10 +19,10 @@
 
 <div align="center">
 
-| **조다민** | **박태양** | **이병수** | **이영서** | **좌소연** | **최원재** |
+| **조다민 (팀장)** | **박태양** | **이병수** | **이영서** | **좌소연** | **최원재** |
 | :------: |  :------: | :------: | :------: | :------: | :------: |
 | [<img src="" height=150 width=150> <br/> @조다민아이디]() | [<img src="" height=150 width=150> <br/> @박태양아이디]() | [<img src="" height=150 width=150> <br/> @이병수아이디]() | [<img src="" height=150 width=150> <br/> @이영서아이디]() | [<img src="" height=150 width=150> <br/> @좌소연아이디]() | [<img src="" height=150 width=150> <br/> @최원재아이디]() |
-| 팀장<br> AI | FE | BE | INFRA | FE | BE |
+| AI | FE | BE | INFRA | FE | BE |
 </div>
 
 <br>
@@ -70,8 +70,7 @@
 
 ## 2. 프로젝트 구조
 
-<details>
-<summary><h3>Springboot</h3></summary>
+### Springboot
 
 ```
 ├─main
@@ -100,10 +99,7 @@
                 └─fishfinder
 ```
 
-</details>
-<details>
-<summary><h3>React</h3></summary>
-
+### React
 ```
 ├─@types
 │  └─globals
@@ -146,16 +142,11 @@
 └─stores
 ```
 
-</details>
-<details>
-<summary><h3>FastAPI</h3></summary>
-
+### FastAPI
 ```
 └─main
    └─model
 ```
-
-</details>
 <br>
 
 ## 3. 서비스 아키텍처
@@ -222,19 +213,18 @@
 
 ### [메인화면]
 - 서비스 메인 화면으로 이번달 제철 물고기 정보와 인기 게시글을 보여줍니다.
-  - 로그인이 되어 있지 않은 경우 : 왼쪽 위에 '안녕하세요'
-	- 로그인이 되어 있는 경우 : 왼쪽 위에 회원 닉네임
+- 물어바종 알아보기를 통해 튜토리얼 페이지로 이동합니다.
 - 우측 상단 돋보기 클릭시 물고기 검색 페이지로 이동합니다.
 - 우측 상단 스캔 메뉴 클릭시 물고기 스캔 페이지로 이동합니다.
 - 제철 횟감은 이번달 제철인 물고기의 정보를 보여줍니다.
-	- 클릭시 해당 물고기의 검색 페이지로 이동합니다.
+	- 클릭시 해당 물고기의 정보 페이지로 이동합니다.
 - 인기 게시글은 최근 1주일 이내 가장 좋아요 수가 많은 글 4개를 보여줍니다.
 	- 클릭시 해당 게시글로 이동합니다.
 	- 게시글을 상세조회하기 위해서는 로그인이 필요합니다.
 
-| 메인화면 |
-|----------|
-|![main](-- 추가예정 --)|
+| 메인화면 | 튜토리얼|
+|----------|----------|
+|![main0](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/main0-ezgif.com-video-to-gif-converter.gif)|![main1](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/main1-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -246,7 +236,7 @@
 	
 | 회원가입 |
 |----------|
-|![join](--추가예정--)|
+|![join](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/join0.gif)|
 
 <br>
 
@@ -259,7 +249,7 @@
 
 | 물고기 스캔 |
 |----------|
-|![fishScan](--추가예정--)|
+|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -270,7 +260,7 @@
 
 | 물고기 검색 |
 |----------|
-|![fishSearch]()|
+|![fishSearch](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishSearch0-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -286,7 +276,7 @@
 
 | 물고기 상세 조회 |
 |----------|
-|![fishDetail]()|
+|![fishDetail](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishDetail-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -300,7 +290,7 @@
 
 | 물고기 시세 조회 |
 |----------|
-|![fishPrice]()|
+|![fishPrice](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishPrice-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -316,9 +306,9 @@
 	- 로그인 되어 있을 경우 : 해당 글로 이동합니다.
 	- 로그인 되어 있지 않을 경우 : 로그인 페이지로 이동합니다.
 
-| 게시판 조회 | 인기순 조회 |
+| 게시판 조회 | 게시판 검색 |
 |----------|----------|
-|![boardSearch]()|![boardPopular]()|
+|![boardOrder](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/boardOrder-ezgif.com-video-to-gif-converter.gif)|![boardSearch](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/boardSearch-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -332,7 +322,7 @@
 
 | 게시글 상세조회(일반) | 게시글 상세조회(리뷰) |
 |----------|----------|
-|![normal]()|![review]()|
+|![normal](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/normal-ezgif.com-video-to-gif-converter.gif)|![review](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/review-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -341,9 +331,13 @@
 - 탭을 클릭하여 내가 작성한 글 목록, 작성한 댓글 목록, 스크랩 목록을 보여줍니다.
 - 로그아웃 버튼을 눌러 로그아웃할 수 있습니다.
 
-| 게시글 상세조회(일반) |
+<center>
+
+| 마이페이지 |
 |----------|
-|![mypage]()|
+|![mypage](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/mypage-ezgif.com-video-to-gif-converter.gif)|
+
+</center>
 
 <br>
 
