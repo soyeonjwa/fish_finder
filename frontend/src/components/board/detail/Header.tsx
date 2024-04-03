@@ -54,6 +54,7 @@ export default function Header({boardId, writerId} : HeaderProps) {
       .delete(`/api/board/${boardId}`)
       .then((res: AxiosResponse) => {
         console.log(res.data.message);
+        alert("게시물 삭제에 성공했습니다.")
         navigate(-1);
       })
       .catch((error) => {
@@ -65,12 +66,12 @@ export default function Header({boardId, writerId} : HeaderProps) {
     <Wrapper>
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
       <div>
-        <IconButton width="45%" icon={ExportIcon}></IconButton>
         {
           (writerId === userId) && (
             <IconButton width="45%" icon={TrashIcon} onClick = {onClickDeleteBtn}></IconButton>
           )
         }
+        <IconButton width="45%" icon={ExportIcon}></IconButton>
       </div>
     </Wrapper>
   );
