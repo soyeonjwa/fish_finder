@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { gray2, gray3 } from '../../../assets/styles/palettes'
+import { black, gray2, gray3 } from '../../../assets/styles/palettes'
 
 interface ReviewTableProps{
     reviews : review[]
@@ -32,7 +32,7 @@ const Td = styled.td`
     text-align: center;
 
     & > span{
-        color : ${gray3}
+        color : ${black}
     }
 `
 
