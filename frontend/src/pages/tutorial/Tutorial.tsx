@@ -90,6 +90,12 @@ const DownloadWrapper = styled.div`
     color: white;
   }
 `;
+
+const HomeLink = styled(Link)`
+  width: 85%;
+  height: auto;
+`;
+
 const DownloadImage = styled.img`
   height: 70%;
 `;
@@ -194,13 +200,19 @@ function Tutorial() {
         </MarginWrapper>
       </CenterWrapper>
       <CenterWrapper height="95vh">
-        {userId !== -1 && <Login />}
+        {userId === -1 && <Login />}
 
-        <Link to="/">
-          <Button width="80%" height="auto" margin="0 0 0 0">
+        <HomeLink to="/">
+          <Button
+            width="100%"
+            height="35px"
+            margin="0 0 0 0"
+            color={primary}
+            border={`2px solid ${primary}`}
+          >
             홈으로
           </Button>
-        </Link>
+        </HomeLink>
         <p>본 서비스는 Andriod 환경에 최적화되어 있습니다.</p>
       </CenterWrapper>
       <CenterWrapper height="10vh"></CenterWrapper>
