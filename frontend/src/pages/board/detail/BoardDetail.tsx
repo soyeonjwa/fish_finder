@@ -91,8 +91,9 @@ export default function BoardDetail() {
 
   return (
     <StyledWrapper>
-      <Header />
       {board && (
+        <>
+        <Header boardId={board.boardId} writerId={board.writerId}/>
         <Contents>
           <TopContents
             postType={board.postType}
@@ -117,6 +118,7 @@ export default function BoardDetail() {
           <hr style={{ width: "100%" }}></hr>
           <CommentContainer comments={board.comments} />
         </Contents>
+        </>
       )}
 
       <CommentInput
