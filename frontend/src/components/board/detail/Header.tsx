@@ -49,6 +49,7 @@ export default function Header({boardId} : HeaderProps) {
     axiosInstance.delete(`/api/board/${boardId}`)
       .then((res : AxiosResponse)=>{
         console.log(res.data.message);
+        navigate(-1)
       })
       .catch(error => {throw new Error(error.message)})
   }
