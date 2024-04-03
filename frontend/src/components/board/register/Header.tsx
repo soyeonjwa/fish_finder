@@ -52,10 +52,6 @@ export default function Header({fishDatas} : HeaderProps) {
   const {postType, title, content, images, reviews} = usePostStore();
   const {setPostType, setTitle, setContent, setImages, setReviews} = usePostStore();
 
-  const replaceText = (text : string) : string => {
-    return text.replaceAll(/(\n|\r\n)/g, "<br>");
-  }
-
 
   const post = {
     data : {
