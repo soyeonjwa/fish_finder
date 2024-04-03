@@ -114,12 +114,13 @@ export default function MidContent({
               width="100%"
               height="100%"
               objectFit="contain"
-              onClick={() => {
-                setIsOpen(false);
-              }}
             ></ImageContainer>
           </Modal>
-          <Overlay />
+          <Overlay
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          />
         </>
       )}
     </Wrapper>
