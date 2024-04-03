@@ -107,7 +107,11 @@ export default function MidContent({
       </Slider>
       {isOpen && (
         <>
-          <Modal>
+          <Modal
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
             <ImageContainer
               src={modalImage}
               alt="모달이미지"
