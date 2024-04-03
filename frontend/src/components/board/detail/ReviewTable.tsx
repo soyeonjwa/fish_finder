@@ -30,6 +30,10 @@ const Thead = styled.thead`
 const Td = styled.td`
     height : 40px;
     text-align: center;
+
+    & > span{
+        color : ${gray3}
+    }
 `
 
 const Th = styled.th`
@@ -49,8 +53,8 @@ export default function ReviewTable({reviews} : ReviewTableProps) {
                 {reviews && reviews.map(((review, index) => (
                 <tr key = {index}>
                     <Td>{review.fishName}</Td>
-                    <Td>{review.weight}</Td>
-                    <Td>{review.totalPrice}</Td>
+                    <Td>{review.weight}<span>kg</span></Td>
+                    <Td>{review.totalPrice}<span>원</span></Td>
                 </tr>
                 )))}
             </tbody>
