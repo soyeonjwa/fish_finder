@@ -17,7 +17,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { userStore } from "../../stores/userStore";
 
 const Wrapper = styled.div`
-  height: 73px;
+  height: 75px;
   width: 100%;
   position: fixed;
   bottom: 0;

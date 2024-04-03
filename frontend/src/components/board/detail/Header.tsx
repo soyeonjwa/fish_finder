@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import BackButton from "../../common/BackButton";
 import IconButton from "../../common/IconButton";
+import TrashIcon from "../../../assets/icons/trash.svg";
 import ExportIcon from "../../../assets/icons/export.svg";
-import MenuIcon from "../../../assets/icons/dotsThree.svg";
+// import MenuIcon from "../../../assets/icons/dotsThree.svg";
+import { axiosInstance } from "../../../services/axios";
+import { AxiosResponse } from "axios";
+import { userStore } from "../../../stores/userStore";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -24,7 +28,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   & > div {
-    width: 16%;
+    width: 15%;
     margin: 5% 0 5% 0;
 
     display: flex;
@@ -32,19 +36,46 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function Header() {
+interface HeaderProps {
+  boardId : number,
+  writerId : number
+}
+
+
+export default function Header({boardId, writerId} : HeaderProps) {
   const navigate = useNavigate();
+  const {userId} = userStore();
 
   const onClickBackBtn = () => {
-    navigate('/board');
+    navigate("/board");
+  };
+
+  const onClickDeleteBtn = () => {
+    axiosInstance
+      .delete(`/api/board/${boardId}`)
+      .then((res: AxiosResponse) => {
+        console.log(res.data.message);
+        alert("게시물 삭제에 성공했습니다.")
+        navigate(-1);
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
   };
 
   return (
     <Wrapper>
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
       <div>
+        {
+          (writerId === userId) ? (
+            <IconButton width="45%" icon={TrashIcon} onClick = {onClickDeleteBtn}></IconButton>
+          ):
+          (
+            <div style={{width : '45%'}}></div>
+          )
+        }
         <IconButton width="45%" icon={ExportIcon}></IconButton>
-        <IconButton width="45%" icon={MenuIcon}></IconButton>
       </div>
     </Wrapper>
   );

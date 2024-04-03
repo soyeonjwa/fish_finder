@@ -259,13 +259,9 @@ function FloatingAlarm() {
   return (
     <>
       {deferredPrompt && (
-        <DownloadWrapper>
+        <DownloadWrapper onClick={handleInstall}>
           <p>앱을 설치하고 더 편하게 사용하세요</p>
-          <DownloadImage
-            src={download}
-            onClick={handleInstall}
-            alt="다운로드"
-          />
+          <DownloadImage src={download} alt="다운로드" />
         </DownloadWrapper>
       )}
     </>
