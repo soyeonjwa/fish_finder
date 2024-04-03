@@ -65,6 +65,20 @@ const settings = {
   dotsClass: "dots_custom",
 };
 
+const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Image = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+`;
+
 export default function MidContent({
   content,
   thumbnail,
@@ -112,13 +126,16 @@ export default function MidContent({
               setIsOpen(false);
             }}
           >
-            <ImageContainer
+            <ImageWrapper>
+              <Image src={modalImage} alt="모달이미지"></Image>
+            </ImageWrapper>
+            {/* <ImageContainer
               src={modalImage}
               alt="모달이미지"
               width="100%"
               height="100%"
               objectFit="contain"
-            ></ImageContainer>
+            ></ImageContainer> */}
           </Modal>
           <Overlay
             onClick={() => {
