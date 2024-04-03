@@ -3,13 +3,8 @@ import styled from "styled-components";
 export const Modal = styled.div`
   font-family: Pretendard;
   position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
-  height: 200px;
   background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   z-index: 1000;
 
   margin-bottom: 72px;
