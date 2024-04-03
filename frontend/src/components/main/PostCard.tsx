@@ -7,6 +7,7 @@ import ScrapIcon from "../../assets/icons/scrap.svg";
 import CommentsIcon from "../../assets/icons/comments.svg";
 import HeartIcon from "../../assets/icons/heart.svg";
 import { useNavigate } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
 
 type BoardInfo = {
   id: number;
@@ -61,11 +62,13 @@ export default function PostCard({
   commentCount,
 }: BoardInfo) {
   const navigate = useNavigate();
+  const {userId} = userStore();
 
   return (
     <Wrapper
       onClick={() => {
-        navigate(`/board/${id}`);
+        if(userId !== -1) navigate(`/board/${id}`);
+        else navigate('/login');
       }}
     >
       <ImageContainer

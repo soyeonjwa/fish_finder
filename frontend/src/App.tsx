@@ -37,7 +37,7 @@ function App() {
     if(userId!==-1){
       axiosInstance.get('/api/users/check')
         .catch((error) => {
-          if( error.response.status === "401"){
+          if( error.response.status === 401){
             setUserId(-1);
             setNickName("");
             window.location.reload();
