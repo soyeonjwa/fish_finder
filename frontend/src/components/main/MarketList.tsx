@@ -4,9 +4,10 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import "../../assets/styles/sliderdots.css";
 import tutorial from "../../assets/images/market/튜토리얼.png";
-import marketImage1 from "../../assets/images/market/노량진수산시장.png";
+import marketImage from "../../assets/images/market/노량진수산시장.png";
+import compareFish from "../../assets/images/market/광어도다리가자미.png";
 
 import { Link } from "react-router-dom";
 
@@ -23,8 +24,10 @@ const settings = {
     <div
       style={{
         width: "90%",
+        marginLeft: "5%",
+        marginRight: "5%",
         position: "absolute",
-        bottom: "5%",
+        bottom: "20%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -33,6 +36,7 @@ const settings = {
       <ul> {dots} </ul>
     </div>
   ),
+  dotsClass: "dots_custom",
 };
 
 const Wrapper = styled.div`
@@ -40,10 +44,9 @@ const Wrapper = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-
+  position: relative;
   font-family: Pretendard;
 `;
-
 
 const ImageContainer = styled.img`
   margin: 0% 0 5% 0;
@@ -52,7 +55,6 @@ const ImageContainer = styled.img`
 `;
 
 export default function MarketList() {
-
   return (
     <Wrapper>
       <Slider {...settings}>
@@ -62,7 +64,10 @@ export default function MarketList() {
           </Link>
         </div>
         <div>
-          <ImageContainer src={marketImage1} alt="시장1"></ImageContainer>
+          <ImageContainer src={marketImage} alt="시장"></ImageContainer>
+        </div>
+        <div>
+          <ImageContainer src={compareFish} alt="비교"></ImageContainer>
         </div>
       </Slider>
     </Wrapper>

@@ -51,6 +51,8 @@ export default function Header({fishDatas} : HeaderProps) {
   const {reviewForms} = reviewFormStore();
   const {postType, title, content, images, reviews} = usePostStore();
   const {setPostType, setTitle, setContent, setImages, setReviews} = usePostStore();
+
+
   const post = {
     data : {
        title,
@@ -59,7 +61,7 @@ export default function Header({fishDatas} : HeaderProps) {
        postType
      },
      images
-   }
+  }
 
   const onClickBackBtn = () => {
     navigate("/board");
@@ -67,6 +69,10 @@ export default function Header({fishDatas} : HeaderProps) {
 
   const onClickSubmitBtn = async () => {
     const formatFormRevies : Review[] = [];
+    
+    if(!reviewForms || reviewForms.length<=0){
+      submitData();
+    }
 
     for(let i=0;i<reviewForms.length;i++){
       if(!fishDatas.has(reviewForms[i].review.name)){
@@ -91,7 +97,7 @@ export default function Header({fishDatas} : HeaderProps) {
   };
 
   const submitData = async () => {
-    console.log(reviews)
+    console.log(post.data.content)
     const formData = new FormData();
     const json = JSON.stringify(post.data);
     const blob = new Blob([json], {type : 'application/json'});

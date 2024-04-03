@@ -19,7 +19,8 @@ import { userStore } from "../../stores/userStore";
 const Wrapper = styled.div`
   height: 73px;
   width: 100%;
-
+  min-width: 300px;
+  max-width: 420px;
   position: fixed;
   bottom: 0;
   display: flex;
