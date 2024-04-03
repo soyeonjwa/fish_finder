@@ -38,6 +38,10 @@
   padding: 0;
 }
 
+.dots_custom li:only-child {
+  display: none;
+}
+
 .dots_custom li.slick-active button {
   background-color: white;
 }

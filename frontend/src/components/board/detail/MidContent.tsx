@@ -50,7 +50,7 @@ const settings = {
         marginLeft: "5%",
         marginRight: "5%",
         position: "absolute",
-        bottom: "15%",
+        bottom: "10%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

@@ -6,8 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../assets/styles/sliderdots.css";
 import tutorial from "../../assets/images/market/튜토리얼.png";
-import marketImage1 from "../../assets/images/market/노량진수산시장.png";
-import marketImage2 from "../../assets/images/market/노량진수산시장2.png";
+import marketImage from "../../assets/images/market/노량진수산시장.png";
+import compareFish from "../../assets/images/market/광어도다리가자미.png";
 
 import { Link } from "react-router-dom";
 
@@ -64,10 +64,10 @@ export default function MarketList() {
           </Link>
         </div>
         <div>
-          <ImageContainer src={marketImage1} alt="시장1"></ImageContainer>
+          <ImageContainer src={marketImage} alt="시장"></ImageContainer>
         </div>
         <div>
-          <ImageContainer src={marketImage2} alt="시장2"></ImageContainer>
+          <ImageContainer src={compareFish} alt="비교"></ImageContainer>
         </div>
       </Slider>
     </Wrapper>
