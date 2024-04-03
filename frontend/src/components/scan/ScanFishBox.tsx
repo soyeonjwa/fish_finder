@@ -26,7 +26,7 @@ const ScanFishNameBox1 = styled.div`
   background-color: white;
   padding: 5px;
   font-size: 15px;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   left: 0;
   transform: translate(0, -100%);
@@ -37,7 +37,7 @@ const ScanFishNameBox2 = styled.div`
   background-color: white;
   padding: 5px;
   font-size: 15px;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   left: 0;
   transform: translate(0, 0);

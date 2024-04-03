@@ -82,19 +82,6 @@ export default function BoardDetail() {
     }
   }, [change]);
 
-  // useEffect(() => {
-  //   if (board && isMounted.current) {
-  //     console.log("scroll");
-  //     window.scrollTo({
-  //       top: document.body.scrollHeight,
-  //       behavior: "smooth",
-  //     });
-  //   } else {
-  //     isMounted.current = true;
-  //     console.log("first");
-  //   }
-  // }, [board?.comments]);
-
   function onSubmit() {
     window.scrollTo({
       top: document.body.scrollHeight,
