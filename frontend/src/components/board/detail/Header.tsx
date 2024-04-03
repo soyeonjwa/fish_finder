@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import BackButton from "../../common/BackButton";
 import IconButton from "../../common/IconButton";
+import TrashIcon from "../../../assets/icons/trash.svg";
 import ExportIcon from "../../../assets/icons/export.svg";
-import MenuIcon from "../../../assets/icons/dotsThree.svg";
+// import MenuIcon from "../../../assets/icons/dotsThree.svg";
 import { axiosInstance } from "../../../services/axios";
 import { AxiosResponse } from "axios";
 
@@ -35,31 +36,38 @@ const Wrapper = styled.div`
 `;
 
 interface HeaderProps {
-  boardId : number
+  boardId: number;
 }
 
-export default function Header({boardId} : HeaderProps) {
+export default function Header({ boardId }: HeaderProps) {
   const navigate = useNavigate();
 
   const onClickBackBtn = () => {
-    navigate('/board');
+    navigate("/board");
   };
 
   const onClickDeleteBtn = () => {
-    axiosInstance.delete(`/api/board/${boardId}`)
-      .then((res : AxiosResponse)=>{
+    axiosInstance
+      .delete(`/api/board/${boardId}`)
+      .then((res: AxiosResponse) => {
         console.log(res.data.message);
-        navigate(-1)
+        navigate(-1);
       })
-      .catch(error => {throw new Error(error.message)})
-  }
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  };
 
   return (
     <Wrapper>
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
       <div>
         <IconButton width="45%" icon={ExportIcon}></IconButton>
-        <IconButton width="45%" icon={MenuIcon} onClick = {onClickDeleteBtn}></IconButton>
+        <IconButton
+          width="45%"
+          icon={TrashIcon}
+          onClick={onClickDeleteBtn}
+        ></IconButton>
       </div>
     </Wrapper>
   );
