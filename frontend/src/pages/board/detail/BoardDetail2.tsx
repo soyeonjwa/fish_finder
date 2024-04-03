@@ -23,7 +23,7 @@ const Contents = styled.div`
 export default function BoardDetail2() {
   return (
     <StyledWrapper>
-      <Header boardId={data.id}/>
+      <Header boardId={data.id} writerId={data.writerId}/>
 
       <Contents>
         <TopContents
