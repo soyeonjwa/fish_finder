@@ -67,16 +67,20 @@ const settings = {
 
 const ImageWrapper = styled.div`
   display: flex;
+  position: fixed;
+  left: 0;
+  top: 50%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  transform: translate(0, -50%);
 `;
 
 const Image = styled.img`
   height: 100%;
   width: 100%;
   object-fit: contain;
-  border-radius: 10px;
 `;
 
 export default function MidContent({
