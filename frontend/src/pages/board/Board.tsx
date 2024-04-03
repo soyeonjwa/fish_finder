@@ -112,6 +112,7 @@ export default function Board() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setBoards([]);
     axiosInstance
       .get(`/api/board?keyword=${value}`)
       .then((res: AxiosResponse) => {

@@ -51,15 +51,21 @@ export default function Header({fishDatas} : HeaderProps) {
   const {reviewForms} = reviewFormStore();
   const {postType, title, content, images, reviews} = usePostStore();
   const {setPostType, setTitle, setContent, setImages, setReviews} = usePostStore();
+
+  const replaceText = (text : string) : string => {
+    return text.replaceAll(/(\n|\r\n)/g, "<br>");
+  }
+
+
   const post = {
     data : {
        title,
-       content,
+       'content' : replaceText(content),
        reviews,
        postType
      },
      images
-   }
+  }
 
   const onClickBackBtn = () => {
     navigate("/board");
@@ -95,7 +101,7 @@ export default function Header({fishDatas} : HeaderProps) {
   };
 
   const submitData = async () => {
-    console.log(reviews)
+    console.log(post.data.content)
     const formData = new FormData();
     const json = JSON.stringify(post.data);
     const blob = new Blob([json], {type : 'application/json'});
