@@ -143,7 +143,7 @@ export default function SeasonList() {
           backcolor={"rgb(0,0,0,1)"}
           margin="0"
           border="0px"
-          padding="2% 4% 2% 4%"
+          padding="0%"
           cursor="none"
         >
           {currentSlide + 1} / {dataSet.length}

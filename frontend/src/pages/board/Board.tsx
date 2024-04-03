@@ -112,6 +112,7 @@ export default function Board() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setBoards([]);
     axiosInstance
       .get(`/api/board?keyword=${value}`)
       .then((res: AxiosResponse) => {
@@ -222,7 +223,7 @@ export default function Board() {
             width="23%"
             height="auto"
             margin="5% 0 5% 0"
-            padding="0% 3% 0% 3%"
+            padding="0% 0% 0% 0%"
             color={primary}
             border="1px solid #00116A"
             onClick={onClickBtn}

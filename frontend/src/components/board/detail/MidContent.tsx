@@ -6,6 +6,7 @@ import Modal from "react-modal";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../../assets/styles/sliderdots.css";
 import ReviewTable from "./ReviewTable";
 
 interface MidContentProps {
@@ -46,8 +47,10 @@ const settings = {
     <div
       style={{
         width: "90%",
+        marginLeft: "5%",
+        marginRight: "5%",
         position: "absolute",
-        bottom: "1%",
+        bottom: "10%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -56,6 +59,7 @@ const settings = {
       <ul> {dots} </ul>
     </div>
   ),
+  dotsClass: "dots_custom",
 };
 
 export default function MidContent({
@@ -67,7 +71,7 @@ export default function MidContent({
   const [modalImage, setModalImage] = useState("");
   return (
     <Wrapper>
-      <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content}</div>
+      <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content.split('\n').map((line, index) => {return (<span key = {index}>{line}<br/></span>)})}</div>
       {reviews && reviews.length > 0 && (
         <ReviewTable reviews={reviews}></ReviewTable>
       )}
@@ -99,6 +103,7 @@ export default function MidContent({
           },
           content: {
             width: "80%",
+            height: "auto",
             display: "flex",
             flexDirection: "column",
             alignSelf: "center",
