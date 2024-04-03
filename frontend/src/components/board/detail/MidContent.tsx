@@ -130,7 +130,7 @@ export default function MidContent({
           height="100%"
           objectFit="contain"
           onClick={() => {
-            setIsOpen(true);
+            setIsOpen(false);
           }}
         ></ImageContainer>
       </Modal>
