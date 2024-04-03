@@ -71,7 +71,16 @@ export default function MidContent({
   const [modalImage, setModalImage] = useState("");
   return (
     <Wrapper>
-      <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content.split('\n').map((line, index) => {return (<span key = {index}>{line}<br/></span>)})}</div>
+      <div style={{ fontSize: "16px", marginBottom: "2%" }}>
+        {content.split("\n").map((line, index) => {
+          return (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </div>
       {reviews && reviews.length > 0 && (
         <ReviewTable reviews={reviews}></ReviewTable>
       )}
@@ -102,7 +111,7 @@ export default function MidContent({
             backgroundColor: "rgb(26,26,26,0.5)",
           },
           content: {
-            width: "80%",
+            width: "100%",
             height: "auto",
             display: "flex",
             flexDirection: "column",
@@ -111,6 +120,7 @@ export default function MidContent({
             overflow: "auto",
             fontFamily: "Pretendard",
             padding: "2%",
+            backgroundColor: "transparent",
           },
         }}
       >
