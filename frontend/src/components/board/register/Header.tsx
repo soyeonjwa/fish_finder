@@ -56,7 +56,7 @@ export default function Header({fishDatas} : HeaderProps) {
   const post = {
     data : {
        title,
-       'content' : replaceText(content),
+       content,
        reviews,
        postType
      },
