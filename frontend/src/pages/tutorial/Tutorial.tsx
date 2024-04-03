@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
 
 import styled from "styled-components";
 import { primary, gray3 } from "../../assets/styles/palettes";
@@ -16,6 +17,7 @@ import board from "../../assets/images/tutorial/게시판.png";
 import Login from "../login/Login";
 import useMoveScroll from "./useMoveScroll";
 import download from "../../assets/icons/download.svg";
+import { Button } from "../../components/common/Button";
 
 interface TagBoxProps {
   active: boolean;
@@ -96,6 +98,7 @@ function Tutorial() {
   const scan = useMoveScroll();
   const keyword = useMoveScroll();
   const infoBoard = useMoveScroll();
+  const { userId } = userStore();
 
   return (
     <div>
@@ -191,8 +194,13 @@ function Tutorial() {
         </MarginWrapper>
       </CenterWrapper>
       <CenterWrapper height="95vh">
-        <Login />
-        <Link to="/">홈으로</Link>
+        {userId !== -1 && <Login />}
+
+        <Link to="/">
+          <Button width="80%" height="auto" margin="0 0 0 0">
+            홈으로
+          </Button>
+        </Link>
         <p>본 서비스는 Andriod 환경에 최적화되어 있습니다.</p>
       </CenterWrapper>
       <CenterWrapper height="10vh"></CenterWrapper>
