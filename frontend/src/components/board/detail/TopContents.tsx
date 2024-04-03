@@ -46,7 +46,7 @@ export default function TopContents({
           color={primary}
           border="1px solid #00116A"
           fontSize="16px"
-          padding="0% 0% 0% 0%"
+          padding="2% 4% 2% 4%"
           margin="0% 4% 2% 0%"
           backcolor="white"
           disabled={true}

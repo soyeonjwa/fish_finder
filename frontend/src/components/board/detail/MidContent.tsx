@@ -117,10 +117,10 @@ export default function MidContent({
             flexDirection: "column",
             alignSelf: "center",
             justifySelf: "center",
-            overflow: "auto",
             fontFamily: "Pretendard",
             padding: "2%",
             backgroundColor: "transparent",
+            border: "none",
           },
         }}
       >
