@@ -27,7 +27,7 @@ const settings = {
         marginLeft: "5%",
         marginRight: "5%",
         position: "absolute",
-        bottom: "15%",
+        bottom: "20%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -48,7 +48,6 @@ const Wrapper = styled.div`
   font-family: Pretendard;
 `;
 
-
 const ImageContainer = styled.img`
   margin: 0% 0 5% 0;
   width: 100%;
@@ -56,7 +55,6 @@ const ImageContainer = styled.img`
 `;
 
 export default function MarketList() {
-
   return (
     <Wrapper>
       <Slider {...settings}>
