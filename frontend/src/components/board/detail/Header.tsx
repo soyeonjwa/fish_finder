@@ -9,6 +9,7 @@ import ExportIcon from "../../../assets/icons/export.svg";
 // import MenuIcon from "../../../assets/icons/dotsThree.svg";
 import { axiosInstance } from "../../../services/axios";
 import { AxiosResponse } from "axios";
+import { userStore } from "../../../stores/userStore";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -36,11 +37,13 @@ const Wrapper = styled.div`
 `;
 
 interface HeaderProps {
-  boardId: number;
+  boardId : number,
+  writerId : number
 }
 
-export default function Header({ boardId }: HeaderProps) {
+export default function Header({boardId, writerId} : HeaderProps) {
   const navigate = useNavigate();
+  const {userId} = userStore();
 
   const onClickBackBtn = () => {
     navigate("/board");
@@ -63,11 +66,11 @@ export default function Header({ boardId }: HeaderProps) {
       <BackButton onClickBtn={onClickBackBtn}></BackButton>
       <div>
         <IconButton width="45%" icon={ExportIcon}></IconButton>
-        <IconButton
-          width="45%"
-          icon={TrashIcon}
-          onClick={onClickDeleteBtn}
-        ></IconButton>
+        {
+          (writerId === userId) && (
+            <IconButton width="45%" icon={TrashIcon} onClick = {onClickDeleteBtn}></IconButton>
+          )
+        }
       </div>
     </Wrapper>
   );
