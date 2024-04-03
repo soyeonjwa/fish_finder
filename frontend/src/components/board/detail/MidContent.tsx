@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ImageContainer from "../../common/ImageContainer";
 import Slider from "react-slick";
-import Modal from "react-modal";
+// import Modal from "react-modal";
+import Modal from "../../common/Modal";
+import Overlay from "../../common/Overlay";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -102,39 +104,23 @@ export default function MidContent({
             </div>
           ))}
       </Slider>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={() => setIsOpen(false)}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: "rgb(26,26,26,0.5)",
-          },
-          content: {
-            width: "100%",
-            height: "auto",
-            display: "flex",
-            flexDirection: "column",
-            alignSelf: "center",
-            justifySelf: "center",
-            fontFamily: "Pretendard",
-            padding: "2%",
-            backgroundColor: "transparent",
-            border: "none",
-          },
-        }}
-      >
-        <ImageContainer
-          src={modalImage}
-          alt="모달이미지"
-          width="100%"
-          height="100%"
-          objectFit="contain"
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        ></ImageContainer>
-      </Modal>
+      {isOpen && (
+        <>
+          <Modal>
+            <ImageContainer
+              src={modalImage}
+              alt="모달이미지"
+              width="100%"
+              height="100%"
+              objectFit="contain"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            ></ImageContainer>
+          </Modal>
+          <Overlay />
+        </>
+      )}
     </Wrapper>
   );
 }
