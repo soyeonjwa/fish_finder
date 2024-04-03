@@ -71,7 +71,7 @@ export default function MidContent({
   const [modalImage, setModalImage] = useState("");
   return (
     <Wrapper>
-      <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content}</div>
+      <div style={{ fontSize: "16px", marginBottom: "2%" }}>{content.split('\n').map((line, index) => {return (<span key = {index}>{line}<br/></span>)})}</div>
       {reviews && reviews.length > 0 && (
         <ReviewTable reviews={reviews}></ReviewTable>
       )}
