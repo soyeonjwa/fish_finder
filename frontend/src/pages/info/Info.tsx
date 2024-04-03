@@ -9,7 +9,7 @@ import BackButton from "../../components/common/BackButton";
 import FishCompareCard from "../../components/search/FishCompareCard";
 import ModalHeader from "../../components/info/modal/Header";
 import ModalFishCompare from "../../components/info/modal/FishCompare";
-import { ReactComponent as Warning } from "../../assets/icons/warning.svg";
+import Warning from "../../assets/icons/warning.svg";
 
 import { axiosInstance } from "../../services/axios";
 import { AxiosResponse } from "axios";
