@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 import { gray3 } from "../../../assets/styles/palettes";
 
@@ -76,7 +75,6 @@ export default function FishCompare({
   setIsOpen,
 }: FishCompareProps) {
   const [data, setData] = useState<Compare>();
-  const navigate = useNavigate();
   useEffect(() => {
     axiosInstance
       .get(`/api/fishes/differences/${sourceFishId}/${targetFishId}`)
@@ -103,7 +101,6 @@ export default function FishCompare({
               height="70px"
               onClick={() => {
                 setIsOpen(false);
-                navigate(`/info/${data.targetFish.fishId}`);
               }}
             />
             <Name>{data.targetFish.name}</Name>
@@ -121,7 +118,6 @@ export default function FishCompare({
               height="70px"
               onClick={() => {
                 setIsOpen(false);
-                navigate(`/info/${data.sourceFish.fishId}`);
               }}
             />
             <Name>{data.sourceFish.name}</Name>
