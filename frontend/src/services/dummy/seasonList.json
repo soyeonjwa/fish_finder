@@ -1,0 +1,23 @@
+[
+    {
+        "id" : 1,
+        "name" : "방어",
+        "season" : "겨울",
+        "description" : "방어는 겨울에 젤 맛잇지",
+        "imgUri" : "https://i.namu.wiki/i/a99X9xWC8nFPr6V9U_hv1DUxifjoDf1sHFINzyjWaGdeXx6PkrUIc9vAqv682MM_fponXX7Qpoax6k2iIccUnSx80O-zswjq0CtB1chmbi2x9ovtke7WS36Vsr1zgWlTEG57MJbUtZS4usEbVEFKWg.webp"
+    },
+    {
+        "id" : 2,
+        "name" : "감성돔",
+        "season" : "겨울",
+        "description" : "감성돔 태어나서 처음 들어봄",
+        "imgUri" :"https://flexible.img.hani.co.kr/flexible/normal/970/582/imgdb/child/2023/1230/53_17038935873714_20231227503565.jpg"
+    },
+    {
+        "id" : 3,
+        "name" : "잿방어",
+        "season" : "겨울",
+        "description" : "방어 짭",
+        "imgUri" : "https://thumb.ac-illust.com/9c/9cc0b2883a69e146428fd731056a967e_t.jpeg"
+    }
+]

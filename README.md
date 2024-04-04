@@ -3,6 +3,7 @@
 ![readme_title_img](https://test.fishfinder.site/static/media/mainLogo.37274a00f4d4e3c707c2.png)
 
 - 배포 URL : https://fishfinder.site
+- UCC : https://www.youtube.com/watch?v=y1l7ucbVlfw
 
 <br>
 
@@ -19,10 +20,10 @@
 
 <div align="center">
 
-| **조다민** | **박태양** | **이병수** | **이영서** | **좌소연** | **최원재** |
+| **조다민 (팀장)** | **박태양** | **이병수** | **이영서** | **좌소연** | **최원재** |
 | :------: |  :------: | :------: | :------: | :------: | :------: |
-| [<img src="" height=150 width=150> <br/> @조다민아이디]() | [<img src="" height=150 width=150> <br/> @박태양아이디]() | [<img src="" height=150 width=150> <br/> @이병수아이디]() | [<img src="" height=150 width=150> <br/> @이영서아이디]() | [<img src="" height=150 width=150> <br/> @좌소연아이디]() | [<img src="" height=150 width=150> <br/> @최원재아이디]() |
-| 팀장<br> AI | FE | BE | INFRA | FE | BE |
+| [<img src="https://avatars.githubusercontent.com/u/106113850?v=4" height=150 width=150> <br/> @daminzzi](https://github.com/daminzzi) | [<img src="https://avatars.githubusercontent.com/u/121421631?v=4" height="150" width="150"> <br/> @pty9714](https://github.com/pty9714) | [<img src="https://avatars.githubusercontent.com/u/97464327?v=4" height=150 width=150> <br/> @diarlee](https://github.com/diarlee) | [<img src="https://avatars.githubusercontent.com/u/22046916?v=4" height=150 width=150> <br/> @youngseo9603](https://github.com/youngseo9603) | [<img src="https://avatars.githubusercontent.com/u/81522548?v=4" height=150 width=150> <br/> @soyeonjwa](https://github.com/soyeonjwa) | [<img src="https://avatars.githubusercontent.com/u/42488191?v=4" height=150 width=150> <br/> @cwj980119](https://github.com/cwj980119) |
+| AI | FE | BE | INFRA | FE | BE |
 </div>
 
 <br>
@@ -159,7 +160,7 @@
 <br>
 
 ## 3. 서비스 아키텍처
-![architecture](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png)
+![architecture](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98+(2).png)
 
 ## 4. ERD
 ![erd](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_erd.png)
@@ -169,14 +170,24 @@
 ### 🍊조다민(팀장)
 
 - **AI**
-    - 모델 학습
+    - 데이터셋 정비 및 모델 학습
+    - AI 서버 API 작성
 
 <br>
     
 ### 👻박태양
 
 - **FE**
-    - 메인페이지
+    - 페이지 구현
+        - 메인 페이지
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 스캔 페이지
+        - 마이페이지
+    - 백엔드 api와 연결
+        - 메인페이지
+        - 어종 검색 페이지
+        - 어종 스캔 페이지
 
 <br>
 
@@ -198,7 +209,18 @@
 ### 🐬좌소연
 
 - **FE**
-    - 게시판
+    - 페이지 구현
+        - 메인 페이지
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 시세 페이지
+        - 게시판 페이지
+    - 백엔드 api와 연결
+        - 마이페이지/카카오 로그인
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 시세 페이지
+        - 게시판 페이지
 <br>
 
 ### 🐬최원재
@@ -222,19 +244,18 @@
 
 ### [메인화면]
 - 서비스 메인 화면으로 이번달 제철 물고기 정보와 인기 게시글을 보여줍니다.
-  - 로그인이 되어 있지 않은 경우 : 왼쪽 위에 '안녕하세요'
-	- 로그인이 되어 있는 경우 : 왼쪽 위에 회원 닉네임
+- 물어바종 알아보기를 통해 튜토리얼 페이지로 이동합니다.
 - 우측 상단 돋보기 클릭시 물고기 검색 페이지로 이동합니다.
 - 우측 상단 스캔 메뉴 클릭시 물고기 스캔 페이지로 이동합니다.
 - 제철 횟감은 이번달 제철인 물고기의 정보를 보여줍니다.
-	- 클릭시 해당 물고기의 검색 페이지로 이동합니다.
+	- 클릭시 해당 물고기의 정보 페이지로 이동합니다.
 - 인기 게시글은 최근 1주일 이내 가장 좋아요 수가 많은 글 4개를 보여줍니다.
 	- 클릭시 해당 게시글로 이동합니다.
 	- 게시글을 상세조회하기 위해서는 로그인이 필요합니다.
 
-| 메인화면 |
-|----------|
-|![main](-- 추가예정 --)|
+| 메인화면 | 튜토리얼|
+|----------|----------|
+|![main0](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/main0-ezgif.com-video-to-gif-converter.gif)|![main1](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/main1-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -246,7 +267,7 @@
 	
 | 회원가입 |
 |----------|
-|![join](--추가예정--)|
+|![join](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/join0.gif)|
 
 <br>
 
@@ -259,7 +280,7 @@
 
 | 물고기 스캔 |
 |----------|
-|![fishScan](--추가예정--)|
+|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -270,7 +291,7 @@
 
 | 물고기 검색 |
 |----------|
-|![fishSearch]()|
+|![fishSearch](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishSearch0-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -286,21 +307,21 @@
 
 | 물고기 상세 조회 |
 |----------|
-|![fishDetail]()|
+|![fishDetail](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishDetail-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
 ### [물고기 시세 조회]
 - 시세 그래프 : 타 사이트와 우리 사이트 리뷰를 통해 시세 그래프를 보여줍니다.
-		- 1주일 : 최근 1주일의 시세 그래프를 보여줍니다.
-		- 1개월 : 최근 1개월의 주별 평균 시세 그래프를 보여줍니다.
-		- 6개월 : 최근 6개월의 월별 평균 시세 그래프를 보여줍니다.
+	- 1주일 : 최근 1주일의 시세 그래프를 보여줍니다.
+	- 1개월 : 최근 1개월의 주별 평균 시세 그래프를 보여줍니다.
+	- 6개월 : 최근 6개월의 월별 평균 시세 그래프를 보여줍니다.
 - kg당 가격 : 어제 타 사이트의 시세 정보를 보여줍니다.
 - 유저가 올린 리뷰를 통해 거래 내역을 보여줍니다.
 
 | 물고기 시세 조회 |
 |----------|
-|![fishPrice]()|
+|![fishPrice](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishPrice-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -316,9 +337,9 @@
 	- 로그인 되어 있을 경우 : 해당 글로 이동합니다.
 	- 로그인 되어 있지 않을 경우 : 로그인 페이지로 이동합니다.
 
-| 게시판 조회 | 인기순 조회 |
+| 게시판 조회 | 게시판 검색 |
 |----------|----------|
-|![boardSearch]()|![boardPopular]()|
+|![boardOrder](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/boardOrder-ezgif.com-video-to-gif-converter.gif)|![boardSearch](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/boardSearch-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -332,7 +353,7 @@
 
 | 게시글 상세조회(일반) | 게시글 상세조회(리뷰) |
 |----------|----------|
-|![normal]()|![review]()|
+|![normal](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/normal-ezgif.com-video-to-gif-converter.gif)|![review](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/review-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -341,9 +362,13 @@
 - 탭을 클릭하여 내가 작성한 글 목록, 작성한 댓글 목록, 스크랩 목록을 보여줍니다.
 - 로그아웃 버튼을 눌러 로그아웃할 수 있습니다.
 
-| 게시글 상세조회(일반) |
+<center>
+
+| 마이페이지 |
 |----------|
-|![mypage]()|
+|![mypage](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/mypage-ezgif.com-video-to-gif-converter.gif)|
+
+</center>
 
 <br>
 
@@ -351,6 +376,9 @@
 
 - 모델 고도화
 	- 현재 모델의 정확도를 향상 시키기 위한 데이터셋 정비
+- 사진 촬영 시 확대 기능
+	- 실제 노량진에서 수조 가까이 가서 촬영하기 어렵다는 문제가 있음
+	- 더 높은 정확도를 위해 사진 촬영 시 확대 기능을 추가
 - 대상 어종 확대
 	- 현재 대상 어종 외 추가 어종 정보 입력
 - 시장 별 시세 지원
@@ -358,7 +386,7 @@
 - 사진 업로드 기능 추가
 	- 현재는 사진을 찍어야만 작동, 사진을 업로드 하는 기능 추가
 - ios 사진 촬용 기능 개선
-	- ios로 촬영시 live?로 작동하는 이슈가 있음
+	- ios로 촬영시 live로 작동하며 카메라를 확인하지 못하는 이슈가 있음
     
 <br>
 
@@ -366,7 +394,10 @@
 
 ### 🍊 조다민
 
--- 조다민 후기 --
+재미가 있었다~<br>
+모델 조사부터 학습까지 모델을 만들기 위한 일련의 과정을 경험하면서<br>
+AI 모델 서빙에 대한 이해를 높일 수 있었습니다.<br>
+이러한 이해를 바탕으로 추후 프로젝트에서도 다양한 기술을 활용할 수 있도록 노력하겠습니다.<br>
 
 <br>
 
@@ -378,19 +409,24 @@
 
 ### 😎 이병수
 
--- 이병수 후기 --
+처음으로 JPA를 사용하고 Oauth 2.0을 구현해봤습니다. 
+어려운점이 많았지만 실력있는 동료들의 코드를 참고하고 질문하며 무사히 마무리 할 수 있었습니다.
+프로젝트의 재미를 느낄 수 있는 시간이었고 앞으로 보완할 점을 파악
 
 <br>
 
 ### 🐬 이영서
 
--- 이영서 후기 --
+좋은 팀원들과 재미있는 프로젝트를 할 수 있었고, Infra를 경험할 수 있는 좋은 기회였습니다. <br>
+부족한 점에 대해서도 알게 되었고, 앞으로 진행할 프로젝트에 도움이 많이 될 거 같습니다.<br>
 
 <br>
 
 ### 🐬 좌소연
 
--- 좌소연 후기 --
+재미있게 개발할 수 있는 프로젝트 였습니다!!<br>
+프론트 엔드 개발을 제대로 처음 해보면서 배워가는 점이 많습니다.<br>
+앞으로 백엔드 개발할 때 많이 참고할 수 있을 거 같습니다.<br>
 
 <br>
 

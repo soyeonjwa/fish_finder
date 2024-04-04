@@ -1,0 +1,385 @@
+[{
+  "_id": {
+    "$oid": "65fbaf3a317dec22c88f77ff"
+  },
+  "target": "방어",
+  "source": "부시리",
+  "diff": [
+    {
+      "attribute": "주상악골",
+      "source_value": "둥그스름한 형태",
+      "target_value": "각진 형태",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "눈에서 아가미까지의 거리",
+      "source_value": "넓다",
+      "target_value": "좁다",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "가슴지느러미와 배지느러미의 위치",
+      "source_value": "위치가 거의 동일한 선",
+      "target_value": "배지느러미가 더 뒤에 위치",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "가슴지느러미의 위치",
+      "source_value": "몸의 중앙을 가로지르는 노란색 선 아래",
+      "target_value": "노란색 선위에 곂쳐있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "꼬리지느러미 모양",
+      "source_value": "꼬리지느러미가 둥그스름",
+      "target_value": "꼬리지느러미가 각짐",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbd3987a03de378ee8cc6a"
+  },
+  "target": "방어",
+  "source": "잿방어",
+  "diff": [
+    {
+      "attribute": "몸통색",
+      "source_value": "전반적으로 잿빛",
+      "target_value": "푸르른 색",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "눈 옆의 줄무니",
+      "source_value": "양 눈을 가로지르는 검은 줄무늬",
+      "target_value": "없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "눈의 위치",
+      "source_value": "주둥이에서 꼬리를 이은 선보다 위에 위치",
+      "target_value": "주둥이에서 꼬리를 이은 선에 걸침",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "주상악골",
+      "source_value": "둥그스름한 형태",
+      "target_value": "각진 형태",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbd591317dec22c88f7806"
+  },
+  "target": "부시리",
+  "source": "잿방어",
+  "diff": [
+    {
+      "attribute": "몸통색",
+      "source_value": "전반적으로 잿빛",
+      "target_value": "전반적으로 노란색",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "눈 옆의 줄무니",
+      "source_value": "양 눈을 가로지르는 검은 줄무늬",
+      "target_value": "없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "눈의 위치",
+      "source_value": "주둥이에서 꼬리를 이은 선보다 위에 위치",
+      "target_value": "주둥이에서 꼬리를 이은 선에 걸침",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbd946317dec22c88f7807"
+  },
+  "target": "농어",
+  "source": "점농어",
+  "diff": [
+    {
+      "attribute": "점의 유무",
+      "source_value": "등과 지느러미에 점이 많음",
+      "target_value": "점이 없음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbda6d317dec22c88f7808"
+  },
+  "target": "농어",
+  "source": "점성어",
+  "diff": [
+    {
+      "attribute": "점의 유무",
+      "source_value": "꼬리쪽에 큰 점이 있음",
+      "target_value": "점이 없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "주둥이의 모양",
+      "source_value": "윗턱이 튀어나옴",
+      "target_value": "아랫턱이 튀어나옴",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbdace317dec22c88f7809"
+  },
+  "target": "점농어",
+  "source": "점성어",
+  "diff": [
+    {
+      "attribute": "점의 유무",
+      "source_value": "꼬리쪽에 큰 점이 있음",
+      "target_value": "등과 지느러미에 점이 많음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "주둥이의 모양",
+      "source_value": "윗턱이 튀어나옴",
+      "target_value": "아랫턱이 튀어나옴",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbdbac317dec22c88f780a"
+  },
+  "target": "가숭어",
+  "source": "숭어",
+  "diff": [
+    {
+      "attribute": "눈동자",
+      "source_value": "흰 눈에 검은색 눈동자",
+      "target_value": "노란색 눈에 검은색 눈동자",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "꼬리지느러미의 모양",
+      "source_value": "중간 부분이 파여있음",
+      "target_value": "일자로 되어있음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbdcb6317dec22c88f780b"
+  },
+  "target": "긴꼬리벵에돔",
+  "source": "벵에돔",
+  "diff": [
+    {
+      "attribute": "검은색 테두리",
+      "source_value": "없음",
+      "target_value": "아가미 뚜껑과 가슴지느러미에 검은색 테두리",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "꼬리지느러미의 모양",
+      "source_value": "끝부분이 둥그스름함",
+      "target_value": "끝부분이 뾰족함",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbe38a317dec22c88f780c"
+  },
+  "target": "도다리",
+  "source": "광어",
+  "diff": [
+    {
+      "attribute": "눈의 방향",
+      "source_value": "두 눈이 왼쪽에 몰려있음",
+      "target_value": "두 눈이 오른쪽에 몰려있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "입의 모양",
+      "source_value": "입이 크고 날카로운 이빨이 있음",
+      "target_value": "입이 작고 이빨이 없음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbe482317dec22c88f780d"
+  },
+  "target": "강도다리",
+  "source": "광어",
+  "diff": [
+    {
+      "attribute": "입의 모양",
+      "source_value": "입이 크고 날카로운 이빨이 있음",
+      "target_value": "입이 작고 이빨이 없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "지느러미",
+      "source_value": "줄무늬가 없음",
+      "target_value": "검은 줄무늬가 있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "돌기의 유무",
+      "source_value": "윗면이 매끈함",
+      "target_value": "윗면에 돌기가 있음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbe4cd317dec22c88f780e"
+  },
+  "target": "강도다리",
+  "source": "도다리",
+  "diff": [
+    {
+      "attribute": "눈의 방향",
+      "source_value": "두 눈이 오른쪽에 몰려있음",
+      "target_value": "두 눈이 왼쪽에 몰려있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "지느러미",
+      "source_value": "줄무늬가 없음",
+      "target_value": "검은 줄무늬가 있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "돌기의 유무",
+      "source_value": "윗면이 매끈함",
+      "target_value": "윗면에 돌기가 있음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbea88317dec22c88f780f"
+  },
+  "target": "도다리",
+  "source": "찰광어",
+  "diff": [
+    {
+      "attribute": "눈의 방향",
+      "source_value": "두 눈이 왼쪽에 몰려있음",
+      "target_value": "두 눈이 오른쪽에 몰려있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "입의 모양",
+      "source_value": "입이 크고 날카로운 이빨이 있음",
+      "target_value": "입이 작고 이빨이 없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "돌기의 유무",
+      "source_value": "윗면이 돌기가 있음",
+      "target_value": "윗면에 매끈함",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbeac9317dec22c88f7810"
+  },
+  "target": "강도다리",
+  "source": "찰광어",
+  "diff": [
+    {
+      "attribute": "입의 모양",
+      "source_value": "입이 크고 날카로운 이빨이 있음",
+      "target_value": "입이 작고 이빨이 없음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "지느러미",
+      "source_value": "줄무늬가 없음",
+      "target_value": "검은 줄무늬가 있음",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65fbeb5a317dec22c88f7811"
+  },
+  "target": "찰광어",
+  "source": "광어",
+  "diff": [
+    {
+      "attribute": "색",
+      "source_value": "색이 전체적으로 어두움",
+      "target_value": "색이 전체적으로 밝음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "돌기의 유무",
+      "source_value": "윗면이 매끈함",
+      "target_value": "윗면에 돌기가 있음",
+      "source_img": "",
+      "target_img": ""
+    },
+    {
+      "attribute": "몸통 모양",
+      "source_value": "길쭉한 타원에 가까움",
+      "target_value": "둥근 원형에 가까움",
+      "source_img": "",
+      "target_img": ""
+    }
+  ]
+}]
