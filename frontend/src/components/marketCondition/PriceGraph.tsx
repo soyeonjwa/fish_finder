@@ -149,9 +149,49 @@ export default function PriceGraph({
     ],
   };
 
-  useEffect(() => {
-    setLabels([]);
+  const setDateLabel = () => {
+    setLabels([])
+    const formatLabels : string[] = [];
+    const today = new Date();
+      for(let i=6;i>0;i--){
+        const pastDate = new Date(today);
+        pastDate.setDate(today.getDate()-i);
 
+        const date : number = pastDate.getDate();
+        formatLabels.push((date<10)?`0${date}일`:`${date}일`)
+      }
+    setLabels(formatLabels)
+  }
+
+  const setMonthLabel = () => {
+    setLabels([])
+    const formatLabels : string[] = [];
+    const today = new Date();
+    for(let i=6;i>=0;i--){
+      const month = today.getMonth() +1 -i;
+      const pastMonth = (month<=0)? 12+month : month; 
+      console.log(pastMonth)
+      formatLabels.push((pastMonth<10)?`0${pastMonth}월`:`${pastMonth}월`)
+    }
+
+    setLabels(formatLabels)
+  }
+
+  const setWeekLabel = () => {
+    setLabels([])
+    const today = new Date();
+    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+    const pastDaysOfYear = (today.getTime() - firstDayOfYear.getTime()) / (1000 * 60 * 60 * 24);
+    const todayWeekNo =  Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    const formatLabels : string[] = []
+    for(let i =5; i >0;i--){
+      formatLabels.push(todayWeekNo-i<10?`0${todayWeekNo-i}주`:`${todayWeekNo-i}주`)
+    }
+    console.log(formatLabels)
+    setLabels(formatLabels)
+  }
+
+  useEffect(() => {
     if (selectedBtn === "oneWeek") {
       setPriceDatas(
         ourWeeklyPrice.map((entry) => ({
@@ -165,6 +205,9 @@ export default function PriceGraph({
           y: entry.price,
         }))
       );
+
+      setDateLabel();
+      console.log(labels)
     } else if (selectedBtn === "oneMonth") {
       setPriceDatas(
         ourMonthlyPrice.map((entry) => ({
@@ -178,6 +221,7 @@ export default function PriceGraph({
           y: entry.price,
         }))
       );
+      setWeekLabel();
     } else if (selectedBtn === "sixMonth") {
       setPriceDatas(
         ourHalfYearPrice.map((entry) => ({
@@ -191,10 +235,14 @@ export default function PriceGraph({
           y: entry.price,
         }))
       );
+      setMonthLabel();
     }
+
   }, [selectedBtn]);
 
-  useEffect(() => {}, []);
+  useEffect(()=>{
+    console.log(ourWeeklyPrice)
+  },[])
 
   return (
     <Wrapper>
