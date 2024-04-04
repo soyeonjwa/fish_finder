@@ -3,6 +3,7 @@
 ![readme_title_img](https://test.fishfinder.site/static/media/mainLogo.37274a00f4d4e3c707c2.png)
 
 - 배포 URL : https://fishfinder.site
+- UCC : https://www.youtube.com/watch?v=y1l7ucbVlfw
 
 <br>
 
