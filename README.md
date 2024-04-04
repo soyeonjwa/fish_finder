@@ -21,7 +21,7 @@
 
 | **조다민 (팀장)** | **박태양** | **이병수** | **이영서** | **좌소연** | **최원재** |
 | :------: |  :------: | :------: | :------: | :------: | :------: |
-| [<img src="" height=150 width=150> <br/> @조다민아이디]() | [<img src="" height=150 width=150> <br/> @박태양아이디]() | [<img src="" height=150 width=150> <br/> @이병수아이디]() | [<img src="" height=150 width=150> <br/> @이영서아이디]() | [<img src="" height=150 width=150> <br/> @좌소연아이디]() | [<img src="" height=150 width=150> <br/> @최원재아이디]() |
+| [<img src="https://avatars.githubusercontent.com/u/106113850?v=4" height=150 width=150> <br/> @daminzzi](https://github.com/daminzzi) | [<img src="https://avatars.githubusercontent.com/u/121421631?v=4" height="150" width="150"> <br/> @pty9714](https://github.com/pty9714) | [<img src="https://avatars.githubusercontent.com/u/97464327?v=4" height=150 width=150> <br/> @diarlee](https://github.com/diarlee) | [<img src="https://avatars.githubusercontent.com/u/22046916?v=4" height=150 width=150> <br/> @youngseo9603](https://github.com/youngseo9603) | [<img src="https://avatars.githubusercontent.com/u/81522548?v=4" height=150 width=150> <br/> @soyeonjwa](https://github.com/soyeonjwa) | [<img src="https://avatars.githubusercontent.com/u/42488191?v=4" height=150 width=150> <br/> @cwj980119](https://github.com/cwj980119) |
 | AI | FE | BE | INFRA | FE | BE |
 </div>
 
@@ -159,7 +159,7 @@
 <br>
 
 ## 3. 서비스 아키텍처
-![architecture](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png)
+![architecture](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98+(2).png)
 
 ## 4. ERD
 ![erd](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/%EB%AC%BC%EC%96%B4%EB%B0%94%EC%A2%85_erd.png)
@@ -170,14 +170,23 @@
 
 - **AI**
     - 데이터셋 정비 및 모델 학습
-	- AI 서버 API 작성
+    - AI 서버 API 작성
 
 <br>
     
 ### 👻박태양
 
 - **FE**
-    - 메인페이지
+    - 페이지 구현
+        - 메인 페이지
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 스캔 페이지
+        - 마이페이지
+    - 백엔드 api와 연결
+        - 메인페이지
+        - 어종 검색 페이지
+        - 어종 스캔 페이지
 
 <br>
 
@@ -199,7 +208,18 @@
 ### 🐬좌소연
 
 - **FE**
-    - 게시판
+    - 페이지 구현
+        - 메인 페이지
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 시세 페이지
+        - 게시판 페이지
+    - 백엔드 api와 연결
+        - 마이페이지/카카오 로그인
+        - 어종 검색 페이지
+        - 어종 정보 페이지
+        - 어종 시세 페이지
+        - 게시판 페이지
 <br>
 
 ### 🐬최원재
@@ -259,7 +279,7 @@
 
 | 물고기 스캔 |
 |----------|
-|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan1-ezgif.com-crop.gif)|
+|![fishScan](https://fish-finder.s3.ap-northeast-2.amazonaws.com/etc/gif/fishScan-ezgif.com-video-to-gif-converter.gif)|
 
 <br>
 
@@ -373,7 +393,10 @@
 
 ### 🍊 조다민
 
--- 조다민 후기 --
+재미가 있었다~<br>
+모델 조사부터 학습까지 모델을 만들기 위한 일련의 과정을 경험하면서<br>
+AI 모델 서빙에 대한 이해를 높일 수 있었습니다.<br>
+이러한 이해를 바탕으로 추후 프로젝트에서도 다양한 기술을 활용할 수 있도록 노력하겠습니다.<br>
 
 <br>
 
@@ -385,7 +408,9 @@
 
 ### 😎 이병수
 
--- 이병수 후기 --
+처음으로 JPA를 사용하고 Oauth 2.0을 구현해봤습니다. 
+어려운점이 많았지만 실력있는 동료들의 코드를 참고하고 질문하며 무사히 마무리 할 수 있었습니다.
+프로젝트의 재미를 느낄 수 있는 시간이었고 앞으로 보완할 점을 파악
 
 <br>
 
@@ -397,7 +422,9 @@
 
 ### 🐬 좌소연
 
--- 좌소연 후기 --
+재미있게 개발할 수 있는 프로젝트 였습니다!!<br>
+프론트 엔드 개발을 제대로 처음 해보면서 배워가는 점이 많습니다.<br>
+앞으로 백엔드 개발할 때 많이 참고할 수 있을 거 같습니다.<br>
 
 <br>
 
